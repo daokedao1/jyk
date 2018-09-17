@@ -1,0 +1,10 @@
+/erp/WebRoot/WEB-INF/classes
+/.idea
+
+
+/erp/gradle
+/erp/build
+/erp/.idea
+/erp/.gradle
+/erp/out
+/erp/.idea/vcs.xml
