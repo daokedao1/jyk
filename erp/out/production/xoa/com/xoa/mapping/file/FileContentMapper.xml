@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.file.FileContentMapper">
+	<resultMap id="file_ContentResultMap" type="com.xoa.model.file.FileContentModel">
+		<id column="CONTENT_ID" property="contentId" javaType="int"  />
+		<result column="SORT_ID" property="sortId" javaType="int" />
+		<result column="SUBJECT" property="subject" javaType="string"/>
+		<result column="CONTENT" property="content" javaType="string" />
+		<result column="SEND_TIME" property="sendTime" javaType="string" />
+		<result column="ATTACHMENT_ID" property="attachmentId" javaType="string" />
+		<result column="ATTACHMENT_NAME" property="attachmentName" javaType="string" />
+		<result column="ATTACHMENT_DESC" property="attachmentDesc" javaType="string" />
+		<result column="USER_ID" property="userId" javaType="string" />
+		<result column="CONTENT_NO" property="contentNo" javaType="string" />
+		<result column="NEW_PERSON" property="newPerson" javaType="string" />
+		<result column="READERS" property="readers" javaType="string" />
+		<result column="CREATER" property="creater" javaType="string" />
+		<result column="LOGS" property="logs" javaType="string" />
+		<result column="KEYWORD" property="keyword" javaType="string" />
+		<result  column="fileType"  property="fileType" javaType="string" />
+		</resultMap>
+		<sql id="FileConInsert">
+		SORT_ID,SUBJECT,CONTENT,SEND_TIME,ATTACHMENT_ID,ATTACHMENT_NAME,ATTACHMENT_DESC,USER_ID,CONTENT_NO,NEW_PERSON,READERS,
+		CREATER,LOGS,KEYWORD
+		</sql>
+		<sql id="FileConSelect">
+		fc.CONTENT_ID,fc.SORT_ID,fc.SUBJECT,fc.CONTENT,fc.SEND_TIME,fc.ATTACHMENT_ID,fc.ATTACHMENT_NAME,fc.ATTACHMENT_DESC,fc.USER_ID,fc.CONTENT_NO,fc.NEW_PERSON,fc.READERS,
+		 u.USER_NAME as CREATER,fc.LOGS,fc.KEYWORD
+		</sql>
+		<select id="getFileConBySortid" parameterType="java.util.HashMap" resultMap="file_ContentResultMap">
+		select <include refid="FileConSelect"/>,'file' as fileType from file_content fc,user u where fc.SORT_ID=#{tempNo} and u.USER_ID=fc.CREATER 
+		<if test="tempNo==0">
+		and fc.CREATER =#{userId}
+		</if>
+		    ${sortSqlString};
+		</select>
+		<update id="contentCut" parameterType="map">
+		update file_content 
+		<set>
+		SORT_ID=#{sortId}
+		</set>
+		where CONTENT_ID  in  
+		<foreach collection="contentId" item="contentId" open="(" separator="," close=")">
+		 #{contentId}
+		</foreach>
+		</update>
+		<select id="getFileConByContentId" parameterType="string" resultMap="file_ContentResultMap" databaseId="mysql">
+		select <include refid="FileConSelect"></include> from file_content fc,user u where fc.CONTENT_ID = #{contentId} and u.USER_ID=fc.CREATER;
+		</select>
+		<select id="getFileConByContentId" parameterType="string" resultMap="file_ContentResultMap" databaseId="orcale">
+		select <include refid="FileConSelect"></include> from file_content fc,user u where fc.CONTENT_ID = #{contentId} and u.USER_ID=fc.CREATER;
+		</select>
+		<!-- 个人文件柜搜索  -->
+		<select id="searchPerson" parameterType="map" resultMap="file_ContentResultMap">
+		select <include refid="FileConSelect"></include> from file_content fc,user u  where fc.SORT_ID in (${sortid}) and u.USER_ID=fc.CREATER and fc.CREATER=#{userId}
+		<if test="sort_no!=null and sort_no!=''">
+		and  CONTENT_NO=#{sort_no}
+		</if>
+		<if test="keyword1!=null and keyword1!=''">
+		and  KEYWORD LIKE '%${keyword1}%'
+		</if>
+		<if test="keyword2!=null and keyword2!=''">
+		and  KEYWORD LIKE '%${keyword2}%'
+		</if>
+		<if test="keyword3!=null and keyword3!=''">
+		and  KEYWORD LIKE '%${keyword3}%'
+		</if>
+		<if test="content!=null and content!=''">
+		 and  CONTENT LIKE '%${content}%'
+		</if>
+		<if test="begainTime!=null and begainTime!=''">
+	    and  	SEND_TIME>=#{begainTime}
+		</if>
+		<if test="endTime!=null and endTime!=''">
+		and  	SEND_TIME<![CDATA[<=]]>#{endTime}
+		</if>
+		<if test="creater!=null and creater!=''">
+		 and  	CREATER> LIKE '%${creater}%'
+		</if>
+		<if test="attScript!=null and attScript!=''">
+		and	ATTACHMENT_DESC LIKE '%${attScript}%'
+		</if>
+		<!-- 附件包含内容 <if test="attContain!=null or attContain!=''">
+		and	ATTACHMENT_DESC LIKE #{attScript}
+		</if> -->
+		<if test="attName!=null and attName!=''">
+		and	ATTACHMENT_NAME LIKE  '%${attName}%'
+		</if>
+		<if test="subject!=null and subject!=''">
+		and	 SUBJECT LIKE  '%${subject}%'
+		</if>
+		</select>
+		<!-- 公共文件柜搜索  -->
+		<select id="serachCommon" parameterType="map" resultMap="file_ContentResultMap">
+		select <include refid="FileConSelect"></include> from file_content fc,user u  where fc.SORT_ID in (${sortid}) and u.USER_ID=fc.CREATER 
+		<if test="sort_no!=null and sort_no!=''">
+		and  CONTENT_NO=#{sort_no}
+		</if>
+		<if test="keyword1!=null and keyword1!=''">
+		and  KEYWORD LIKE '%${keyword1}%'
+		</if>
+		<if test="keyword2!=null and keyword2!=''">
+		and  KEYWORD LIKE '%${keyword2}%'
+		</if>
+		<if test="keyword3!=null and keyword3!=''">
+		and  KEYWORD LIKE '%${keyword3}%'
+		</if>
+		<if test="content!=null and content!=''">
+		 and  CONTENT LIKE '%${content}%'
+		</if>
+		<if test="begainTime!=null and begainTime!=''">
+	    and  	SEND_TIME>=#{begainTime}
+		</if>
+		<if test="endTime!=null and endTime!=''">
+		and  	SEND_TIME<![CDATA[<=]]>#{endTime}
+		</if>
+		<if test="creater!=null and creater!=''">
+		 and  	CREATER> LIKE '%${creater}%'
+		</if>
+		<if test="attScript!=null and attScript!=''">
+		and	ATTACHMENT_DESC LIKE '%${attScript}%'
+		</if>
+		<!-- 附件包含内容 <if test="attContain!=null or attContain!=''">
+		and	ATTACHMENT_DESC LIKE #{attScript}
+		</if> -->
+		<if test="attName!=null and attName!=''">
+		and	ATTACHMENT_NAME LIKE  '%${attName}%'
+		</if>
+		<if test="subject!=null and subject!=''">
+		and	 SUBJECT LIKE  '%${subject}%'
+		</if>
+		</select>
+		<!--  -->
+		<delete id="deleteBySort_id" parameterType="int">
+		delete from  file_content where SORT_ID=#{tempNo};
+		</delete>
+		<!--  -->
+		<delete id="deleteByConId" parameterType="map">
+		delete from  file_content where CONTENT_ID=#{contentId};
+		</delete>
+		<!-- SORT_ID,SUBJECT,CONTENT,SEND_TIME,ATTACHMENT_ID,ATTACHMENT_NAME,ATTACHMENT_DESC,USER_ID,CONTENT_NO,NEW_PERSON,READERS,
+		CREATER,LOGS,KEYWORD -->
+		<!--  -->
+		<insert id="saveContent" parameterType="com.xoa.model.file.FileContentModel">
+		insert into file_content  (<include refid="FileConInsert"/> ) values (
+		<trim suffixOverrides=",">
+		
+        
+          #{sortId},
+      
+      
+       <if test="subject == null or subject == ''" >
+        '',
+       </if>
+        <if test="subject != null and subject !=''" >
+          #{subject},
+      </if>
+      
+      <if test="content == null or content == ''" >
+        '',
+         </if>
+        <if test="content != null and content !=''" >
+          #{content},
+      </if>
+      <if test="sendTime == null or sendTime == ''" >
+        '',
+         </if>
+        <if test="sendTime != null and sendTime !=''" >
+          #{sendTime},
+      </if>
+      
+      <if test="attachmentId == null or attachmentId == ''" >
+        '',
+         </if>
+        <if test="attachmentId != null and attachmentId !=''" >
+          #{attachmentId},
+      </if>
+      <if test="attachmentName == null or attachmentName == ''" >
+        '',
+         </if>
+        <if test="attachmentName != null and attachmentName !=''" >
+          #{attachmentName},
+      </if>
+      <if test="attachmentDesc == null or attachmentDesc == ''" >
+        '',
+         </if>
+        <if test="attachmentDesc != null and attachmentDesc !=''" >
+          #{attachmentDesc},
+      </if>
+      <if test="userId == null or userId == ''" >
+        '',
+         </if>
+        <if test="userId != null and userId !=''" >
+          #{userId},
+      </if>
+      <if test="contentNo == null or contentNo == ''" >
+        0,
+         </if>
+        <if test="contentNo != null and contentNo !=''" >
+          #{contentNo},
+      </if>
+      <if test="newPerson == null or newPerson == ''" >
+        '',
+         </if>
+        <if test="newPerson != null and newPerson !=''" >
+          #{newPerson},
+      </if>
+      <if test="readers == null or readers == ''" >
+        '',
+         </if>
+        <if test="readers != null and readers !=''" >
+          #{readers},
+      </if>
+      <if test="creater == null or creater == ''" >
+        '',
+         </if>
+        <if test="creater != null and creater !=''" >
+          #{creater},
+      </if>
+      <if test="logs == null or logs == ''" >
+        '',
+         </if>
+        <if test="logs != null and logs !=''" >
+          #{logs},
+      </if>
+      <if test="keyword == null or keyword == ''" >
+        '',
+         </if>
+        <if test="keyword != null and keyword !=''" >
+         #{keyword},
+      </if>
+      </trim>
+      )
+</insert>
+		<update id="updateFileCon" parameterType="com.xoa.model.file.FileContentModel">
+		update file_content 
+		<set>
+      <if test="subject != null" >
+        SUBJECT= #{subject},
+      </if>
+      <!-- SORT_ID,SUBJECT,CONTENT,SEND_TIME,ATTACHMENT_ID,ATTACHMENT_NAME,ATTACHMENT_DESC,USER_ID,CONTENT_NO,NEW_PERSON,READERS,
+		CREATER,LOGS,KEYWORD -->
+      
+        <if test="content != null" >
+          CONTENT=#{content},
+      </if>
+        <if test="sendTime != null" >
+          SEND_TIME=#{sendTime},
+      </if>
+     
+        <if test="attachmentId != null" >
+        ATTACHMENT_ID= #{attachmentId},
+      </if>
+  
+        <if test="attachmentName != null" >
+          ATTACHMENT_NAME=#{attachmentName},
+      </if>
+        <if test="attachmentDesc != null" >
+         ATTACHMENT_DESC=#{attachmentDesc},
+      </if>
+        <if test="contentNo != null and contentNo!=''" >
+         CONTENT_NO=#{contentNo},
+      </if>
+        <if test="newPerson != null " >
+         NEW_PERSON=#{newPerson},
+      </if>
+     
+        <if test="readers != null" >
+          READERS=#{readers},
+      </if>
+      
+        <if test="creater != null" >
+         CREATER=#{creater},
+      </if>
+        <if test="logs != null" >
+          LOGS=#{logs},
+      </if>
+        <if test="keyword != null" >
+         KEYWORD= #{keyword},
+        </if>
+		</set>
+		where CONTENT_ID=#{contentId};  
+		</update>
+
+    <delete id="batchDeleteConId" parameterType="java.lang.Integer">
+        delete from file_content where CONTENT_ID in
+        <foreach collection="array" item="conId" index="index" open="(" separator="," close=")">
+            #{conId}
+        </foreach>
+    </delete>
+
+    <select id="queryBySearchValue" parameterType="Map" resultMap="file_ContentResultMap">
+        SELECT * FROM FILE_CONTENT
+       <where>
+           <trim suffixOverrides="and">
+               <if test="sortId!=null">
+                   SORT_ID=#{sortId}  and
+               </if>
+               <if test="subjectName!=null">
+                   SUBJECT like CONCAT("%",#{subjectName},"%") and
+               </if>
+               <if test="contentNo!=null">
+                   CONTENT_NO = #{contentNo} and
+               </if>
+               <if test="creater!=null">
+                   (#{creater} LIKE CONCAT("%",CREATER,"%")) and
+               </if>
+               <if test="atiachmentDesc!=null">
+                   ATTACHMENT_DESC like CONCAT("%",#{atiachmentDesc},"%") and
+               </if>
+               <if test="contentValue1!=null">
+                   CONTENT like CONCAT("%",#{contentValue1},"%") and
+               </if>
+               <if test="contentValue2!=null">
+                   CONTENT like CONCAT("%",#{contentValue2},"%") and
+               </if>
+               <if test="contentValue3!=null">
+                   CONTENT like CONCAT("%",#{contentValue3},"%") and
+               </if>
+               <if test="atiachmentName!=null">
+                   ATTACHMENT_NAME like CONCAT("%",#{atiachmentName},"%") and
+               </if>
+               <if test="crStartDate!=null and crEndDate!=null">
+                   SEND_TIME BETWEEN #{crStartDate} AND #{crEndDate}
+               </if>
+           </trim>
+       </where>
+        order by CONTENT_NO,SEND_TIME desc
+        limit #{pageNo},#{pageSize}
+    </select>
+    <select id="selectFileById" resultMap="file_ContentResultMap" parameterType="Integer">
+    SELECT * FROM file_content WHERE file_content.CONTENT_ID=#{fileId}
+    </select>
+</mapper>

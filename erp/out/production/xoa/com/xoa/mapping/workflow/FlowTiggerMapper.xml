@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FlowTiggerMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowTiggerModel">
+        <id column="ID" property="id" javaType="Integer"/>
+        <result column="NAME" property="name" javaType="String"/>
+        <result column="FLOW_ID" property="flowId" javaType="Integer"/>
+        <result column="FLOW_PRCS" property="flowPrcs" javaType="Integer"/>
+        <result column="PLUGIN_TYPE" property="pluginType" javaType="String"/>
+        <result column="PLUGIN_WAY" property="pluginWay" javaType="String"/>
+        <result column="PLUGIN" property="plugin" javaType="Integer"/>
+        <result column="ACTIVED" property="actived" javaType="Integer"/>
+        <result column="SORT_ID" property="sortId" javaType="Integer"/>
+        <result column="DESCRIPTION" property="description" javaType="String"/>
+        <result column="BUSINESS_LOGIC_ID" property="businessLogicId" javaType="Integer"/>
+        <result column="ISGLOBAL" property="isGlobal" javaType="Integer"/>
+    </resultMap>
+
+    <!-- 触发器保存 -->
+    <insert id="save" parameterType="com.xoa.model.workflow.FlowTiggerModel" useGeneratedKeys="true" keyProperty="id">
+        INSERT  INTO
+        flow_trigger (
+        NAME,FLOW_ID,FLOW_PRCS,PLUGIN_TYPE,PLUGIN_WAY,PLUGIN,ACTIVED,SORT_ID,DESCRIPTION,BUSINESS_LOGIC_ID,ISGLOBAL)
+        VALUES
+         (#{name},#{flowId},#{flowPrcs},#{pluginType},#{pluginWay},#{plugin},#{actived},#{sortId},#{description},#{businessLogicId},#{isGlobal})
+    </insert>
+    <!-- 触发器信息修改 -->
+    <update id="update" parameterType="com.xoa.model.workflow.FlowTiggerModel">
+        UPDATE flow_trigger
+        <set>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="flowId !=null and flowId != ''">
+                FLOW_ID = #{flowId},
+            </if>
+            <if test="flowPrcs != null and flowPrcs != ''">
+                FLOW_PRCS = #{flowPrcs},
+            </if>
+            <if test="pluginType != null">
+                PLUGIN_TYPE = #{pluginType},
+            </if>
+            <if test="pluginWay != null">
+                PLUGIN_WAY = #{pluginWay},
+            </if>
+            <if test="description != null">
+                DESCRIPTION = #{description},
+            </if>
+            <if test="plugin != null">
+                PLUGIN = #{plugin},
+            </if>
+            <if test="sortId != null">
+                SORT_ID = #{sortId},
+            </if>
+            <if test="actived != null">
+                ACTIVED = #{actived},
+            </if>
+            <if test="businessLogicId != null">
+                BUSINESS_LOGIC_ID = #{businessLogicId},
+            </if>
+            <if test="isGlobal != null">
+               ISGLOBAL = #{isGlobal}
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateTigger" parameterType="com.xoa.model.workflow.FlowTiggerModel">
+        UPDATE flow_trigger
+        <set>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="flowId !=null and flowId != ''">
+                FLOW_ID = #{flowId},
+            </if>
+            <if test="flowPrcs != null and flowPrcs != ''">
+                FLOW_PRCS = #{flowPrcs},
+            </if>
+            <if test="pluginType != null">
+                PLUGIN_TYPE = #{pluginType},
+            </if>
+            <if test="pluginWay != null">
+                PLUGIN_WAY = #{pluginWay},
+            </if>
+            <if test="description != null">
+                DESCRIPTION = #{description},
+            </if>
+            <if test="plugin != null">
+                PLUGIN = #{plugin},
+            </if>
+            <if test="sortId != null">
+                SORT_ID = #{sortId},
+            </if>
+            <if test="actived != null">
+                SORT_ID = #{actived},
+            </if>
+            <if test="businessLogicId != null">
+                BUSINESS_LOGIC_ID = #{businessLogicId},
+            </if>
+            <if test="isGlobal != null">
+                ISGLOBAL = #{isGlobal}
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 查询数据接口 -->
+    <select id="selectFlowTigger" resultMap="BaseResultMap" >
+        SELECT
+           ID,
+           NAME,
+           FLOW_ID,
+           FLOW_PRCS,
+           PLUGIN_TYPE,
+           PLUGIN_WAY,
+           PLUGIN,
+           ACTIVED,
+           SORT_ID,
+           DESCRIPTION,
+           BUSINESS_LOGIC_ID,
+           ISGLOBAL
+        FROM FLOW_TRIGGER
+        WHERE
+        FLOW_ID=#{flowId}
+        AND
+        FLOW_PRCS = #{flowPrcs}
+    </select>
+
+    <!-- 触发器删除 -->
+    <delete id="deleteTigger" parameterType="com.xoa.model.workflow.FlowTiggerModel" >
+        DELETE FROM FLOW_TRIGGER WHERE ID = #{id}
+    </delete>
+
+    <!-- 流程ID对应触发器ID查询 -->
+    <select id="selectTiggerId" parameterType="Integer" resultMap="BaseResultMap">
+        SELECT  *  FROM FLOW_TRIGGER WHERE FLOW_ID = #{flowId}
+    </select>
+
+    <!-- 流程ID对应触发器ID查询 -->
+    <select id="selectTiggerById"  resultMap="BaseResultMap">
+        SELECT  *  FROM FLOW_TRIGGER WHERE ID = #{id}
+    </select>
+
+</mapper>

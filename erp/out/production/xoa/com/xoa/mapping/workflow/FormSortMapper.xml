@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FormSortMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FormSort" >
+    <id column="SORT_ID" property="sortId" javaType="Integer" />
+    <result column="SORT_NO" property="sortNo" jdbcType="INTEGER" />
+    <result column="SORT_NAME" property="sortName" jdbcType="VARCHAR" />
+    <result column="SORT_PARENT" property="sortParent" jdbcType="INTEGER" />
+    <result column="HAVE_CHILD" property="haveChild" jdbcType="CHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="CountsFormMap" type="com.xoa.model.workflow.FormSort" extends="BaseResultMap">
+    <result column="FORM_COUNTS" property="formcounts" jdbcType="INTEGER" />
+    <result column="DEPT_ID" property="departId" jdbcType="INTEGER" />
+    <result column="DEPT_NAME" property="departName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SORT_ID, SORT_NO, SORT_NAME, SORT_PARENT, HAVE_CHILD, DEPT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.workflow.FormSortExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from form_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from form_sort
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from form_sort
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.workflow.FormSortExample" >
+    delete from form_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.workflow.FormSort" databaseId="mysql" >
+    insert into form_sort (SORT_ID, SORT_NO, SORT_NAME, 
+      SORT_PARENT, HAVE_CHILD, DEPT_ID
+      )
+    values (#{sortId,jdbcType=INTEGER}, #{sortNo,jdbcType=INTEGER}, #{sortName,jdbcType=VARCHAR}, 
+      #{sortParent,jdbcType=INTEGER}, #{haveChild,jdbcType=CHAR}, #{deptId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FormSort" >
+    insert into form_sort
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        SORT_ID,
+      </if>
+      <if test="sortNo != null" >
+        SORT_NO,
+      </if>
+      <if test="sortName != null" >
+        SORT_NAME,
+      </if>
+      <if test="sortParent != null" >
+        SORT_PARENT,
+      </if>
+      <if test="haveChild != null" >
+        HAVE_CHILD,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="sortName != null" >
+        #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortParent != null" >
+        #{sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="haveChild != null" >
+        #{haveChild,jdbcType=CHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.workflow.FormSortExample" resultType="java.lang.Integer" >
+    select count(*) from form_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update form_sort
+    <set >
+      <if test="record.sortId != null" >
+        SORT_ID = #{record.sortId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortNo != null" >
+        SORT_NO = #{record.sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortName != null" >
+        SORT_NAME = #{record.sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortParent != null" >
+        SORT_PARENT = #{record.sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="record.haveChild != null" >
+        HAVE_CHILD = #{record.haveChild,jdbcType=CHAR},
+      </if>
+      <if test="record.deptId != null" >
+        DEPT_ID = #{record.deptId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update form_sort
+    set SORT_ID = #{record.sortId,jdbcType=INTEGER},
+      SORT_NO = #{record.sortNo,jdbcType=INTEGER},
+      SORT_NAME = #{record.sortName,jdbcType=VARCHAR},
+      SORT_PARENT = #{record.sortParent,jdbcType=INTEGER},
+      HAVE_CHILD = #{record.haveChild,jdbcType=CHAR},
+      DEPT_ID = #{record.deptId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FormSort" >
+    update form_sort
+    <set >
+      <if test="sortNo != null" >
+        SORT_NO = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="sortName != null" >
+        SORT_NAME = #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortParent != null" >
+        SORT_PARENT = #{sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="haveChild != null" >
+        HAVE_CHILD = #{haveChild,jdbcType=CHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FormSort" >
+    update form_sort
+    set SORT_NO = #{sortNo,jdbcType=INTEGER},
+      SORT_NAME = #{sortName,jdbcType=VARCHAR},
+      SORT_PARENT = #{sortParent,jdbcType=INTEGER},
+      HAVE_CHILD = #{haveChild,jdbcType=CHAR},
+      DEPT_ID = #{deptId,jdbcType=INTEGER}
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllFormSort" resultMap="CountsFormMap" parameterType="Integer">
+   SELECT form_sort.*,countform.FORM_COUNTS,department.DEPT_ID,department.DEPT_NAME FROM form_sort
+LEFT JOIN (
+ SELECT COUNT(flow_form_type.FORM_ID) AS FORM_COUNTS,flow_form_type.FORM_SORT FROM flow_form_type  GROUP BY flow_form_type.FORM_SORT
+) AS countform ON countform.FORM_SORT=form_sort.SORT_ID
+LEFT JOIN department ON department.DEPT_ID=form_sort.DEPT_ID
+<where>
+  <if test="_parameter!=null">
+    form_sort.DEPT_ID=#{deptId}  OR  form_sort.DEPT_ID=0
+  </if>
+  <if test="_parameter==null">
+    form_sort.DEPT_ID=0
+  </if>
+</where>
+ORDER BY SORT_NO,SORT_ID ASC
+  </select>
+
+  <select id="selectAllFormSortByTree" resultMap="CountsFormMap" parameterType="Integer">
+    SELECT form_sort.*,countform.FORM_COUNTS,department.DEPT_ID,department.DEPT_NAME FROM form_sort
+    LEFT JOIN (
+    SELECT COUNT(flow_form_type.FORM_ID) AS FORM_COUNTS,flow_form_type.FORM_SORT FROM flow_form_type  GROUP BY flow_form_type.FORM_SORT
+    ) AS countform ON countform.FORM_SORT=form_sort.SORT_ID
+    LEFT JOIN department ON department.DEPT_ID=form_sort.DEPT_ID
+    <where>
+      <if test="_parameter!=null">
+        form_sort.DEPT_ID=#{deptId}  OR  form_sort.DEPT_ID=0
+      </if>
+      <if test="_parameter==null">
+        form_sort.DEPT_ID=0
+      </if>
+    </where>
+    ORDER BY SORT_NO,SORT_ID ASC
+  </select>
+
+  <select id="selectNoformSort" resultType="Integer" parameterType="java.lang.Integer">
+    SELECT COUNT(flow_form_type.FORM_ID) AS FORM_COUNTS FROM flow_form_type
+    <where>
+      <if test="_parameter!=null">
+        ( flow_form_type.DEPT_ID=#{deptId} OR  flow_form_type.DEPT_ID=0 ) AND
+      </if>
+      <if test="_parameter==null">
+        flow_form_type.DEPT_ID=0 AND
+      </if>
+      ( flow_form_type.FORM_SORT=0 or flow_form_type.FORM_SORT IS NULL )
+    </where>
+  </select>
+  <select id="getChildNumber" resultType="Integer" parameterType="java.lang.Integer">
+    SELECT COUNT(*) FROM form_sort WHERE form_sort.SORT_PARENT=#{sordId}
+  </select>
+  <select id="selectflowSortNum" resultType="Integer" parameterType="Integer">
+    SELECT COUNT(flow_form_type.FORM_ID) AS FORM_COUNTS FROM flow_form_type WHERE flow_form_type.FORM_SORT=#{formId}
+  </select>
+
+</mapper>

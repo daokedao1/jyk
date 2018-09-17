@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendOutMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendOut" >
+    <id column="OUT_ID" property="outId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="LEADER_ID" property="leaderId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="SUBMIT_TIME" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="OUT_TIME1" property="outTime1" jdbcType="VARCHAR" />
+    <result column="OUT_TIME2" property="outTime2" jdbcType="VARCHAR" />
+    <result column="ALLOW" property="allow" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="HANDLE_TIME" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="OUT_TYPE" property="outType" jdbcType="LONGVARCHAR" />
+    <result column="REASON" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="RUN_ID" property="runId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="attendLeaveFlowRunPrcs" type="com.xoa.model.attend.AttendOutFlowRunPrcs" extends="BaseResultMap" >
+    <result column="flowId" property="flowId" javaType="string" />
+    <result column="createrName" property="createrName" javaType="string" />
+    <result column="prFlag" property="prFlag" javaType="int" />
+    <result column="PRCS_NAME" property="prcsName" javaType="string" />
+    <result column="endTime" property="endTime" javaType="date" />
+    <result column="realPrcsId" property="realPrcsId" javaType="int" />
+    <result column="step" property="step" javaType="int"/>
+    <result column="codeName" property="codeName" javaType="string"/>
+  </resultMap>
+
+  <select id="selectAttendOut" resultMap="BaseResultMap">
+     SELECT * from attend_out WHERE USER_ID=#{userId} AND DATE(attend_out.CREATE_DATE)=#{date}
+  </select>
+
+  <select id="queryAllAttendOut"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+    SELECT
+    al.*, u.USER_NAME createrName,
+    fr.FLOW_ID flowId,
+    frp.PRCS_FLAG prFlag,
+    fp.PRCS_NAME,
+    frp.FLOW_PRCS realPrcsId,
+    frp.PRCS_ID step,
+    frp.DELIVER_TIME endTime
+    FROM
+    attend_out al
+    INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+     AND  frp.ID=(SELECT frp.ID FROM flow_run_prcs frp WHERE frp.RUN_ID =al.run_id   ORDER BY frp.ID DESC LIMIT 0,1 )
+    INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+    INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+    AND frp.FLOW_PRCS = fp.PRCS_ID
+    LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+     WHERE al.USER_ID=#{userId}
+    <if test="flowAllow != null and flowAllow != ''" >
+      AND    al.ALLOW = #{flowAllow}
+    </if>
+    GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+  </select>
+
+  <select id="queryAttendOut" resultMap="BaseResultMap">
+  SELECT attend_out.USER_ID,attend_out.OUT_TIME1,attend_out.OUT_TIME2,attend_out.OUT_TYPE,attend_out.`STATUS` from attend_out WHERE USER_ID=#{userId} AND #{date} BETWEEN attend_out.OUT_TIME1 AND attend_out.OUT_TIME2
+  </select>
+
+  <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendOut" keyProperty="outId" useGeneratedKeys="true">
+
+    insert into attend_out
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outId != null" >
+        OUT_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="submitTime != null" >
+        SUBMIT_TIME,
+      </if>
+      <if test="outTime1 != null" >
+        OUT_TIME1,
+      </if>
+      <if test="outTime2 != null" >
+        OUT_TIME2,
+      </if>
+      <if test="allow != null" >
+        ALLOW,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP,
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="outType != null" >
+        OUT_TYPE,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="runId != null" >
+        RUN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outId != null" >
+        #{outId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="leaderId != null" >
+        #{leaderId},
+      </if>
+      <if test="createDate != null" >
+        #{createDate},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime},
+      </if>
+      <if test="outTime1 != null" >
+        #{outTime1},
+      </if>
+      <if test="outTime2 != null" >
+        #{outTime2},
+      </if>
+      <if test="allow != null" >
+        #{allow},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime},
+      </if>
+      <if test="agent != null" >
+        #{agent},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo},
+      </if>
+      <if test="outType != null" >
+        #{outType},
+      </if>
+      <if test="reason != null" >
+        #{reason},
+      </if>
+      <if test="runId != null" >
+        #{runId},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="com.xoa.model.attend.AttendOut" >
+
+    update attend_out
+    <set >
+
+      <if test="userId != null" >
+        USER_ID = #{userId},
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID = #{leaderId},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate},
+      </if>
+      <if test="submitTime != null" >
+        SUBMIT_TIME = #{submitTime},
+      </if>
+      <if test="outTime1 != null" >
+        OUT_TIME1 = #{outTime1},
+      </if>
+      <if test="outTime2 != null" >
+        OUT_TIME2 = #{outTime2},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo},
+      </if>
+      <if test="outType != null" >
+        OUT_TYPE = #{outType},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason},
+      </if>
+      <if test="runId != null" >
+        RUN_ID = #{runId},
+      </if>
+    </set>
+   WHERE   OUT_ID = #{outId}
+  </update>
+
+
+  <select id="backlogAttendOut"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+    SELECT
+    al.*, u.USER_NAME createrName,
+    fr.FLOW_ID flowId,
+    frp.PRCS_FLAG prFlag,
+    fp.PRCS_NAME,
+    frp.FLOW_PRCS realPrcsId,
+    frp.PRCS_ID step,
+    frp.DELIVER_TIME endTime
+    FROM
+    attend_out al
+    INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+    AND
+    frp.PRCS_FLAG IN ('1', '2')
+    INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+    INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+    AND frp.FLOW_PRCS = fp.PRCS_ID
+    LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+    GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+  </select>
+
+  <select id="haveDoneAttendOut"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+    SELECT
+    al.*, u.USER_NAME createrName,
+    fr.FLOW_ID flowId,
+    frp.PRCS_FLAG prFlag,
+    fp.PRCS_NAME,
+    frp.FLOW_PRCS realPrcsId,
+    frp.PRCS_ID step,
+    frp.DELIVER_TIME endTime
+    FROM
+    attend_out al
+    INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+    AND
+    frp.PRCS_FLAG IN ('3', '4')
+    INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+    INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+    AND frp.FLOW_PRCS = fp.PRCS_ID
+    LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+    GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+  </select>
+
+ <!-- <sql id="Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    OUT_ID, USER_ID, LEADER_ID, CREATE_DATE, SUBMIT_TIME, OUT_TIME1, OUT_TIME2, ALLOW, 
+    STATUS, REGISTER_IP, HANDLE_TIME, AGENT, ORDER_NO
+  </sql>
+  <sql id="Blob_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    OUT_TYPE, REASON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.attend.AttendOutExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attend_out
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.attend.AttendOutExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attend_out
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attend_out
+    where OUT_ID = #{outId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attend_out
+    where OUT_ID = #{outId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.attend.AttendOutExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attend_out
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.attend.AttendOutWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_out (OUT_ID, USER_ID, LEADER_ID, 
+      CREATE_DATE, SUBMIT_TIME, OUT_TIME1, 
+      OUT_TIME2, ALLOW, STATUS, 
+      REGISTER_IP, HANDLE_TIME, AGENT, 
+      ORDER_NO, OUT_TYPE, REASON
+      )
+    values (#{outId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{leaderId,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, #{outTime1,jdbcType=VARCHAR}, 
+      #{outTime2,jdbcType=VARCHAR}, #{allow,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
+      #{registerIp,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, #{agent,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=INTEGER}, #{outType,jdbcType=LONGVARCHAR}, #{reason,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <select id="countByExample" parameterType="com.xoa.model.attend.AttendOutExample" resultType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select count(*) from attend_out
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_out
+    set OUT_ID = #{outId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      OUT_TIME1 = #{outTime1,jdbcType=VARCHAR},
+      OUT_TIME2 = #{outTime2,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      OUT_TYPE = #{outType,jdbcType=LONGVARCHAR},
+      REASON = #{reason,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_out
+    set OUT_ID = #{outId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      OUT_TIME1 = #{outTime1,jdbcType=VARCHAR},
+      OUT_TIME2 = #{outTime2,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.attend.AttendOutWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_out
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitTime != null" >
+        SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime1 != null" >
+        OUT_TIME1 = #{outTime1,jdbcType=VARCHAR},
+      </if>
+      <if test="outTime2 != null" >
+        OUT_TIME2 = #{outTime2,jdbcType=VARCHAR},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="outType != null" >
+        OUT_TYPE = #{outType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where OUT_ID = #{outId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.attend.AttendOutWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_out
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      OUT_TIME1 = #{outTime1,jdbcType=VARCHAR},
+      OUT_TIME2 = #{outTime2,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      OUT_TYPE = #{outType,jdbcType=LONGVARCHAR},
+      REASON = #{reason,jdbcType=LONGVARCHAR}
+    where OUT_ID = #{outId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.attend.AttendOut" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_out
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      OUT_TIME1 = #{outTime1,jdbcType=VARCHAR},
+      OUT_TIME2 = #{outTime2,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER}
+    where OUT_ID = #{outId,jdbcType=INTEGER}
+  </update>-->
+</mapper>

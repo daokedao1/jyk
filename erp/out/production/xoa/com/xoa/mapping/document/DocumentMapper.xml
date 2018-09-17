@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.document.DocumentMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.document.Document" >
+    <id column="id" property="id" javaType="integer" />
+    <result column="title" property="title" javaType="string" />
+    <result column="key_word" property="keyWord" javaType="string" />
+    <result column="unit" property="unit" javaType="string" />
+    <result column="doc_no" property="docNo" javaType="string" />
+    <result column="urgency" property="urgency" javaType="string" />
+    <result column="pages" property="pages" javaType="int" />
+    <result column="secrecy" property="secrecy" javaType="string" />
+    <result column="main_delivery" property="mainDelivery" javaType="string" />
+    <result column="copy_delivery" property="copyDelivery" javaType="string" />
+    <result column="creater" property="creater" javaType="string" />
+    <result column="create_dept" property="createDept" javaType="string" />
+    <result column="print_dept" property="printDept" javaType="string" />
+    <result column="print_date" property="printDate" javaType="string" />
+    <result column="deadline" property="deadline" javaType="Integer" />
+    <result column="copies" property="copies" javaType="integer" />
+    <result column="dispatch_type" property="dispatchType" javaType="string" />
+    <result column="main_body" property="mainBody" javaType="string" />
+    <result column="main_body_name" property="mainBodyName" javaType="string" />
+    <result column="public_flag" property="publicFlag" javaType="string" />
+    <result column="print_copies" property="printCopies" javaType="integer" />
+    <result column="print_user" property="printUser" javaType="string" />
+    <result column="document_type" property="documentType" javaType="string" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.document.DocumentWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" javaType="string" />
+    <result column="remark" property="remark" javaType="string" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, key_word, unit, doc_no, urgency, pages, secrecy, main_delivery, copy_delivery, 
+    creater, create_dept, print_dept, print_date, deadline, copies, dispatch_type, main_body, 
+    main_body_name, public_flag, print_copies, print_user, document_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, remark
+  </sql>
+  <select id="selectDocAll" parameterType="com.xoa.model.document.DocumentWithBLOBs"  resultMap="BaseResultMap">
+  select * from document
+  </select>
+  <select id="seleDocSendReceive" parameterType="Map" resultMap="BaseResultMap" >
+  select
+  <include refid="Base_Column_List" />
+  ,
+  <include refid="Blob_Column_List" />
+  from   document  where
+  document.document_type=#{documentType}  and
+  <if test="curUserID != null and curUserID != ''">
+    (document.cur_user_id LIKE concat('%,',#{curUserID},',%')
+    OR document.cur_user_id LIKE concat(#{curUserID},',%')
+    OR document.cur_user_id LIKE #{curUserID}
+    )
+  </if>
+  <if test="allUserID != null and allUserID != ''">
+    (document.all_user_id LIKE concat('%,',#{allUserID},',%')
+    OR document.all_user_id LIKE concat(#{allUserID},',%')
+    )
+  </if>
+    <if test="userId != null and userId != ''">
+      document.creater=#{userId}
+    </if>
+    LIMIT ${page},${pageSize}
+</select>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from document
+    where id = #{id}
+  </select>
+ 
+  <delete id="deleteByPrimaryKey" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    delete from document
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    insert into document (id, title, key_word, 
+      unit, doc_no, urgency, 
+      pages, secrecy, main_delivery, 
+      copy_delivery, creater, create_dept, 
+      print_dept, print_date, deadline, 
+      copies, dispatch_type, main_body, 
+      main_body_name, public_flag, print_copies, 
+      print_user, document_type, content, 
+      remark)
+    values (#{id}, #{title}, #{keyWord}, 
+      #{unit}, #{docNo}, #{urgency}, 
+      #{pages}, #{secrecy}, #{mainDelivery}, 
+      #{copyDelivery}, #{creater}, #{createDept}, 
+      #{printDept}, #{printDate,javaType=DATE}, #{deadline}, 
+      #{copies}, #{dispatchType}, #{mainBody}, 
+      #{mainBodyName}, #{publicFlag}, #{printCopies}, 
+      #{printUser}, #{documentType}, #{content}, 
+      #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    insert into document
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="keyWord != null" >
+        key_word,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="docNo != null" >
+        doc_no,
+      </if>
+      <if test="urgency != null" >
+        urgency,
+      </if>
+      <if test="pages != null" >
+        pages,
+      </if>
+      <if test="secrecy != null" >
+        secrecy,
+      </if>
+      <if test="mainDelivery != null" >
+        main_delivery,
+      </if>
+      <if test="copyDelivery != null" >
+        copy_delivery,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createDept != null" >
+        create_dept,
+      </if>
+      <if test="printDept != null" >
+        print_dept,
+      </if>
+      <if test="printDate != null" >
+        print_date,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="copies != null" >
+        copies,
+      </if>
+      <if test="dispatchType != null" >
+        dispatch_type,
+      </if>
+      <if test="mainBody != null" >
+        main_body,
+      </if>
+      <if test="mainBodyName != null" >
+        main_body_name,
+      </if>
+      <if test="publicFlag != null" >
+        public_flag,
+      </if>
+      <if test="printCopies != null" >
+        print_copies,
+      </if>
+      <if test="printUser != null" >
+        print_user,
+      </if>
+      <if test="documentType != null" >
+        document_type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="keyWord != null" >
+        #{keyWord},
+      </if>
+      <if test="unit != null" >
+        #{unit},
+      </if>
+      <if test="docNo != null" >
+        #{docNo},
+      </if>
+      <if test="urgency != null" >
+        #{urgency},
+      </if>
+      <if test="pages != null" >
+        #{pages},
+      </if>
+      <if test="secrecy != null" >
+        #{secrecy},
+      </if>
+      <if test="mainDelivery != null" >
+        #{mainDelivery},
+      </if>
+      <if test="copyDelivery != null" >
+        #{copyDelivery},
+      </if>
+      <if test="creater != null" >
+        #{creater},
+      </if>
+      <if test="createDept != null" >
+        #{createDept},
+      </if>
+      <if test="printDept != null" >
+        #{printDept},
+      </if>
+      <if test="printDate != null" >
+        #{printDate,javaType=DATE},
+      </if>
+      <if test="deadline != null" >
+        #{deadline},
+      </if>
+      <if test="copies != null" >
+        #{copies},
+      </if>
+      <if test="dispatchType != null" >
+        #{dispatchType},
+      </if>
+      <if test="mainBody != null" >
+        #{mainBody},
+      </if>
+      <if test="mainBodyName != null" >
+        #{mainBodyName},
+      </if>
+      <if test="publicFlag != null" >
+        #{publicFlag},
+      </if>
+      <if test="printCopies != null" >
+        #{printCopies},
+      </if>
+      <if test="printUser != null" >
+        #{printUser},
+      </if>
+      <if test="documentType != null" >
+        #{documentType},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    update document
+    <set >
+      <if test="title != null" >
+        title = #{title},
+      </if>
+      <if test="keyWord != null" >
+        key_word = #{keyWord},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit},
+      </if>
+      <if test="docNo != null" >
+        doc_no = #{docNo},
+      </if>
+      <if test="urgency != null" >
+        urgency = #{urgency},
+      </if>
+      <if test="pages != null" >
+        pages = #{pages},
+      </if>
+      <if test="secrecy != null" >
+        secrecy = #{secrecy},
+      </if>
+      <if test="mainDelivery != null" >
+        main_delivery = #{mainDelivery},
+      </if>
+      <if test="copyDelivery != null" >
+        copy_delivery = #{copyDelivery},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater},
+      </if>
+      <if test="createDept != null" >
+        create_dept = #{createDept},
+      </if>
+      <if test="printDept != null" >
+        print_dept = #{printDept},
+      </if>
+      <if test="printDate != null" >
+        print_date = #{printDate,javaType=DATE},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline},
+      </if>
+      <if test="copies != null" >
+        copies = #{copies},
+      </if>
+      <if test="dispatchType != null" >
+        dispatch_type = #{dispatchType},
+      </if>
+      <if test="mainBody != null" >
+        main_body = #{mainBody},
+      </if>
+      <if test="mainBodyName != null" >
+        main_body_name = #{mainBodyName},
+      </if>
+      <if test="publicFlag != null" >
+        public_flag = #{publicFlag},
+      </if>
+      <if test="printCopies != null" >
+        print_copies = #{printCopies},
+      </if>
+      <if test="printUser != null" >
+        print_user = #{printUser},
+      </if>
+      <if test="documentType != null" >
+        document_type = #{documentType},
+      </if>
+      <if test="content != null" >
+        content = #{content},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    update document
+    set title = #{title},
+      key_word = #{keyWord},
+      unit = #{unit},
+      doc_no = #{docNo},
+      urgency = #{urgency},
+      pages = #{pages},
+      secrecy = #{secrecy},
+      main_delivery = #{mainDelivery},
+      copy_delivery = #{copyDelivery},
+      creater = #{creater},
+      create_dept = #{createDept},
+      print_dept = #{printDept},
+      print_date = #{printDate,javaType=DATE},
+      deadline = #{deadline},
+      copies = #{copies},
+      dispatch_type = #{dispatchType},
+      main_body = #{mainBody},
+      main_body_name = #{mainBodyName},
+      public_flag = #{publicFlag},
+      print_copies = #{printCopies},
+      print_user = #{printUser},
+      document_type = #{documentType},
+      content = #{content},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.document.DocumentWithBLOBs" >
+    update document
+    set title = #{title},
+      key_word = #{keyWord},
+      unit = #{unit},
+      doc_no = #{docNo},
+      urgency = #{urgency},
+      pages = #{pages},
+      secrecy = #{secrecy},
+      main_delivery = #{mainDelivery},
+      copy_delivery = #{copyDelivery},
+      creater = #{creater},
+      create_dept = #{createDept},
+      print_dept = #{printDept},
+      print_date = #{printDate,javaType=DATE},
+      deadline = #{deadline},
+      copies = #{copies},
+      dispatch_type = #{dispatchType},
+      main_body = #{mainBody},
+      main_body_name = #{mainBodyName},
+      public_flag = #{publicFlag},
+      print_copies = #{printCopies},
+      print_user = #{printUser},
+      document_type = #{documentType}
+    where id = #{id}
+  </update>
+</mapper>

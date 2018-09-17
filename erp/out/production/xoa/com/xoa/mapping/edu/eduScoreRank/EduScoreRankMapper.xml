@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduScoreRank.EduScoreRankMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduScoreRank.EduScoreRank">
+		<id column="ID" property="id" />
+		<result column="EXAM_ID" property="examId" />
+		<result column="USER_ID" property="userId" />
+		<result column="TOTAL_SCORE" property="totalScore" />
+		<result column="GRADE_RANK" property="gradeRank" />
+		<result column="CLASS_RANK" property="classRank" />
+	</resultMap>
+
+</mapper>

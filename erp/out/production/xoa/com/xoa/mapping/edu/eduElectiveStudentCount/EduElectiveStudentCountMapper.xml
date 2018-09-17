@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduElectiveStudentCount.EduElectiveStudentCountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xoa.model.edu.eduElectiveStudentCount.EduElectiveStudentCount">
+        <id column="id" property="id"/>
+        <result column="student_id" property="studentId"/>
+        <result column="class_id" property="classId"/>
+        <result column="sid" property="sid"/>
+        <result column="nid_count" property="nidCount"/>
+        <result column="sum" property="sum"/>
+        <result column="ysesum" property="ysesum"/>
+        <result column="nosum" property="nosum"/>
+
+    </resultMap>
+
+    <!--根据条件查询选修课统计-->
+    <select id="eudSelectStudentCount" parameterType="com.xoa.model.edu.eduElectiveStudentCount.EduElectiveStudentCount"
+            resultMap="BaseResultMap" >
+			  SELECT
+				class_id as 'classId',count(*) as 'sum' ,count(sid>0) as 'ysesum' ,count(sid=0) as 'nosum'
+			  FROM
+				edu_elective_student_count
+			  WHERE  1=1
+        <if test="id!=null and id!=''">
+            AND sid = #{id}
+        </if>
+
+	</select>
+    <!--根据学生ID查询该学生选课情况-->
+
+    <!--选修可按上课班级统计-->
+    <select id="eudSelectClassStudentCount" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+        eed.nid AS 'nid',
+        eesc.sid AS 'sid',
+        eep.elective_course as 'electiveCourse',
+        count(eesc.sid > 0) AS 'sumsid',
+        eed.maxpeople AS 'maxpeople',
+        eed.class_time AS 'classTime',
+        eed.place AS 'place'
+        FROM
+        (edu_elective_detail AS eed
+        INNER JOIN edu_elective_student_count AS eesc ON eed.sid = eesc.sid)
+        LEFT JOIN
+        edu_elective_publish eep ON eed.sid = eep.id  where 1=1
+        <if test="zhuangtai!=null and zhuangtai==1">
+            and edut.maxpeople=edut.sumsid
+        </if>
+        <if test="nid!=null and nid!='' and nid!=0">
+            and edut.nid=#{nid}
+        </if>
+        <if test="sid!=null and sid!=0 and nid!=''">
+            AND  edut.sid=#{sid}
+        </if>
+        GROUP BY eed.nid
+    </select>
+
+    <!--选修可总揽-->
+    <select id="eduElecctiveStudentCountSum" resultType="java.util.HashMap">
+        SELECT
+        s.*, s.nid AS snid,
+        d.*, p.*, c.course_name
+        FROM
+        edu_elective_student AS s
+        LEFT JOIN edu_elective_detail AS d ON d.sid = s.sid
+        LEFT JOIN edu_elective_publish AS p ON p.ID = d.sid
+        LEFT JOIN edu_elective_course AS c ON c.nid = d.nid
+        WHERE
+        s.nid = d.nid
+        <if test="className!=null">
+            and p.class_names LIKE CONCAT('%',#{className},'%')
+        </if>
+        <if test="sid!=null and sid!=0">
+            and p.sid=#{sid}
+        </if>
+        <if test="nid!=null and nid!=0">
+            and c.nid=#{nid}
+        </if>
+        <if test="term!=null">
+            and p.term=#{term}
+        </if>
+        <if test="id!=null and id!=0">
+            and s.id=#{id}
+        </if>
+    </select>
+
+    <!--删除学生报选修课程时修改该学生报课的数量-->
+    <update id="eduElecctiveStudentCountUpdate" parameterType="java.lang.Integer">
+					  UPDATE  edu_elective_student_count SET nid_count=nid_count-1  where id=#{id}
+			</update>
+    <!--学生增加选修课程 已有选修可-->
+    <update id="eduElecctiveStudentCountUpdateAccumulation" parameterType="java.lang.Integer">
+                UPDATE  edu_elective_student_count SET nid_count=nid_count+1  where id=#{id}
+     </update>
+    <!--学生增加选修课程 未报过选修课-->
+    <insert id="eduElecctiveStudentCountInsert" parameterType="com.xoa.model.edu.eduElectiveStudentCount.EduElectiveStudentCount">
+					INSERT  into edu_elective_student_count (student_id,class_id,sid,nid_count) VALUES (#{studentId},#{classId},#{sid},#{nidCount})
+			</insert>
+
+    <!--根据ID查询该学生的选课情况-->
+    <select id="eduElectiveOneSelect" parameterType="java.lang.String" resultType="com.xoa.model.edu.eduElectiveStudentCount.EduElectiveStudentCount">
+              SELECT id,student_id as 'studentId',class_id AS 'classId',sid ,nid_count AS 'nidCount'FROM edu_elective_student_count  where student_id=#{studentId}
+    </select>
+
+    <!--___________选修课按教学班级统计详情______________________-->
+
+    <select id="studentClassIdName" parameterType="java.lang.String" resultType="java.util.HashMap">
+              SELECT  student_name as 'studentName',class_id as 'classId' from edu_elective_student  where sid=#{sid}
+    </select>
+    <!--查询对应学生的最大课程-->
+    <select id="eduMaxElective" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+            select nid_count from edu_elective_student_count where sid=#{sid} AND class_id=#{classId} AND student_id=#{studentId};
+    </select>
+
+    <!--根据班级该班级的学生查询-->
+    <select id="eduClassStudent" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+              SELECT USER_ID as 'userId',USER_NAME as 'userName',DEPT_ID as 'deptId'from edu_student  WHERE DEPT_ID=#{deptId}
+    </select>
+    <!--根据年级班级ID查询班级-->
+    <select id="classIDName" parameterType="java.lang.Integer" resultType="java.lang.String">
+          select  DEPT_FUNC as 'deptFunc' from  edu_department where  DEPT_ID=#{classId}
+    </select>
+
+
+    <!--根据年级ID和选修课ID查询该班的选修课-->
+    <select id="eduClassIdXuanKeId"  parameterType="java.util.Map" resultType="com.xoa.model.edu.eduElectivePublish.EduElectivePublish">
+            select *  from  edu_elective_publish  where id=#{sid}  and  class_ids LIKE CONCAT('%',#{classId},'%')
+    </select>
+</mapper>

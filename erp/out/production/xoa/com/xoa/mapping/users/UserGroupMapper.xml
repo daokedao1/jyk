@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.users.UserGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.users.UserGroup" >
+    <id column="GROUP_ID" property="groupId" javaType="int" />
+    <result column="USER_ID" property="userId" javaType="string" />
+    <result column="GROUP_NAME" property="groupName" javaType="string" />
+    <result column="ORDER_NO" property="orderNo" javaType="string" />
+    <result column="USER_STR" property="userStr" javaType="string" />
+  </resultMap>
+  <insert id="insertUserGroup" parameterType="com.xoa.model.users.UserGroup">
+      insert into user_group(GROUP_NAME,ORDER_NO,USER_ID,USER_STR) VALUES (#{groupName},#{orderNo},#{userId},#{userStr})
+  </insert>
+
+  <update id="updateUserGroup" parameterType="com.xoa.model.users.UserGroup">
+      update user_group
+      <set>
+        <if test="groupName!=null and groupName!=''">
+          GROUP_NAME=#{groupName},
+        </if>
+        <if test="orderNo!=null and orderNo!=''">
+          ORDER_NO=#{orderNo},
+        </if>
+        <if test="userStr!=null and userStr!=''">
+          USER_STR=#{userStr}
+        </if>
+      </set>
+     where GROUP_ID=#{groupId}
+  </update>
+
+  <select id="getAllUserGroup" resultMap="BaseResultMap">
+    SELECT  GROUP_ID,USER_ID,GROUP_NAME,ORDER_NO,USER_STR from user_group
+  </select>
+
+  <select id="getUserGroupByGroupId" resultMap="BaseResultMap" parameterType="String">
+    SELECT  GROUP_ID,USER_ID,GROUP_NAME,ORDER_NO,USER_STR from user_group WHERE  GROUP_ID=#{groupId}
+  </select>
+
+  <delete id="delUserGroupByGroupId" parameterType="String">
+      DELETE  from user_group where GROUP_ID=#{groupId}
+  </delete>
+</mapper>

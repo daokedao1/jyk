@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FlowFormTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowFormType">
+    <id column="FORM_ID" property="formId"  javaType="int" />
+    <result column="FORM_NAME" property="formName"  javaType="string" />
+    <result column="DEPT_ID" property="deptId"  javaType="int" />
+    <result column="ITEM_MAX" property="itemMax"  javaType="int" />
+    <result column="FORM_SORT" property="formSort" javaType="int" />
+    <result column="is_new" property="isNew" javaType="int" />
+    <result column="PRINT_MODEL" property="printModel"  javaType="string" />
+    <result column="PRINT_MODEL_SHORT" property="printModelShort"  javaType="string" />
+    <result column="SCRIPT" property="script" javaType="string" />
+    <result column="CSS" property="css"  javaType="string" />
+  </resultMap>
+  <resultMap id="FormWithDep" type="com.xoa.model.workflow.FlowFormType" extends="BaseResultMap">
+    <result column="DEPT_NAME" property="depName"  javaType="string" />
+  </resultMap>
+  <resultMap id="FormWithDepAndSort" type="com.xoa.model.workflow.FlowFormType" extends="BaseResultMap">
+    <result column="DEPT_NAME" property="depName"  javaType="string" />
+    <result column="SORT_NAME" property="sortName"  javaType="string" />
+  </resultMap>
+  <select id="selectFlowFormType"  resultMap="BaseResultMap" >
+    SELECT f.FORM_ID,f.FORM_NAME,f.PRINT_MODEL,f.PRINT_MODEL_SHORT,f.DEPT_ID,f.SCRIPT,f.CSS,f.ITEM_MAX,f.FORM_SORT,f.is_new from flow_form_type f
+  </select>
+
+  <select id="qureyItemMax"  resultMap="BaseResultMap">
+      SELECT f.FORM_ID,f.ITEM_MAX,f.FORM_NAME,f.FORM_SORT,f.PRINT_MODEL,f.PRINT_MODEL_SHORT,f.DEPT_ID,f.SCRIPT,f.CSS,f.is_new  from FLOW_FORM_TYPE f where FORM_ID=#{formId}
+  </select>
+  
+  <update id="updateItemMax"  parameterType="com.xoa.model.workflow.FlowFormType">
+    UPDATE flow_form_type SET ITEM_MAX=#{itemMax}  where FORM_ID=#{formId}
+  </update>
+
+  <select id="selectFormBySort"  resultMap="FormWithDepAndSort" parameterType="java.lang.Integer">
+    SELECT flow_form_type.*,department.DEPT_NAME,form_sort.SORT_NAME from flow_form_type LEFT JOIN department ON department.DEPT_ID=flow_form_type.DEPT_ID LEFT JOIN form_sort ON form_sort.SORT_ID=flow_form_type.FORM_SORT
+    <where>
+      <if test="sortId != null">
+        flow_form_type.FORM_SORT = #{sortId}
+      </if>
+      <if test="sortId == null">
+        flow_form_type.FORM_SORT = 0 OR flow_form_type.FORM_SORT IS NULL
+      </if>
+    </where>
+  </select>
+
+  <select id="checkFormUserNumber" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+      SELECT COUNT(*) FROM flow_type WHERE FLOW_TYPE.FORM_ID=#{formId}
+  </select>
+
+  <delete id="deleteForm" parameterType="java.lang.Integer">
+     delete from flow_form_type
+    where FORM_ID = #{formId}
+  </delete>
+
+
+
+
+  <select id="queryBySearchValue" resultMap="FormWithDep" parameterType="Map">
+     SELECT flow_form_type.*,department.DEPT_NAME from flow_form_type LEFT JOIN department ON department.DEPT_ID=flow_form_type.DEPT_ID
+     WHERE  flow_form_type.FORM_NAME LIKE CONCAT("%",#{searchValue},"%")
+     <if test="sortId!=null">
+      AND flow_form_type.FORM_SORT = #{sortId}
+     </if>
+  </select>
+  <insert id="insertSelectParam"  parameterType="com.xoa.model.workflow.FlowFormType">
+    insert into flow_form_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="formId != null" >
+        FORM_ID,
+      </if>
+      <if test="formName != null" >
+        FORM_NAME,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="itemMax != null" >
+        ITEM_MAX,
+      </if>
+      <if test="formSort != null" >
+        FORM_SORT,
+      </if>
+      <if test="isNew != null" >
+        is_new,
+      </if>
+      <if test="printModel != null" >
+        PRINT_MODEL,
+      </if>
+      <if test="printModelShort != null" >
+        PRINT_MODEL_SHORT,
+      </if>
+      <if test="script != null" >
+        SCRIPT,
+      </if>
+      <if test="css != null" >
+        CSS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="formId != null" >
+        #{formId},
+      </if>
+      <if test="formName != null" >
+        #{formName},
+      </if>
+      <if test="deptId != null" >
+        #{deptId},
+      </if>
+      <if test="itemMax != null" >
+        #{itemMax},
+      </if>
+      <if test="formSort != null" >
+        #{formSort},
+      </if>
+      <if test="isNew != null" >
+        #{isNew},
+      </if>
+      <if test="printModel != null" >
+        #{printModel},
+      </if>
+      <if test="printModelShort != null" >
+        #{printModelShort},
+      </if>
+      <if test="script != null" >
+        #{script},
+      </if>
+      <if test="css != null" >
+        #{css},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelectParam" parameterType="com.xoa.model.workflow.FlowFormTypeExtends">
+    update flow_form_type
+    <set >
+      <!--<if test="formId != null" >-->
+        <!--FORM_ID= #{formId},-->
+      <!--</if>-->
+      <if test="formName != null" >
+        FORM_NAME=  #{formName},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID= #{deptId},
+      </if>
+      <if test="itemMax != null" >
+        ITEM_MAX=  #{itemMax},
+      </if>
+      <if test="formSort != null" >
+        FORM_SORT=  #{formSort},
+      </if>
+      <if test="isNew != null" >
+         is_new= #{isNew},
+      </if>
+      <if test="printModel != null" >
+        PRINT_MODEL= #{printModel},
+      </if>
+      <if test="printModelShort != null" >
+        PRINT_MODEL_SHORT= #{printModelShort},
+      </if>
+      <if test="script != null" >
+        SCRIPT=#{script},
+      </if>
+      <if test="css != null" >
+        CSS = #{css},
+      </if>
+    </set>
+    where FORM_ID = #{formId}
+
+  </update>
+  <select id="selectAllForm" resultMap="FormWithDepAndSort">
+     SELECT flow_form_type.*,department.DEPT_NAME,form_sort.SORT_NAME from flow_form_type LEFT JOIN department ON department.DEPT_ID=flow_form_type.DEPT_ID LEFT JOIN form_sort ON form_sort.SORT_ID=flow_form_type.FORM_SORT
+  </select>
+</mapper>

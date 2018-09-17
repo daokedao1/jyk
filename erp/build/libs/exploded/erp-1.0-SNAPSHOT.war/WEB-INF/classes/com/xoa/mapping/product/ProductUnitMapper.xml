@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.product.ProductUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.product.ProductUnit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, unit, num, remark
+  </sql>
+
+  <sql id="Base_where_List" >
+    <where>
+      <if test="id != null" >
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and  name LIKE CONCAT('%','${name}','%')
+      </if>
+      <if test="unit != null" >
+        and unit LIKE CONCAT('%','${unit}','%')
+      </if>
+      <if test="num != null" >
+        and num LIKE CONCAT('%','${num}','%')
+      </if>
+      <if test="remark != null" >
+        and remark LIKE CONCAT('%','${remark}','%')
+      </if>
+      <if test="search != null" >
+        id LIKE CONCAT('%','${search}','%') OR name LIKE CONCAT('%','${search}','%')
+      </if>
+      <if test="beginRow != null and pageSize != null" >
+        and id LIMIT  #{beginRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+    </where>
+  </sql>
+  <sql id="Base_where_List1" >
+    <where>
+      <if test="id != null" >
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and  name LIKE CONCAT('%','${name}','%')
+      </if>
+      <if test="unit != null" >
+        and unit LIKE CONCAT('%','${unit}','%')
+      </if>
+      <if test="num != null" >
+        and num LIKE CONCAT('%','${num}','%')
+      </if>
+      <if test="remark != null" >
+        and remark LIKE CONCAT('%','${remark}','%')
+      </if>
+      <if test="search != null" >
+        id LIKE CONCAT('%','${search}','%') OR name LIKE CONCAT('%','${search}','%')
+      </if>
+    </where>
+  </sql>
+  <select id="countByExample" parameterType="com.xoa.model.product.ProductUnit" resultType="java.lang.Integer" >
+      select count(*)
+      from product_unit
+
+    <include refid="Base_where_List1" />
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.product.ProductUnit" >
+    select
+
+    <if test="distinct" >
+      distinct
+    </if>
+
+    <include refid="Base_Column_List" />
+
+    from product_unit
+
+    <include refid="Base_where_List" />
+
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product_unit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    delete from product_unit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.xoa.model.product.ProductUnit" >
+
+    insert into product_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.product.ProductUnit" >
+    update product_unit
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

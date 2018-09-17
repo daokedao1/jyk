@@ -1,0 +1,190 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f3f4f6;
+}
+
+.search {
+  background: #fff;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.searbox{
+  background-color: #eeeeee;
+  width: 80%;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searbox input{
+  background: #eeeeee;
+  border: none;
+  width: 90%;
+  outline:none;
+}
+
+.findoctor{
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.findlf{
+  margin-right: 15px;
+}
+
+.findrt{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.classify{
+  background: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.classbox{
+  display: flex;
+  width: 100%;
+  font-size: 14px;
+}
+
+.classbox img {
+  width: 50px;
+}
+
+.classbox p{
+  margin-top: 5px;
+}
+
+.classbox div {
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #f2f2f2;
+}
+
+.consult{
+  background: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.consultbox{
+  display: flex;
+  width: 100%;
+}
+
+.small{
+  box-sizing: border-box;
+  padding: 12px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #f2f2f2;
+}
+
+.cl{
+  flex: 1
+}
+
+.ct{
+  display: flex;
+  flex: 4;
+  flex-direction: column;
+}
+
+.cl img{
+  width: 25px;
+  margin-right: 5px;
+}
+
+.sift{
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.sifll img{
+  margin-right: 5px;
+}
+
+.siflr{
+  color: #717478;
+  font-size: 15px;
+}
+
+.siflr img{
+  margin-top: -7px;
+}
+
+.sifll, .siflr{
+  display: flex;
+  align-items: center;
+}
+
+.article{
+  background: #fff;
+}
+
+.artbox{
+  box-sizing: border-box;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.arf{
+  flex: 4;
+  box-sizing: border-box;
+  padding-top: 8px;
+}
+
+.arf p {
+  font-size: 17px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.arf span{
+  color: #717478;
+}
+
+.art img{
+  width: 80px;
+  margin-left: 20px;
+}
+
+.art{
+  flex: 1;
+}

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.user.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.user.UserModel" >
+
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="INTEGER" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    uid, uname, realname, password, sex, phone, email,address, wechat, qq, tel, dept, roleid,
+    ext1, ext2, ext3
+  </sql>
+  <sql id="Base_where_nopage_List" >
+    <where>
+      <if test="uname != null" >
+        and uname LIKE CONCAT('%','${uname}','%')
+      </if>
+      <if test="realname != null" >
+        and realname  LIKE CONCAT('%','${realname}','%')
+      </if>
+      <if test="password != null" >
+        and password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+        and sex LIKE CONCAT('%','${sex}','%')
+      </if>
+      <if test="phone != null" >
+        and phone LIKE CONCAT('%','${phone}','%')
+      </if>
+      <if test="email != null" >
+        and email LIKE CONCAT('%','${email}','%')
+      </if>
+      <if test="wechat != null" >
+        and wechat LIKE CONCAT('%','${wechat}','%')
+      </if>
+      <if test="qq != null" >
+        and qq LIKE CONCAT('%','${qq}','%')
+      </if>
+      <if test="tel != null" >
+        and tel LIKE CONCAT('%','${tel}','%')
+      </if>
+      <if test="address != null" >
+        and address LIKE CONCAT('%','${address}','%')
+      </if>
+      <if test="dept != null" >
+        and dept = #{dept,jdbcType=INTEGER}
+      </if>
+      <if test="roleid != null" >
+        and roleid = #{roleid,jdbcType=INTEGER}
+      </if>
+      <if test="ext1 != null" >
+        and ext1 = #{ext1,jdbcType=VARCHAR}
+      </if>
+      <if test="ext2 != null" >
+        and ext2 = #{ext2,jdbcType=VARCHAR}
+      </if>
+      <if test="ext3 != null" >
+        and ext3 = #{ext3,jdbcType=VARCHAR}
+      </if>
+
+    </where>
+  </sql>
+  <sql id="Base_where_List" >
+    <where>
+        <if test="uname != null" >
+          and uname LIKE CONCAT('%','${uname}','%')
+        </if>
+        <if test="realname != null" >
+          and realname  LIKE CONCAT('%','${realname}','%')
+        </if>
+        <if test="password != null" >
+          and password = #{password,jdbcType=VARCHAR}
+        </if>
+        <if test="sex != null" >
+          and sex LIKE CONCAT('%','${sex}','%')
+        </if>
+        <if test="phone != null" >
+          and phone LIKE CONCAT('%','${phone}','%')
+        </if>
+        <if test="email != null" >
+          and email LIKE CONCAT('%','${email}','%')
+        </if>
+        <if test="wechat != null" >
+          and wechat LIKE CONCAT('%','${wechat}','%')
+        </if>
+        <if test="qq != null" >
+          and qq LIKE CONCAT('%','${qq}','%')
+        </if>
+      <if test="address != null" >
+        and address LIKE CONCAT('%','${address}','%')
+      </if>
+        <if test="tel != null" >
+          and tel LIKE CONCAT('%','${tel}','%')
+        </if>
+        <if test="dept != null" >
+          and dept = #{dept,jdbcType=INTEGER}
+        </if>
+        <if test="roleid != null" >
+          and roleid = #{roleid,jdbcType=INTEGER}
+        </if>
+        <if test="ext1 != null" >
+          and ext1 = #{ext1,jdbcType=VARCHAR}
+        </if>
+        <if test="ext2 != null" >
+          and ext2 = #{ext2,jdbcType=VARCHAR}
+        </if>
+        <if test="ext3 != null" >
+          and ext3 = #{ext3,jdbcType=VARCHAR}
+        </if>
+        <if test="beginRow != null and pageSize != null" >
+          and uid LIMIT  #{beginRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+    </where>
+  </sql>
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap" >
+
+    select
+    <include refid="Base_Column_List" />
+
+    from user
+    where uname = #{usename}
+  </select>
+  <select id="countByExample" parameterType="com.xoa.model.user.UserModel" resultType="java.lang.Integer" >
+
+    select count(*) from user
+
+    <include refid="Base_where_nopage_List" />
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    delete from user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.xoa.model.user.UserModel" >
+
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="dept != null" >
+        dept,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.user.UserModel" >
+
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+      <include refid="Base_where_List" />
+
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.user.UserModel" >
+
+    update user
+    <set >
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        dept = #{dept,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

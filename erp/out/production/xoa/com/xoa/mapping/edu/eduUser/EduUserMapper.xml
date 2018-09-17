@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduUser.EduUserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduUser.EduUser">
+		<id column="UID" property="uid" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_NAME_INDEX" property="userNameIndex" />
+		<result column="BYNAME" property="byname" />
+		<result column="USEING_KEY" property="useingKey" />
+		<result column="USING_FINGER" property="usingFinger" />
+		<result column="PASSWORD" property="password" />
+		<result column="KEY_SN" property="keySn" />
+		<result column="SECURE_KEY_SN" property="secureKeySn" />
+		<result column="USER_PRIV" property="userPriv" />
+		<result column="USER_PRIV_NO" property="userPrivNo" />
+		<result column="USER_PRIV_NAME" property="userPrivName" />
+		<result column="POST_PRIV" property="postPriv" />
+		<result column="POST_DEPT" property="postDept" />
+		<result column="DEPT_ID" property="deptId" />
+		<result column="DEPT_ID_OTHER" property="deptIdOther" />
+		<result column="SEX" property="sex" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="IS_LUNAR" property="isLunar" />
+		<result column="TEL_NO_DEPT" property="telNoDept" />
+		<result column="FAX_NO_DEPT" property="faxNoDept" />
+		<result column="ADD_HOME" property="addHome" />
+		<result column="POST_NO_HOME" property="postNoHome" />
+		<result column="TEL_NO_HOME" property="telNoHome" />
+		<result column="MOBIL_NO" property="mobilNo" />
+		<result column="BP_NO" property="bpNo" />
+		<result column="EMAIL" property="email" />
+		<result column="OICQ_NO" property="oicqNo" />
+		<result column="ICQ_NO" property="icqNo" />
+		<result column="MSN" property="msn" />
+		<result column="AVATAR" property="avatar" />
+		<result column="CALL_SOUND" property="callSound" />
+		<result column="LAST_VISIT_TIME" property="lastVisitTime" />
+		<result column="SMS_ON" property="smsOn" />
+		<result column="MENU_TYPE" property="menuType" />
+		<result column="LAST_PASS_TIME" property="lastPassTime" />
+		<result column="THEME" property="theme" />
+		<result column="SHORTCUT" property="shortcut" />
+		<result column="PORTAL" property="portal" />
+		<result column="PANEL" property="panel" />
+		<result column="ONLINE" property="online" />
+		<result column="ON_STATUS" property="onStatus" />
+		<result column="ATTEND_STATUS" property="attendStatus" />
+		<result column="MOBIL_NO_HIDDEN" property="mobilNoHidden" />
+		<result column="MYTABLE_LEFT" property="mytableLeft" />
+		<result column="MYTABLE_RIGHT" property="mytableRight" />
+		<result column="USER_PRIV_OTHER" property="userPrivOther" />
+		<result column="USER_NO" property="userNo" />
+		<result column="NOT_LOGIN" property="notLogin" />
+		<result column="NOT_VIEW_USER" property="notViewUser" />
+		<result column="NOT_VIEW_TABLE" property="notViewTable" />
+		<result column="NOT_SEARCH" property="notSearch" />
+		<result column="BKGROUND" property="bkground" />
+		<result column="BIND_IP" property="bindIp" />
+		<result column="LAST_VISIT_IP" property="lastVisitIp" />
+		<result column="MENU_IMAGE" property="menuImage" />
+		<result column="WEATHER_CITY" property="weatherCity" />
+		<result column="SHOW_RSS" property="showRss" />
+		<result column="MY_RSS" property="myRss" />
+		<result column="REMARK" property="remark" />
+		<result column="MENU_EXPAND" property="menuExpand" />
+		<result column="MY_STATUS" property="myStatus" />
+		<result column="LIMIT_LOGIN" property="limitLogin" />
+		<result column="PHOTO" property="photo" />
+		<result column="IM_RANGE" property="imRange" />
+		<result column="LEAVE_TIME" property="leaveTime" />
+		<result column="SECRET_LEVEL" property="secretLevel" />
+		<result column="USER_PARA" property="userPara" />
+		<result column="NOT_MOBILE_LOGIN" property="notMobileLogin" />
+		<result column="MANAGE_MODULE_TYPE" property="manageModuleType" />
+		<result column="USER_PRIV_TYPE" property="userPrivType" />
+		<result column="USER_MANAGE_ORGS" property="userManageOrgs" />
+		<result column="ID_CARD_NO" property="idCardNo" />
+
+	</resultMap>
+
+	<select id="getByuserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * from user WHERE USER_ID = #{userId}
+	</select>
+
+	<select id="getBySearch" parameterType="Map"
+			resultType="com.xoa.model.edu.eduUser.EduUser">
+		select u.USER_NAME as userName,
+		u.USER_NAME as name ,u.USER_PRIV_NAME as userPrivName,u.USER_ID AS userId,
+		d.DEPT_NAME as deptName ,u.UID ,u.AVATAR
+		from user u
+		,edu_department d where u.DEPT_ID= d.DEPT_ID AND (
+		u.USER_NAME like CONCAT(CONCAT('%', #{userName}), '%')
+		or u.USER_PRIV_NAME like CONCAT(CONCAT('%', #{userPrivName}), '%')
+		or d.DEPT_NAME like CONCAT(CONCAT('%', #{deptName}), '%')
+		or u.USER_ID like CONCAT(CONCAT('%', #{userId}), '%'))
+	</select>
+
+
+	<select id="getByUid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT * from user WHERE UID = #{uid}
+	</select>
+	<select id="getByuserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM USER  WHERE USER_NAME =#{userName}
+	</select>
+
+</mapper>

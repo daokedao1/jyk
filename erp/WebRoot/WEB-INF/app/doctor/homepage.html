@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/doctor/homepage.css">
+  </head>
+  <body>
+
+<!-- 头 -->
+    <div class="head">
+      <div class="tp">
+        <div class="f" id="userinfo" did="">
+          <img id="head_picture" src="/img/user/sunaida.jpg" alt="">
+          <div class="js">
+            <p id="dname"></p>
+            <p id="titleAndDept">主任医师 | 妇科</p>
+            <p id="hospital"></p>
+          </div>
+        </div>
+        <div class="t">
+          <img src="/img/doctor/xinyi.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="bt">
+        <div class="mous">
+          综合口碑：<img src="/img/doctor/koubei.jpg" alt=""><sapn id="evaluation" class="ore">0</sapn>
+          <span style="margin-left:5px;">服务患者：<span class="ore">746人</span></span>
+        </div>
+        <div>| 擅长成就 ></div>
+      </div>
+
+    </div>
+
+    <!-- 在线咨询 -->
+    <div class="zx">
+      <div class="z1">
+        <img src="/img/a.png" alt="">
+        <div class="sw">
+          <p class="sp1">在线咨询</p>
+          <p class="sp2">有问题？和专家聊聊</p>
+        </div>
+      </div>
+      <div class="z2"><img src="/img/rt.png" alt=""></div>
+    </div>
+
+    <div class="ask">
+      <img src="/img/z.png" alt="">他的回答
+    </div>
+
+    <!-- 问题回答 -->
+    <div class="answer">
+      <p>排卵不好都是什么原因引起的？</p>
+      <div class="ctp">
+        <img src="/img/tx.png" alt="">
+        <img style="margin:0 5px;" src="/img/doctor/as.png" alt="">
+        <span>2935 看过</span>
+      </div>
+
+      <div class="team">
+        <span>孙爱达团队</span>|<span>主任医师，北京天伦医院</span>
+      </div>
+    </div>
+
+    <div class="answer">
+      <p>排卵不好都是什么原因引起的？</p>
+      <div class="ctp">
+        <img src="/img/tx.png" alt="">
+        <img style="margin:0 5px;" src="/img/doctor/as.png" alt="">
+        <span>2935 看过</span>
+      </div>
+
+      <div class="team">
+        <span>孙爱达团队</span>|<span>主任医师，北京天伦医院</span>
+      </div>
+    </div>
+
+    <div class="answer">
+      <p>排卵不好都是什么原因引起的？</p>
+      <div class="ctp">
+        <img src="/img/tx.png" alt="">
+        <img style="margin:0 5px;" src="/img/doctor/as.png" alt="">
+        <span>2935 看过</span>
+      </div>
+      <div class="team">
+        <span>孙爱达团队</span>|<span>主任医师，北京天伦医院</span>
+      </div>
+    </div>
+
+  </body>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/base.js"></script>
+<script>
+    $(function () {
+        $.GetRequest("")
+        $.ajax({
+            type : "post",
+            url : "/doctor/getOneById",
+            data:{
+                id:$.GetRequest().did
+            },
+            dataType:'json',
+            success : function(data) {
+                if(data.flag){
+                  var doctorInfo = data.object;
+                  $('#userinfo').attr('did',doctorInfo.id);
+                  $('#dname').html(doctorInfo.name);
+                  $('#hospital').html(doctorInfo.hospital);
+                  $('#evaluation').html(doctorInfo.evaluation);
+                  $('#head_picture').attr('src',doctorInfo.head_picture);
+                  $('#titleAndDept').html(doctorInfo.title+' | '+doctorInfo.department);
+                }
+            }
+        });
+        $('.zx').on('click',function () {
+            var _this = $(this);
+            location.href = "/app/chat/index.html?toid="+$.GetRequest().did;
+        });
+    })
+</script>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduElectivePublish.EduElectivePublishMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduElectivePublish.EduElectivePublish">
+		<id column="ID" property="id" />
+		<result column="nid" property="nid" />
+		<result column="elective_course" property="electiveCourse" />
+		<result column="class_ids" property="classIds" />
+		<result column="class_names" property="classNames" />
+		<result column="term" property="term" />
+		<result column="year" property="year" />
+		<result column="max_class" property="maxClass" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="ATTACHMENT_ID" property="attachmentId" />
+		<result column="ATTACHMENT_NAME" property="attachmentName" />
+	</resultMap>
+
+	<!--添加数据-->
+	<insert id="insertEduEPublish" parameterType="com.xoa.model.edu.eduElectivePublish.EduElectivePublish">
+		insert  into edu_elective_publish (nid,elective_course,class_ids,class_names,term,year,max_class,start_time,end_time,CREATE_USER,ATTACHMENT_ID,ATTACHMENT_NAME)
+		VALUES (#{nid},#{electiveCourse},#{classIds},#{classNames},#{term},#{year},#{maxClass},#{startTime},#{endTime},#{createUser},#{attachmentId},#{attachmentName} )
+	</insert>
+
+	<!--查询发布选修课-->
+	<select id="selectEduPublish" parameterType="com.xoa.model.edu.eduElectivePublish.EduElectivePublish" resultType="com.xoa.model.edu.eduElectivePublish.EduElectivePublish">
+		SELECT
+		eep.ID,
+		eep.nid,
+		eec.course_name AS 'courseName',
+		eep.elective_course AS 'electiveCourse',
+		eep.class_ids AS 'classIds',
+		eep.class_names AS 'classNames',
+		eep.term,
+		eep. YEAR,
+		eep.max_class AS 'maxClass',
+		eep.start_time AS 'startTime',
+		eep.end_time AS 'endTime',
+		eep.CREATE_USER AS 'createUser',
+		eep.ATTACHMENT_ID AS 'attachmentId',
+		eep.ATTACHMENT_NAME AS 'attachmentName'
+		FROM
+		edu_elective_publish eep
+		INNER JOIN edu_elective_course eec ON eep.nid = eec.nid
+		WHERE
+		1 = 1
+		<if test="id!=null and id!=''">
+			AND  eep.ID =#{id}
+		</if>
+	</select>
+	<!--根据ID修改选修课发布信息-->
+	<update id="updateEduPublish" parameterType="com.xoa.model.edu.eduElectivePublish.EduElectivePublish" >
+		update  edu_elective_publish
+		<set>
+		<if test="nid!=null and nid!=''">
+			     nid=#{nid},
+		</if>
+		<if test="electiveCourse!=null and electiveCourse!=''">
+			elective_course=#{electiveCourse},
+		</if>
+		<if test="classIds!=null and classIds!=''">
+			class_ids=#{classIds},
+		</if>
+	  	<if test="classNames!=null and classNames!=''">
+			class_names=#{classNames},
+		</if>
+		<if test="term!=null and term!=''">
+			term=#{term},
+		</if>
+		<if test="year!=null and year!=''">
+			year=#{year},
+		</if>
+	  	<if test="maxClass!=null and maxClass!=''">
+			max_class=#{maxClass},
+		</if>
+		<if test="startTime!=null and startTime!=''">
+			start_time=#{startTime},
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			end_time=#{endTime},
+		</if>
+		<if test="createUser!=null and createUser!=''">
+			CREATE_USER=#{createUser},
+		</if>
+		<if test="attachmentId!=null and attachmentId!=''">
+			ATTACHMENT_ID=#{attachmentId},
+		</if>
+		<if test="attachmentName!=null and attachmentName!=''">
+			ATTACHMENT_NAME=#{attachmentId},
+		</if>
+		</set>
+		where  id=#{id}
+	</update>
+	<!--删除发表的选修课程-->
+	<delete id="deleteEduPublish" parameterType="java.lang.Integer">
+		DELETE  FROM  edu_elective_publish     where  id=#{tid}
+	</delete>
+
+	<!--根据学生ID和班级ID查询选修课上限-->
+	<select id="studentIDClassID" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+			SELECT  max_class AS 'maxClass' from  edu_elective_publish where nid=#{nid} and class_ids=#{classId}
+	</select>
+</mapper>

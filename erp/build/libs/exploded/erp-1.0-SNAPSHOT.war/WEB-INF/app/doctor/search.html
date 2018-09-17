@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- <link rel="stylesheet" href="./static/css/search.css"> -->
+    <link rel="stylesheet" href="/css/doctor/all.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/mustache.min.js"></script>
+
+  </head>
+  <body>
+
+    <!-- 搜索框 -->
+    <div class="search" style="  justify-content: center;">
+      <div class="searbox">
+        <input id="searchText" placeholder="输入症状、疾病、医生、科室、医院" type="text" name="" value="">
+      </div>
+      <p id="searchBtn" class="srch">搜索</p>
+    </div>
+
+    <!-- 热门 更多 -->
+      <div class="history">
+        <div class="htop">
+          <div style="color:#000;">热门</div>
+          <div class="more">更多<img src="/img/rt.png" alt=""></div>
+        </div>
+
+        <div class="historybox">
+          <div>儿科</div>
+          <div>感冒</div>
+          <div>发烧</div>
+          <div>流鼻涕</div>
+          <div>过敏</div>
+          <div>肠胃炎</div>
+
+        </div>
+
+      </div>
+
+      <div class="ger"></div>
+
+      <!-- 分类滑动选择 -->
+      <div class="seaso">
+        <p>全部</p>
+        <p class="active">儿科</p>
+      </div>
+
+      <!-- 搜索内容 -->
+
+      <div id="seacont" class="seacont">
+
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="/img/user.png" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">寸丽萍</p>-->
+            <!--<p><span>儿科</span> | <span>主治医师</span></p>-->
+            <!--<p>昆明医科大学第二附属医院</p>-->
+            <!--<p class="proficiency">擅长： 从儿童发育行为的视角看科学的生育、养育、教育，从营养、保健、养育、</p>-->
+            <!--<p class="hui">6小时回复率:100%综合口碑:4.5</p>-->
+          <!--</div>-->
+        <!--</div>-->
+
+      </div>
+
+<script>
+  $(function () {
+      $.ajax({
+          type: "post",
+          url: "/doctor/getDoctor",
+          dataType: 'json',
+          success: function (data) {
+              if(data.flag){
+                  buildDocterEle(data)
+              }
+          }
+      });
+    $('#searchBtn').click(function () {
+        var searchText = $("#searchText").val();
+        $.ajax({
+            type : "post",
+            url : "/doctor/getDoctor",
+            data:{
+                searchText:searchText
+            },
+            dataType:'json',
+            success : function(data) {
+              if(data.flag){
+                  buildDocterEle(data)
+              }
+            }
+         });
+    });
+    $('#seacont').on('click','.use',function () {
+        var _this = $(this);
+        location.href = "/app/doctor/homepage.html?did="+_this.attr('docterid');
+    });
+      function  buildDocterEle(data) {
+          var template = '{{#obj}}         <div class="use" docterid="{{id}}">\n' +
+              '<div class="useimg"><img src="/img/user.png" alt=""></div>\n' +
+              ' <div class="usetail">\n' +
+              '   <p class="u1">{{name}}</p>\n' +
+              '   <p><span>儿科</span> | <span>{{title}}</span></p>\n' +
+              '   <p>{{hospital}}</p>\n' +
+              '   <p class="proficiency">擅长： {{skillful}}</p>\n' +
+              '   <p class="hui">6小时回复率:100%综合口碑:{{evaluation}}</p>\n' +
+              ' </div>\n' +
+              '</div> {{/obj}}';
+          var list = Mustache.render(template, data);
+          console.log(list);
+          $('#seacont').html(list);
+      }
+  })
+</script>
+  </body>
+</html>

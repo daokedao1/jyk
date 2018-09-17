@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendLeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendLeave" >
+    <result column="LEAVE_ID" property="leaveId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="LEADER_ID" property="leaderId" jdbcType="VARCHAR" />
+    <result column="LEAVE_DATE1" property="leaveDate1" jdbcType="TIMESTAMP" />
+    <result column="LEAVE_DATE2" property="leaveDate2" jdbcType="TIMESTAMP" />
+    <result column="ANNUAL_LEAVE" property="annualLeave" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ALLOW" property="allow" jdbcType="CHAR" />
+    <result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="LEAVE_TYPE2" property="leaveType2" jdbcType="CHAR" />
+    <result column="HANDLE_TIME" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+   <result column="LEAVE_TYPE" property="leaveType" javaType="string" />
+    <result column="REASON" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="RUN_ID" property="runId" jdbcType="INTEGER" />
+
+  </resultMap>
+
+    <resultMap id="attendLeaveFlowRunPrcs" type="com.xoa.model.attend.AttendFlowRunPrcs" extends="BaseResultMap" >
+        <result column="flowId" property="flowId" javaType="string" />
+        <result column="createrName" property="createrName" javaType="string" />
+        <result column="prFlag" property="prFlag" javaType="int" />
+        <result column="PRCS_NAME" property="prcsName" javaType="string" />
+        <result column="endTime" property="endTime" javaType="date" />
+        <result column="realPrcsId" property="realPrcsId" javaType="int" />
+        <result column="step" property="step" javaType="int"/>
+        <result column="codeName" property="codeName" javaType="string"/>
+    </resultMap>
+  <select id="queryAttendLeave" resultMap="BaseResultMap">
+ SELECT * from   attend_leave WHERE USER_ID=#{userId} AND  #{date} BETWEEN  DATE(attend_leave.LEAVE_DATE1) AND DATE(attend_leave.LEAVE_DATE2)
+</select>
+
+  <select id="selectAttendLeave" resultMap="BaseResultMap">
+    SELECT * from   attend_leave WHERE USER_ID=#{userId} AND  DATE(attend_leave.LEAVE_DATE1) = #{date}
+  </select>
+
+    <select id="selectAttendLeaveModify" resultMap="BaseResultMap">
+        SELECT attend_leave.USER_ID,attend_leave.LEAVE_TYPE,attend_leave.LEAVE_DATE1,attend_leave.LEAVE_DATE2,attend_leave.LEAVE_TYPE2 from   attend_leave WHERE USER_ID=#{userId} AND #{date} BETWEEN DATE(attend_leave.LEAVE_DATE1) AND DATE(attend_leave.LEAVE_DATE2)
+    </select>
+
+  <select id="queryAllAttendLeaveFields"  resultMap="BaseResultMap" parameterType="Map">
+ select COLUMN_NAME as columnName,column_comment as columnComment from INFORMATION_SCHEMA.Columns where table_name=#{tableName} and table_schema=#{sqlType}
+  </select>
+
+    <insert id="addAttendLeave" parameterType="com.xoa.model.attend.AttendLeave" keyProperty="leaveId" useGeneratedKeys="true">
+        insert into attend_leave
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="leaveId != null" >
+                LEAVE_ID,
+            </if>
+            <if test="userId != null" >
+                USER_ID,
+            </if>
+            <if test="leaderId != null" >
+                LEADER_ID,
+            </if>
+            <if test="leaveDate1 != null" >
+                LEAVE_DATE1,
+            </if>
+            <if test="leaveDate2 != null" >
+                LEAVE_DATE2,
+            </if>
+            <if test="annualLeave != null" >
+                ANNUAL_LEAVE,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="allow != null" >
+                ALLOW,
+            </if>
+            <if test="destroyTime != null" >
+                DESTROY_TIME,
+            </if>
+            <if test="registerIp != null" >
+                REGISTER_IP,
+            </if>
+            <if test="recordTime != null" >
+                RECORD_TIME,
+            </if>
+            <if test="leaveType2 != null" >
+                LEAVE_TYPE2,
+            </if>
+            <if test="handleTime != null" >
+                HANDLE_TIME,
+            </if>
+            <if test="agent != null" >
+                AGENT,
+            </if>
+            <if test="orderNo != null" >
+                ORDER_NO,
+            </if>
+            <if test="leaveType != null" >
+                LEAVE_TYPE,
+            </if>
+            <if test="reason != null" >
+                REASON,
+            </if>
+            <if test="runId != null" >
+                RUN_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="leaveId != null" >
+                #{leaveId},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="leaderId != null" >
+                #{leaderId},
+            </if>
+            <if test="leaveDate1 != null" >
+                #{leaveDate1},
+            </if>
+            <if test="leaveDate2 != null" >
+                #{leaveDate2},
+            </if>
+            <if test="annualLeave != null" >
+                #{annualLeave},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="allow != null" >
+                #{allow},
+            </if>
+            <if test="destroyTime != null" >
+                #{destroyTime},
+            </if>
+            <if test="registerIp != null" >
+                #{registerIp},
+            </if>
+            <if test="recordTime != null" >
+                #{recordTime},
+            </if>
+            <if test="leaveType2 != null" >
+                #{leaveType2},
+            </if>
+            <if test="handleTime != null" >
+                #{handleTime},
+            </if>
+            <if test="agent != null" >
+                #{agent},
+            </if>
+            <if test="orderNo != null" >
+                #{orderNo},
+            </if>
+            <if test="leaveType != null" >
+                #{leaveType},
+            </if>
+            <if test="reason != null" >
+            #{reason},
+           </if>
+            <if test="runId != null" >
+                #{runId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAttendLeave"  parameterType="com.xoa.model.attend.AttendLeave" >
+     
+        update attend_leave
+        <set >
+            <trim suffixOverrides=",">
+
+            <if test="userId != null and  userId != '' " >
+                USER_ID = #{userId},
+            </if>
+            <if test="leaderId != null  and  leaderId != ''" >
+                LEADER_ID = #{leaderId},
+            </if>
+            <if test="leaveDate1 != null and  leaveDate1 != ''" >
+                LEAVE_DATE1 = #{leaveDate1},
+            </if>
+            <if test="leaveDate2 != null and  leaveDate2 != ''" >
+                LEAVE_DATE2 = #{leaveDate2},
+            </if>
+            <if test="annualLeave != null and  annualLeave != ''" >
+                ANNUAL_LEAVE = #{annualLeave},
+            </if>
+            <if test="status != null and  status != ''" >
+                STATUS = #{status},
+            </if>
+            <if test="allow != null and  allow != ''" >
+                ALLOW = #{allow},
+            </if>
+            <if test="destroyTime != null and  destroyTime != ''" >
+                DESTROY_TIME = #{destroyTime},
+            </if>
+            <if test="registerIp != null and  registerIp != ''" >
+                REGISTER_IP = #{registerIp},
+            </if>
+            <if test="recordTime != null and  recordTime != ''" >
+                RECORD_TIME = #{recordTime},
+            </if>
+            <if test="leaveType2 != null and  leaveType2 != ''" >
+                LEAVE_TYPE2 = #{leaveType2},
+            </if>
+            <if test="handleTime != null and  handleTime != ''" >
+                HANDLE_TIME = #{handleTime},
+            </if>
+            <if test="agent != null and  agent != ''" >
+                AGENT = #{agent},
+            </if>
+            <if test="orderNo != null and  orderNo != ''" >
+                ORDER_NO = #{orderNo},
+            </if>
+            <if test="leaveType != null " >
+                LEAVE_TYPE = #{leaveType},
+            </if>
+            <if test="reason != null and  reason != ''" >
+                REASON = #{reason},
+            </if>
+            <if test="runId != null and  runId != ''" >
+                 RUN_ID = #{runId},
+            </if>
+            </trim>
+        </set>
+         WHERE   LEAVE_ID= #{leaveId}
+     </update>
+
+    <select id="backlogAttendList"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('1', '2')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+    <select id="haveDoneAttendList"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+        SELECT
+        al.*, u.USER_NAME createrName,
+         fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('3', '4')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+ <!-- <sql id="Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    LEAVE_ID, USER_ID, LEADER_ID, LEAVE_DATE1, LEAVE_DATE2, ANNUAL_LEAVE, STATUS, ALLOW, 
+    DESTROY_TIME, REGISTER_IP, RECORD_TIME, LEAVE_TYPE2, HANDLE_TIME, AGENT, ORDER_NO
+  </sql>
+  <sql id="Blob_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    LEAVE_TYPE, REASON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.attend.AttendLeaveWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_leave (LEAVE_ID, USER_ID, LEADER_ID, 
+      LEAVE_DATE1, LEAVE_DATE2, ANNUAL_LEAVE, 
+      STATUS, ALLOW, DESTROY_TIME, 
+      REGISTER_IP, RECORD_TIME, LEAVE_TYPE2, 
+      HANDLE_TIME, AGENT, ORDER_NO, 
+      LEAVE_TYPE, REASON)
+    values (#{leaveId}, #{userId}, #{leaderId}, 
+      #{leaveDate1}, #{leaveDate2}, #{annualLeave}, 
+      #{status}, #{allow}, #{destroyTime}, 
+      #{registerIp}, #{recordTime}, #{leaveType2}, 
+      #{handleTime}, #{agent}, #{orderNo}, 
+      #{leaveType}, #{reason})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendLeaveWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_leave
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leaveId != null" >
+        LEAVE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID,
+      </if>
+      <if test="leaveDate1 != null" >
+        LEAVE_DATE1,
+      </if>
+      <if test="leaveDate2 != null" >
+        LEAVE_DATE2,
+      </if>
+      <if test="annualLeave != null" >
+        ANNUAL_LEAVE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="allow != null" >
+        ALLOW,
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME,
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="leaveType2 != null" >
+        LEAVE_TYPE2,
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leaveId != null" >
+        #{leaveId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="leaderId != null" >
+        #{leaderId},
+      </if>
+      <if test="leaveDate1 != null" >
+        #{leaveDate1},
+      </if>
+      <if test="leaveDate2 != null" >
+        #{leaveDate2},
+      </if>
+      <if test="annualLeave != null" >
+        #{annualLeave},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="allow != null" >
+        #{allow},
+      </if>
+      <if test="destroyTime != null" >
+        #{destroyTime},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime},
+      </if>
+      <if test="leaveType2 != null" >
+        #{leaveType2},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime},
+      </if>
+      <if test="agent != null" >
+        #{agent},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo},
+      </if>
+      <if test="leaveType != null" >
+        #{leaveType},
+      </if>
+      <if test="reason != null" >
+        #{reason},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.attend.AttendLeaveExample" resultType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select count(*) from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    <set >
+      <if test="leaveId != null" >
+        LEAVE_ID = #{leaveId},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId},
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID = #{leaderId},
+      </if>
+      <if test="leaveDate1 != null" >
+        LEAVE_DATE1 = #{leaveDate1},
+      </if>
+      <if test="leaveDate2 != null" >
+        LEAVE_DATE2 = #{leaveDate2},
+      </if>
+      <if test="annualLeave != null" >
+        ANNUAL_LEAVE = #{annualLeave},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow},
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME = #{destroyTime},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime},
+      </if>
+      <if test="leaveType2 != null" >
+        LEAVE_TYPE2 = #{leaveType2},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo},
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE = #{leaveType},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    set LEAVE_ID = #{leaveId},
+      USER_ID = #{userId},
+      LEADER_ID = #{leaderId},
+      LEAVE_DATE1 = #{leaveDate1},
+      LEAVE_DATE2 = #{leaveDate2},
+      ANNUAL_LEAVE = #{annualLeave},
+      STATUS = #{status},
+      ALLOW = #{allow},
+      DESTROY_TIME = #{destroyTime},
+      REGISTER_IP = #{registerIp},
+      RECORD_TIME = #{recordTime},
+      LEAVE_TYPE2 = #{leaveType2},
+      HANDLE_TIME = #{handleTime},
+      AGENT = #{agent},
+      ORDER_NO = #{orderNo},
+      LEAVE_TYPE = #{leaveType},
+      REASON = #{reason}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    set LEAVE_ID = #{leaveId},
+      USER_ID = #{userId},
+      LEADER_ID = #{leaderId},
+      LEAVE_DATE1 = #{leaveDate1},
+      LEAVE_DATE2 = #{leaveDate2},
+      ANNUAL_LEAVE = #{annualLeave},
+      STATUS = #{status},
+      ALLOW = #{allow},
+      DESTROY_TIME = #{destroyTime},
+      REGISTER_IP = #{registerIp},
+      RECORD_TIME = #{recordTime},
+      LEAVE_TYPE2 = #{leaveType2},
+      HANDLE_TIME = #{handleTime},
+      AGENT = #{agent},
+      ORDER_NO = #{orderNo}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>-->
+  <select id="queryAllAttendLeave"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+        AND  frp.ID=(SELECT frp.ID FROM flow_run_prcs frp WHERE frp.RUN_ID =al.run_id   ORDER BY frp.ID DESC LIMIT 0,1 )
+       INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        WHERE al.USER_ID=#{userId}
+        <if test="flowAllow != null and flowAllow != ''" >
+            AND    al.ALLOW = #{flowAllow}
+       </if>
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+  </select>
+
+
+    <!-- 按照日期统计请假数量 -->
+   <select id="getAllByDate" resultMap="BaseResultMap" parameterType="Map">
+       SELECT  * from attend_leave
+       <where>
+           <if test="startDate != null &amp;&amp; endDate !=null">
+               LEAVE_DATE1 BETWEEN  #{startDate} AND #{endDate}
+           </if>
+           <if test="user != null">
+               AND USER_ID = #{userId}
+           </if>
+       </where>
+   </select>
+</mapper>

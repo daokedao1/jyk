@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduScore.EduScoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xoa.model.edu.eduScore.EduScore">
+        <id column="ID" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="CLASS_ID" property="classId"/>
+        <result column="CLASS_NAME" property="className"/>
+        <result column="GRADE_ID" property="gradeId"/>
+        <result column="GRADE_NAME" property="gradeName"/>
+        <result column="SUBJECT" property="subject"/>
+        <result column="SCHOOL_YEAR" property="schoolYear"/>
+        <result column="SEMESTER" property="semester"/>
+        <result column="EXAM_ID" property="examId"/>
+        <result column="EXAM_TYPE" property="examType"/>
+        <result column="EXAM_CHECK" property="examCheck"/>
+        <result column="EXAM_NUMBER" property="examNumber"/>
+        <result column="HEADTEACHER_ID" property="headteacherId"/>
+        <result column="HEADTEACHER_NAME" property="headteacherName"/>
+        <result column="SUBJECT_TEACHER_ID" property="subjectTeacherId"/>
+        <result column="SUBJECT_TEACHER" property="subjectTeacher"/>
+        <result column="ENTRY_DATE" property="entryDate"/>
+        <result column="SCORE" property="score"/>
+        <result column="SCORE_LEVEL" property="scoreLevel"/>
+        <result column="ATTACHMENT_ID" property="attachmentId"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName"/>
+    </resultMap>
+
+    <!--查询已录入成绩的学年-->  <!--排序问题未解决-->
+    <select id="yearSelect" resultType="java.lang.String" parameterType="java.lang.String">
+              Select SCHOOL_YEAR FROM  edu_score  GROUP BY  SCHOOL_YEAR
+    </select>
+    <!--根据年度，学期查询录入的年级-->
+    <select id="yearClassSelect" resultType="com.xoa.model.edu.eduScore.EduScore" parameterType="java.util.HashMap">
+        SELECT sy.USER_ID,USER_NAME,SUBJECT,SCORE,TOTAL_SCORE,GRADE_RANK,CLASS_RANK
+        FROM
+        (SELECT CONCAT(GRADE_NAME, CLASS_NAME) AS 'gradeClass',es.* FROM edu_score es
+        WHERE 1=1 and es.SCHOOL_YEAR = #{schoolYear} AND es.SEMESTER = #{semester}) sy    <!--schoolYear 年度-->  <!--semester学期-->
+        INNER JOIN edu_score_rank esr ON sy.USER_ID = esr.USER_ID
+        WHERE 1=1
+        <if test="gradeClass!=null">  <!--年级班级-->
+            and  sy.gradeclass=#{gradeClass}
+        </if>
+        <if test="examType!=null"> <!--考试类型-->
+            and sy.EXAM_TYPE=#{examType}
+        </if>
+        <if test="examId!=null">        <!--考试名-->
+            AND  sy.EXAM_ID=#{examId}
+        </if>
+        ORDER  BY   CLASS_RANK ,GRADE_RANK
+    </select>
+    <!--考试成绩录入-->
+    <insert id="eudScoreInsert" parameterType="com.xoa.model.edu.eduScore.EduScore">
+		insert  into  edu_score  (USER_ID,USER_NAME,CLASS_ID,CLASS_NAME,GRADE_ID,GRADE_NAME,SUBJECT,SCHOOL_YEAR,SEMESTER,EXAM_ID,EXAM_TYPE,EXAM_CHECK,EXAM_NUMBER,HEADTEACHER_ID,HEADTEACHER_NAME,SUBJECT_TEACHER_ID,SUBJECT_TEACHER,ENTRY_DATE,SCORE,SCORE_LEVEL,ATTACHMENT_ID,ATTACHMENT_NAME)
+        VALUES (#{userId},#{userName},#{classId},#{className},#{gradeId},#{gradeName},#{subject},#{schoolYear},#{semester},#{examId},#{examType},#{examCheck},#{examNumber},#{headteacherId},#{headteacherName},#{subjectTeacherId},#{subjectTeacher},#{entryDate},#{score},#{scoreLevel},#{attachmentId},#{attachmentName})
+	</insert>
+
+    <!--根据班级和部门排序号查询对应的班级ID-->
+    <select id="selectClassID" parameterType="java.util.HashMap" resultType="java.lang.String">
+        select DEPT_ID as 'classId' from edu_department where DEPT_NO like CONCAT(#{deptNo},'___') and DEPT_NAME=#{className}
+    </select>
+    <!--根据年级查询对应ID,和部门排序号-->
+    <select id="selectGradeNameID" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select DEPT_ID as 'deptId',DEPT_NO as 'deptNo' from  edu_department  where DEPT_NAME =#{deptName}
+    </select>
+
+    <!--设置权限-->
+    <update id="eduScoreTww" parameterType="java.lang.String">
+        update  sys_para  SET  PARA_VALUE=#{paraValue} where PARA_NAME='EDUSCORE_SWW'
+    </update>
+
+    <!--查看权限-->
+    <select id="eduScoreTwwSelect"  resultType="java.lang.String">
+        select  PARA_VALUE AS 'paraValue' FROM  sys_para  where PARA_NAME='EDUSCORE_SWW'
+    </select>
+</mapper>

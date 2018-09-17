@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.workflow.FlowRunPrcsMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowRunPrcs">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="RUN_ID" javaType="int" property="runId"/>
+        <result column="PRCS_ID" javaType="int" property="prcsId"/>
+        <result column="USER_ID" javaType="string" property="userId"/>
+        <result column="USER_NAME" javaType="string" property="userName"/>
+        <result column="PRCS_TIME" javaType="String" property="prcsTime"/>
+        <result column="DELIVER_TIME" javaType="String" property="deliverTime"/>
+        <result column="PRCS_FLAG" javaType="string" property="prcsFlag"/>
+        <result column="FLOW_PRCS" javaType="int" property="flowPrcs"/>
+        <result column="OP_FLAG" javaType="string" property="opFlag"/>
+        <result column="TOP_FLAG" javaType="string" property="topFlag"/>
+        <result column="PARENT" javaType="string" property="parent"/>
+        <result column="CHILD_RUN" javaType="int" property="childRun"/>
+        <result column="TIME_OUT" javaType="string" property="timeOut"/>
+        <result column="TIME_OUT_TEMP" javaType="string" property="timeOutTemp"/>
+        <result column="TIME_OUT_FLAG" javaType="string" property="timeOutFlag"/>
+        <result column="CREATE_TIME" javaType="string" property="createTime"/>
+        <result column="FROM_USER" javaType="string" property="fromUser"/>
+        <result column="ACTIVE_TIME" javaType="string" property="activeTime"/>
+        <result column="PRCS_DEPT" javaType="int" property="prcsDept"/>
+        <result column="PARENT_PRCS_ID" javaType="string" property="parentPrcsId"/>
+        <result column="BACK_PRCS_ID" javaType="int" property="backPrcsId"/>
+        <result column="BACK_FLOW_PRCS" javaType="int" property="backFlowPrcs"/>
+        <result column="TIME_OUT_ATTEND" javaType="string" property="timeOutAttend"/>
+        <result column="TIME_OUT_TYPE" javaType="Integer" property="timeOutType"/>
+        <result column="RUN_PRCS_NAME" javaType="string" property="runPrcsName"/>
+        <result column="RUN_PRCS_ID" javaType="string" property="runPrcsId"/>
+        <result column="MOBILE_FLAG" javaType="int" property="mobileFlag"/>
+        <result column="IS_REMIND" javaType="int" property="isRemind"/>
+        <result column="TEMP_PRCS_FLAG" javaType="int" property="tempPrcsFlag"/>
+        <result column="WORKINGDAYS_TYPE" javaType="string" property="workingdaysType"/>
+        <result column="FREE_ITEM" javaType="string" property="freeItem"/>
+        <result column="OTHER_USER" javaType="string" property="otherUser"/>
+        <result column="COMMENT" javaType="string" property="comment"/>
+
+        <!-- 一对一关联 -->
+        <association property="flowRun" column="RUN_ID" javaType="com.xoa.model.workflow.FlowRun" >
+            <result column="RUN_ID" javaType="int" property="runId" />
+            <result column="RUN_NAME" javaType="string" property="runName" />
+            <result column="FLOW_ID" javaType="int" property="flowId" />
+            <result column="BEGIN_USER" javaType="string" property="beginUser" />
+            <result column="BEGIN_DEPT" javaType="int" property="beginDept" />
+            <result column="BEGIN_TIME" javaType="java.sql.Timestamp" property="beginTime" />
+            <result column="END_TIME" javaType="java.sql.Timestamp" property="endTime" />
+            <result column="DEL_FLAG" javaType="string" property="delFlag" />
+            <result column="PARENT_RUN" javaType="int" property="parentRun" />
+            <result column="FROM_USER" javaType="string" property="fromUser" />
+            <result column="ARCHIVE" javaType="int" property="archive" />
+            <result column="work_level" javaType="int" property="workLevel" />
+            <result column="DEL_TIME" javaType="java.sql.Timestamp" property="delTime" />
+            <result column="ATTACHMENT_ID" javaType="string" property="attachmentId" />
+            <result column="ATTACHMENT_NAME" javaType="string" property="attachmentName" />
+            <result column="FOCUS_USER" javaType="string" property="focusUser" />
+            <result column="AIP_FILES" javaType="string" property="aipFiles" />
+            <result column="PRE_SET" javaType="string" property="preSet" />
+            <result column="VIEW_USER" javaType="string" property="viewUser" />
+            <result column="FORCE_OVER" javaType="string" property="forceOver" />
+        </association>
+
+        <!-- 关联设计流程 -->
+        <association property="flowProcess" column="FLOW_ID" javaType="com.xoa.model.workflow.FlowProcess">
+            <id column="ID" javaType="INTEGER" property="id"/>
+            <result column="FLOW_ID" property="flowId" javaType="int"/>
+            <result column="PRCS_ID" property="prcsId" javaType="int"/>
+            <result column="PRCS_TYPE" property="prcsType" javaType="byte"/>
+            <result column="PRCS_NAME" property="prcsName" javaType="string"/>
+            <result column="SET_LEFT" property="setLeft" javaType="int"/>
+            <result column="SET_TOP" property="setTop" javaType="int"/>
+        </association>
+
+    </resultMap>
+    <resultMap id="bun" type="com.xoa.model.workflow.FlowRunPrcs" extends="BaseResultMap">
+        <result column="USER_NAME" property="userName" javaType="string"/>
+    </resultMap>
+    <resultMap id="FLowRunBase" type="com.xoa.model.workflow.FlowRunPrcs" >
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="RUN_ID" javaType="int" property="runId"/>
+        <result column="PRCS_ID" javaType="int" property="prcsId"/>
+        <result column="USER_ID" javaType="string" property="userId"/>
+        <result column="PRCS_TIME" javaType="String" property="prcsTime"/>
+        <result column="DELIVER_TIME" javaType="String" property="deliverTime"/>
+        <result column="PRCS_FLAG" javaType="string" property="prcsFlag"/>
+        <result column="FLOW_PRCS" javaType="int" property="flowPrcs"/>
+        <result column="OP_FLAG" javaType="string" property="opFlag"/>
+        <result column="TOP_FLAG" javaType="string" property="topFlag"/>
+        <result column="PARENT" javaType="string" property="parent"/>
+        <result column="CHILD_RUN" javaType="int" property="childRun"/>
+        <result column="TIME_OUT" javaType="string" property="timeOut"/>
+        <result column="TIME_OUT_TEMP" javaType="string" property="timeOutTemp"/>
+        <result column="TIME_OUT_FLAG" javaType="string" property="timeOutFlag"/>
+        <result column="CREATE_TIME" javaType="string" property="createTime"/>
+        <result column="FROM_USER" javaType="string" property="fromUser"/>
+        <result column="ACTIVE_TIME" javaType="string" property="activeTime"/>
+        <result column="PRCS_DEPT" javaType="int" property="prcsDept"/>
+        <result column="PARENT_PRCS_ID" javaType="string" property="parentPrcsId"/>
+        <result column="BACK_PRCS_ID" javaType="int" property="backPrcsId"/>
+        <result column="BACK_FLOW_PRCS" javaType="int" property="backFlowPrcs"/>
+        <result column="TIME_OUT_ATTEND" javaType="string" property="timeOutAttend"/>
+        <result column="TIME_OUT_TYPE" javaType="Integer" property="timeOutType"/>
+        <result column="RUN_PRCS_NAME" javaType="string" property="runPrcsName"/>
+        <result column="RUN_PRCS_ID" javaType="string" property="runPrcsId"/>
+        <result column="MOBILE_FLAG" javaType="int" property="mobileFlag"/>
+        <result column="IS_REMIND" javaType="int" property="isRemind"/>
+        <result column="TEMP_PRCS_FLAG" javaType="int" property="tempPrcsFlag"/>
+        <result column="WORKINGDAYS_TYPE" javaType="string" property="workingdaysType"/>
+        <result column="FREE_ITEM" javaType="string" property="freeItem"/>
+        <result column="OTHER_USER" javaType="string" property="otherUser"/>
+        <result column="COMMENT" javaType="string" property="comment"/>
+        <result column="USER_NAME" property="userName" javaType="string"/>
+        <result column="PRCS_NAME" property="prcsName" javaType="string"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, RUN_ID, PRCS_ID, USER_ID, PRCS_TIME, DELIVER_TIME, PRCS_FLAG, FLOW_PRCS, OP_FLAG, 
+    TOP_FLAG, PARENT, CHILD_RUN, TIME_OUT, TIME_OUT_TEMP, TIME_OUT_FLAG, CREATE_TIME, 
+    FROM_USER, ACTIVE_TIME, PRCS_DEPT, PARENT_PRCS_ID, BACK_PRCS_ID, BACK_FLOW_PRCS, 
+    TIME_OUT_ATTEND, TIME_OUT_TYPE, RUN_PRCS_NAME, RUN_PRCS_ID, MOBILE_FLAG, IS_REMIND, 
+    TEMP_PRCS_FLAG, WORKINGDAYS_TYPE
+  </sql>
+    <sql id="Blob_Column_List">
+    FREE_ITEM, OTHER_USER, COMMENT
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from flow_run_prcs
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from flow_run_prcs
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+   <insert id="insert" parameterType="com.xoa.model.workflow.FlowRunPrcs" >
+    insert into flow_run_prcs (RUN_ID, PRCS_ID, 
+      USER_ID, PRCS_TIME, DELIVER_TIME, 
+      PRCS_FLAG, FLOW_PRCS, OP_FLAG, 
+      TOP_FLAG, PARENT, CHILD_RUN, 
+      TIME_OUT, TIME_OUT_TEMP, TIME_OUT_FLAG, 
+      CREATE_TIME, FROM_USER, ACTIVE_TIME, 
+      PRCS_DEPT, PARENT_PRCS_ID, BACK_PRCS_ID, 
+      BACK_FLOW_PRCS, TIME_OUT_ATTEND, TIME_OUT_TYPE, 
+      RUN_PRCS_NAME, RUN_PRCS_ID, MOBILE_FLAG, 
+      IS_REMIND, TEMP_PRCS_FLAG, WORKINGDAYS_TYPE, 
+      FREE_ITEM, OTHER_USER, COMMENT
+      )
+    values ( #{runId}, #{prcsId}, 
+      #{userId}, #{prcsTime}, #{deliverTime}, 
+      #{prcsFlag}, #{flowPrcs}, #{opFlag}, 
+      #{topFlag}, #{parent}, #{childRun}, 
+      #{timeOut}, #{timeOutTemp}, #{timeOutFlag}, 
+      #{createTime}, #{fromUser}, #{activeTime}, 
+      #{prcsDept}, #{parentPrcsId}, #{backPrcsId}, 
+      #{backFlowPrcs}, #{timeOutAttend}, #{timeOutType}, 
+      #{runPrcsName}, #{runPrcsId}, #{mobileFlag}, 
+      #{isRemind}, #{tempPrcsFlag}, #{workingdaysType}, 
+      #{freeItem}, #{otherUser}, #{comment}
+      )
+  </insert>
+   <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowRunPrcs">
+    insert into flow_run_prcs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="runId != null">
+        RUN_ID,
+      </if>
+      <if test="prcsId != null">
+        PRCS_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="prcsTime != null">
+        PRCS_TIME,
+      </if>
+      <if test="deliverTime != null">
+        DELIVER_TIME,
+      </if>
+      <if test="prcsFlag != null">
+        PRCS_FLAG,
+      </if>
+      <if test="flowPrcs != null">
+        FLOW_PRCS,
+      </if>
+      <if test="opFlag != null">
+        OP_FLAG,
+      </if>
+      <if test="topFlag != null">
+        TOP_FLAG,
+      </if>
+      <if test="parent != null">
+        PARENT,
+      </if>
+      <if test="childRun != null">
+        CHILD_RUN,
+      </if>
+      <if test="timeOut != null">
+        TIME_OUT,
+      </if>
+      <if test="timeOutTemp != null">
+        TIME_OUT_TEMP,
+      </if>
+      <if test="timeOutFlag != null">
+        TIME_OUT_FLAG,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="fromUser != null">
+        FROM_USER,
+      </if>
+      <if test="activeTime != null">
+        ACTIVE_TIME,
+      </if>
+      <if test="prcsDept != null">
+        PRCS_DEPT,
+      </if>
+      <if test="parentPrcsId != null">
+        PARENT_PRCS_ID,
+      </if>
+      <if test="backPrcsId != null">
+        BACK_PRCS_ID,
+      </if>
+      <if test="backFlowPrcs != null">
+        BACK_FLOW_PRCS,
+      </if>
+      <if test="timeOutAttend != null">
+        TIME_OUT_ATTEND,
+      </if>
+      <if test="timeOutType != null">
+        TIME_OUT_TYPE,
+      </if>
+      <if test="runPrcsName != null">
+        RUN_PRCS_NAME,
+      </if>
+      <if test="runPrcsId != null">
+        RUN_PRCS_ID,
+      </if>
+      <if test="mobileFlag != null">
+        MOBILE_FLAG,
+      </if>
+      <if test="isRemind != null">
+        IS_REMIND,
+      </if>
+      <if test="tempPrcsFlag != null">
+        TEMP_PRCS_FLAG,
+      </if>
+      <if test="workingdaysType != null">
+        WORKINGDAYS_TYPE,
+      </if>
+      <if test="freeItem != null">
+        FREE_ITEM,
+      </if>
+      <if test="otherUser != null">
+        OTHER_USER,
+      </if>
+      <if test="comment != null">
+        COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="runId != null">
+        #{runId},
+      </if>
+      <if test="prcsId != null">
+        #{prcsId},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="prcsTime != null">
+        #{prcsTime},
+      </if>
+      <if test="deliverTime != null">
+        #{deliverTime},
+      </if>
+      <if test="prcsFlag != null">
+        #{prcsFlag},
+      </if>
+      <if test="flowPrcs != null">
+        #{flowPrcs},
+      </if>
+      <if test="opFlag != null">
+        #{opFlag},
+      </if>
+      <if test="topFlag != null">
+        #{topFlag},
+      </if>
+      <if test="parent != null">
+        #{parent},
+      </if>
+      <if test="childRun != null">
+        #{childRun},
+      </if>
+      <if test="timeOut != null">
+        #{timeOut},
+      </if>
+      <if test="timeOutTemp != null">
+        #{timeOutTemp},
+      </if>
+      <if test="timeOutFlag != null">
+        #{timeOutFlag},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="fromUser != null">
+        #{fromUser},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime},
+      </if>
+      <if test="prcsDept != null">
+        #{prcsDept},
+      </if>
+      <if test="parentPrcsId != null">
+        #{parentPrcsId},
+      </if>
+      <if test="backPrcsId != null">
+        #{backPrcsId},
+      </if>
+      <if test="backFlowPrcs != null">
+        #{backFlowPrcs},
+      </if>
+      <if test="timeOutAttend != null">
+        #{timeOutAttend},
+      </if>
+      <if test="timeOutType != null">
+        #{timeOutType},
+      </if>
+      <if test="runPrcsName != null">
+        #{runPrcsName},
+      </if>
+      <if test="runPrcsId != null">
+        #{runPrcsId},
+      </if>
+      <if test="mobileFlag != null">
+        #{mobileFlag},
+      </if>
+      <if test="isRemind != null">
+        #{isRemind},
+      </if>
+      <if test="tempPrcsFlag != null">
+        #{tempPrcsFlag},
+      </if>
+      <if test="workingdaysType != null">
+        #{workingdaysType},
+      </if>
+      <if test="freeItem != null">
+        #{freeItem},
+      </if>
+      <if test="otherUser != null">
+        #{otherUser},
+      </if>
+      <if test="comment != null">
+        #{comment},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FlowRunPrcsExcted">
+        update flow_run_prcs
+        <set>
+            <if test="runId != null">
+                RUN_ID = #{runId},
+            </if>
+            <if test="prcsId != null">
+                PRCS_ID = #{prcsId},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId},
+            </if>
+            <if test="prcsTime != null">
+                PRCS_TIME = #{prcsTime},
+            </if>
+            <if test="deliverTime != null">
+                DELIVER_TIME = #{deliverTime},
+            </if>
+            <if test="prcsFlag != null">
+                PRCS_FLAG = #{prcsFlag},
+            </if>
+            <if test="flowPrcs != null">
+                FLOW_PRCS = #{flowPrcs},
+            </if>
+            <if test="opFlag != null">
+                OP_FLAG = #{opFlag},
+            </if>
+            <if test="topFlag != null">
+                TOP_FLAG = #{topFlag},
+            </if>
+            <if test="parent != null">
+                PARENT = #{parent},
+            </if>
+            <if test="childRun != null">
+                CHILD_RUN = #{childRun},
+            </if>
+            <if test="timeOut != null">
+                TIME_OUT = #{timeOut},
+            </if>
+            <if test="timeOutTemp != null">
+                TIME_OUT_TEMP = #{timeOutTemp},
+            </if>
+            <if test="timeOutFlag != null">
+                TIME_OUT_FLAG = #{timeOutFlag},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+            <if test="fromUser != null">
+                FROM_USER = #{fromUser},
+            </if>
+            <if test="activeTime != null">
+                ACTIVE_TIME = #{activeTime},
+            </if>
+            <if test="prcsDept != null">
+                PRCS_DEPT = #{prcsDept},
+            </if>
+            <if test="parentPrcsId != null">
+                PARENT_PRCS_ID = #{parentPrcsId},
+            </if>
+            <if test="backPrcsId != null">
+                BACK_PRCS_ID = #{backPrcsId},
+            </if>
+            <if test="backFlowPrcs != null">
+                BACK_FLOW_PRCS = #{backFlowPrcs},
+            </if>
+            <if test="timeOutAttend != null">
+                TIME_OUT_ATTEND = #{timeOutAttend},
+            </if>
+            <if test="timeOutType != null">
+                TIME_OUT_TYPE = #{timeOutType},
+            </if>
+            <if test="runPrcsName != null">
+                RUN_PRCS_NAME = #{runPrcsName},
+            </if>
+            <if test="runPrcsId != null">
+                RUN_PRCS_ID = #{runPrcsId},
+            </if>
+            <if test="mobileFlag != null">
+                MOBILE_FLAG = #{mobileFlag},
+            </if>
+            <if test="isRemind != null">
+                IS_REMIND = #{isRemind},
+            </if>
+            <if test="tempPrcsFlag != null">
+                TEMP_PRCS_FLAG = #{tempPrcsFlag},
+            </if>
+            <if test="workingdaysType != null">
+                WORKINGDAYS_TYPE = #{workingdaysType},
+            </if>
+            <if test="freeItem != null">
+                FREE_ITEM = #{freeItem},
+            </if>
+            <if test="otherUser != null">
+                OTHER_USER = #{otherUser},
+            </if>
+            <if test="comment != null">
+                COMMENT = #{comment},
+            </if>
+        </set>
+        where RUN_ID = #{runId} AND  PRCS_ID = #{prcsId}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.workflow.FlowRunPrcs">
+    update flow_run_prcs
+    set RUN_ID = #{runId,jdbcType=INTEGER},
+      PRCS_ID = #{prcsId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      PRCS_TIME = #{prcsTime,jdbcType=TIMESTAMP},
+      DELIVER_TIME = #{deliverTime,jdbcType=TIMESTAMP},
+      PRCS_FLAG = #{prcsFlag,jdbcType=CHAR},
+      FLOW_PRCS = #{flowPrcs,jdbcType=INTEGER},
+      OP_FLAG = #{opFlag,jdbcType=VARCHAR},
+      TOP_FLAG = #{topFlag,jdbcType=VARCHAR},
+      PARENT = #{parent,jdbcType=VARCHAR},
+      CHILD_RUN = #{childRun,jdbcType=INTEGER},
+      TIME_OUT = #{timeOut,jdbcType=VARCHAR},
+      TIME_OUT_TEMP = #{timeOutTemp,jdbcType=VARCHAR},
+      TIME_OUT_FLAG = #{timeOutFlag,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      FROM_USER = #{fromUser,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{activeTime,jdbcType=TIMESTAMP},
+      PRCS_DEPT = #{prcsDept,jdbcType=INTEGER},
+      PARENT_PRCS_ID = #{parentPrcsId,jdbcType=VARCHAR},
+      BACK_PRCS_ID = #{backPrcsId,jdbcType=INTEGER},
+      BACK_FLOW_PRCS = #{backFlowPrcs,jdbcType=INTEGER},
+      TIME_OUT_ATTEND = #{timeOutAttend,jdbcType=TINYINT},
+      TIME_OUT_TYPE = #{timeOutType,jdbcType=TINYINT},
+      RUN_PRCS_NAME = #{runPrcsName,jdbcType=VARCHAR},
+      RUN_PRCS_ID = #{runPrcsId,jdbcType=VARCHAR},
+      MOBILE_FLAG = #{mobileFlag,jdbcType=BIT},
+      IS_REMIND = #{isRemind,jdbcType=INTEGER},
+      TEMP_PRCS_FLAG = #{tempPrcsFlag,jdbcType=BIT},
+      WORKINGDAYS_TYPE = #{workingdaysType,jdbcType=CHAR},
+      FREE_ITEM = #{freeItem,jdbcType=LONGVARCHAR},
+      OTHER_USER = #{otherUser,jdbcType=LONGVARCHAR},
+      COMMENT = #{comment,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FlowRunPrcs">
+    update flow_run_prcs
+    set RUN_ID = #{runId,jdbcType=INTEGER},
+      PRCS_ID = #{prcsId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      PRCS_TIME = #{prcsTime,jdbcType=TIMESTAMP},
+      DELIVER_TIME = #{deliverTime,jdbcType=TIMESTAMP},
+      PRCS_FLAG = #{prcsFlag,jdbcType=CHAR},
+      FLOW_PRCS = #{flowPrcs,jdbcType=INTEGER},
+      OP_FLAG = #{opFlag,jdbcType=VARCHAR},
+      TOP_FLAG = #{topFlag,jdbcType=VARCHAR},
+      PARENT = #{parent,jdbcType=VARCHAR},
+      CHILD_RUN = #{childRun,jdbcType=INTEGER},
+      TIME_OUT = #{timeOut,jdbcType=VARCHAR},
+      TIME_OUT_TEMP = #{timeOutTemp,jdbcType=VARCHAR},
+      TIME_OUT_FLAG = #{timeOutFlag,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      FROM_USER = #{fromUser,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{activeTime,jdbcType=TIMESTAMP},
+      PRCS_DEPT = #{prcsDept,jdbcType=INTEGER},
+      PARENT_PRCS_ID = #{parentPrcsId,jdbcType=VARCHAR},
+      BACK_PRCS_ID = #{backPrcsId,jdbcType=INTEGER},
+      BACK_FLOW_PRCS = #{backFlowPrcs,jdbcType=INTEGER},
+      TIME_OUT_ATTEND = #{timeOutAttend,jdbcType=TINYINT},
+      TIME_OUT_TYPE = #{timeOutType,jdbcType=TINYINT},
+      RUN_PRCS_NAME = #{runPrcsName,jdbcType=VARCHAR},
+      RUN_PRCS_ID = #{runPrcsId,jdbcType=VARCHAR},
+      MOBILE_FLAG = #{mobileFlag,jdbcType=BIT},
+      IS_REMIND = #{isRemind,jdbcType=INTEGER},
+      TEMP_PRCS_FLAG = #{tempPrcsFlag,jdbcType=BIT},
+      WORKINGDAYS_TYPE = #{workingdaysType,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!-- 根据流程实例Id和流程实例步骤id查询 -->
+    <select id="selectfrp" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        frp.ID,
+        frp.USER_ID,
+        u.USER_NAME,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp,USER u
+        WHERE
+         frp.PRCS_ID = #{prcsId}
+        AND frp.RUN_ID = #{runId} AND frp.USER_ID = u.USER_ID
+    </select>
+
+    <!-- 根据流程实例Id和流程实例步骤id查询 -->
+    <select id="findlessRunId" resultMap="bun" parameterType="Map">
+        SELECT
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT,
+        fr.FLOW_ID,
+        fp.PRCS_NAME,
+        u.USER_NAME
+        FROM
+        FLOW_RUN_PRCS frp,flow_run fr,flow_process fp,USER u
+        WHERE
+        frp.PRCS_ID &lt; #{prcsId}
+        AND frp.RUN_ID = #{runId}
+        AND frp.RUN_ID=fr.RUN_ID
+        AND frp.FLOW_PRCS=fp.PRCS_ID
+        AND fr.FLOW_ID=fp.FLOW_ID
+        AND u.USER_ID=frp.USER_ID
+    </select>
+
+    <!-- 查询待办工作 -->
+    <select id="selectObjcet" resultMap="BaseResultMap" parameterType="Map">
+    SELECT
+    fr.RUN_ID,
+    fr.WORK_LEVEL,
+    fr.FLOW_ID,
+    fr.RUN_NAME,
+    fr.BEGIN_USER,
+    fr.BEGIN_DEPT,
+    frp.ID,
+    frp.USER_ID,
+    frp.PRCS_ID,
+    frp.FLOW_PRCS,
+    frp.COMMENT,
+    frp.OP_FLAG,
+    frp.TOP_FLAG,
+    frp.PRCS_FLAG,
+    frp.TIME_OUT_FLAG,
+    frp.PRCS_TIME,
+    frp.CREATE_TIME,
+    frp.DELIVER_TIME,
+    frp.TIME_OUT_TYPE,
+    frp.TIME_OUT_ATTEND,
+    frp.IS_REMIND,
+    frp.TIME_OUT
+    FROM
+    FLOW_RUN_PRCS frp
+    INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+    INNER JOIN flow_type ft ON ft.FLOW_ID= fr.FLOW_ID
+    INNER JOIN flow_sort fs ON fs.SORT_ID = ft.FLOW_SORT AND (fs.SORT_MAIN_TYPE='0' OR fs.SORT_MAIN_TYPE='')
+    WHERE
+    frp.PRCS_FLAG IN ('1', '2')
+    AND frp.CHILD_RUN ='0'
+    AND frp.USER_ID=#{userId}
+    AND fr.DEL_FLAG = '0'
+    <if test="myworkconditions != null and myworkconditions != ''">
+        AND (fr.RUN_NAME LIKE #{myworkconditions}
+        OR fr.RUN_ID LIKE #{myworkconditions})
+    </if>
+
+    GROUP BY fr.RUN_ID
+    ORDER BY
+    frp.IS_REMIND DESC,
+    frp.RUN_ID DESC,
+    fr.WORK_LEVEL DESC
+  </select>
+
+    <!-- 查询办结工作 -->
+    <select id="selectEnd" resultMap="BaseResultMap" parameterType="Map">
+    SELECT
+    fr.RUN_ID,
+    fr.WORK_LEVEL,
+    fr.FLOW_ID,
+    fr.RUN_NAME,
+    fr.BEGIN_USER,
+    fr.BEGIN_DEPT,
+    frp.ID,
+    frp.USER_ID,
+    frp.PRCS_ID,
+    frp.FLOW_PRCS,
+    frp.COMMENT,
+    frp.OP_FLAG,
+    frp.TOP_FLAG,
+    frp.PRCS_FLAG,
+    frp.TIME_OUT_FLAG,
+    frp.PRCS_TIME,
+    frp.CREATE_TIME,
+    frp.DELIVER_TIME,
+    frp.TIME_OUT_TYPE,
+    frp.TIME_OUT_ATTEND,
+    frp.IS_REMIND,
+    frp.TIME_OUT
+    FROM
+    FLOW_RUN_PRCS frp
+    INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+    INNER JOIN flow_type ft ON ft.FLOW_ID= fr.FLOW_ID
+    INNER JOIN flow_sort fs ON fs.SORT_ID = ft.FLOW_SORT AND (fs.SORT_MAIN_TYPE='0' OR fs.SORT_MAIN_TYPE='')
+    where
+      frp.PRCS_FLAG in('3','4')
+    AND frp.CHILD_RUN = '0'
+    AND frp.USER_ID=#{userId}
+    AND fr.DEL_FLAG = '0'
+
+    <if test="myworkconditions != null and myworkconditions != ''">
+        AND (fr.RUN_NAME LIKE #{myworkconditions}
+        OR fr.RUN_ID LIKE #{myworkconditions})
+    </if>
+
+    ORDER BY
+    frp.IS_REMIND DESC,
+    frp.RUN_ID DESC,
+    frp.PRCS_ID DESC,
+    fr.WORK_LEVEL DESC
+  </select>
+    <!-- AND frp.PRCS_TIME in (SELECT MAX(PRCS_TIME) from FLOW_RUN_PRCS GROUP BY RUN_ID)
+    GROUP BY fr.RUN_ID -->
+    <!-- 查询挂起工作 -->
+    <select id="selectHang" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        fr.RUN_ID,
+        fr.WORK_LEVEL,
+        fr.FLOW_ID,
+        fr.RUN_NAME,
+        fr.BEGIN_USER,
+        fr.BEGIN_DEPT,
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp
+        INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+        INNER JOIN flow_type ft ON ft.FLOW_ID= fr.FLOW_ID
+        INNER JOIN flow_sort fs ON fs.SORT_ID = ft.FLOW_SORT AND (fs.SORT_MAIN_TYPE='0' OR fs.SORT_MAIN_TYPE='')
+        where
+        frp.PRCS_FLAG = '6'
+        AND frp.CHILD_RUN = '0'
+        AND frp.USER_ID=#{userId}
+        AND fr.DEL_FLAG = '0'
+        <if test="myworkconditions != null and myworkconditions != ''">
+            AND (fr.RUN_NAME LIKE #{myworkconditions}
+            OR fr.RUN_ID LIKE #{myworkconditions})
+        </if>
+        GROUP BY fr.RUN_ID
+        ORDER BY
+        frp.IS_REMIND DESC,
+        frp.RUN_ID DESC,
+        fr.WORK_LEVEL DESC
+    </select>
+
+
+    <!-- 查询所有工作 -->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        fr.RUN_ID,
+        fr.WORK_LEVEL,
+        fr.FLOW_ID,
+        fr.RUN_NAME,
+        fr.BEGIN_USER,
+        fr.BEGIN_DEPT,
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp
+        INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+        INNER JOIN flow_type ft ON ft.FLOW_ID= fr.FLOW_ID
+        INNER JOIN flow_sort fs ON fs.SORT_ID = ft.FLOW_SORT AND (fs.SORT_MAIN_TYPE='0' OR fs.SORT_MAIN_TYPE='')
+        where
+         frp.CHILD_RUN = '0'
+        AND frp.USER_ID=#{userId}
+        AND fr.DEL_FLAG = '0'
+        <if test="myworkconditions != null and myworkconditions != ''">
+            AND (fr.RUN_NAME LIKE #{myworkconditions}
+            OR fr.RUN_ID LIKE #{myworkconditions})
+        </if>
+        ORDER BY
+        frp.IS_REMIND DESC,
+        frp.RUN_ID DESC,
+        fr.WORK_LEVEL DESC,
+        frp.PRCS_ID DESC
+    </select>
+
+
+    <!-- 查询委托工作 -->
+    <select id="entrustWork" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        fr.RUN_ID,
+        fr.WORK_LEVEL,
+        fr.FLOW_ID,
+        fr.RUN_NAME,
+        fr.BEGIN_USER,
+        fr.BEGIN_DEPT,
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp
+        INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+        INNER JOIN flow_type ft ON ft.FLOW_ID= fr.FLOW_ID
+        INNER JOIN flow_sort fs ON fs.SORT_ID = ft.FLOW_SORT AND (fs.SORT_MAIN_TYPE='0' OR fs.SORT_MAIN_TYPE='')
+        where
+        frp.CHILD_RUN = '0'
+        AND frp.USER_ID=#{userId}
+        AND fr.DEL_FLAG = '0'
+        AND frp.OTHER_USER !=''
+        <if test="myworkconditions != null and myworkconditions != ''">
+            AND (fr.RUN_NAME LIKE #{myworkconditions}
+            OR fr.RUN_ID LIKE #{myworkconditions})
+        </if>
+        ORDER BY
+        frp.IS_REMIND DESC,
+        frp.RUN_ID DESC,
+        fr.WORK_LEVEL DESC,
+        frp.PRCS_ID DESC
+    </select>
+
+
+    <!-- 查询关联部门实际步骤 -->
+    <select id="findTime" resultType="String">
+        SELECT
+            fpr.DELIVER_TIME
+        FROM
+            flow_run_prcs fpr
+        WHERE
+           fpr.PRCS_ID = #{prcsId}
+        AND
+           fpr.RUN_ID = #{runId}
+    </select>
+
+
+    <select id="findByRunId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        flow_run_prcs
+        WHERE
+        RUN_ID = #{runId}
+    </select>
+
+    <update id="updateSome" parameterType="Map">
+        update flow_run_prcs
+        <set>
+        <if test="prcsFlag != null">
+            PRCS_FLAG = #{prcsFlag},
+        </if>
+        <if test="deliverTime != null">
+            DELIVER_TIME = #{deliverTime},
+        </if>
+        <if test="prcsTime != null">
+            PRCS_TIME = #{prcsTime},
+        </if>
+        <if test="opFlag != null">
+            OP_FLAG = #{opFlag},
+        </if>
+        </set>
+       where RUN_ID = #{runId} AND  PRCS_ID = #{prcsId}
+    </update>
+
+    <!-- 我的工作若为第一步删除 -->
+    <delete id="deleteWork" parameterType="com.xoa.model.workflow.FlowRunPrcs">
+        DELETE FROM  flow_run_prcs
+         WHERE ID = #{id}
+         AND
+          USER_ID = #{userId}
+
+    </delete>
+
+    <!-- 查询步骤是否为第一步 -->
+    <select id="selectPrcs" resultType="Integer">
+        SELECT  PRCS_ID
+         FROM flow_run_prcs
+         WHERE ID = #{id}
+    </select>
+
+    <!-- 查询当前流程的所有步骤 -->
+    <select id="selectMyAll" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        fr.RUN_ID,
+        fr.WORK_LEVEL,
+        fr.FLOW_ID,
+        fr.RUN_NAME,
+        fr.BEGIN_USER,
+        fr.BEGIN_DEPT,
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp
+        INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+        where
+        frp.CHILD_RUN = '0'
+        AND frp.USER_ID=#{userId}
+        AND fr.RUN_ID = #{runId}
+        AND fr.DEL_FLAG = '0'
+        ORDER BY
+        frp.IS_REMIND DESC,
+        frp.RUN_ID DESC,
+        fr.WORK_LEVEL DESC
+    </select>
+    <select id="selectAllByRunId" resultMap="BaseResultMap" parameterType="Map">
+          SELECT
+        fr.RUN_ID,
+        fr.WORK_LEVEL,
+        fr.FLOW_ID,
+        fr.RUN_NAME,
+        fr.BEGIN_USER,
+        fr.BEGIN_DEPT,
+        frp.ID,
+        frp.USER_ID,
+        frp.PRCS_ID,
+        frp.FLOW_PRCS,
+        frp.COMMENT,
+        frp.OP_FLAG,
+        frp.TOP_FLAG,
+        frp.PRCS_FLAG,
+        frp.TIME_OUT_FLAG,
+        frp.PRCS_TIME,
+        frp.CREATE_TIME,
+        frp.DELIVER_TIME,
+        frp.TIME_OUT_TYPE,
+        frp.TIME_OUT_ATTEND,
+        frp.IS_REMIND,
+        frp.TIME_OUT
+        FROM
+        FLOW_RUN_PRCS frp
+        INNER JOIN FLOW_RUN  fr ON fr.RUN_ID = frp.RUN_ID
+        where
+        frp.CHILD_RUN = '0'
+        AND fr.RUN_ID = #{runId}
+        AND fr.DEL_FLAG = '0'
+        ORDER BY
+        frp.IS_REMIND DESC,
+        frp.RUN_ID DESC,
+        fr.WORK_LEVEL DESC
+    </select>
+<select id="getFlowRunReacsAllByRunId" resultMap="FLowRunBase" parameterType="String">
+    select frp.*,fp.PRCS_NAME,u.USER_NAME from flow_run_prcs frp
+  INNER JOIN flow_run fr ON fr.RUN_ID = frp.RUN_ID
+  INNER JOIN flow_process fp ON frp.FLOW_PRCS=fp.PRCS_ID AND fr.FLOW_ID=fp.FLOW_ID
+  INNER JOIN `user` u ON u.USER_ID=frp.USER_ID
+   WHERE frp.RUN_ID=#{runId}
+</select>
+    <select id="selectqueryByRunId" resultMap="FLowRunBase">
+        SELECT * FROM flow_run_prcs   WHERE flow_run_prcs.RUN_ID=#{runId} and  flow_run_prcs.FLOW_PRCS=#{prcsId}
+    </select>
+    <delete id="cancelRunPrcs" parameterType="Map">
+        DELETE FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID=#{runId}
+    </delete>
+    <select id="queryByRunId" resultMap="FLowRunBase">
+        SELECT * FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID=#{runId} ORDER BY flow_run_prcs.FLOW_PRCS DESC LIMIT 1
+    </select>
+
+
+
+    <delete id="deleteByRunIds" parameterType="int">
+        DELETE FROM flow_run_prcs  where RUN_ID in
+        <foreach collection="list" index="index"  item="runIds" open="(" separator="," close=")">
+            #{runIds}
+        </foreach>
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-lazy-init="true">
+	<context:component-scan base-package="com.xoa.*" />
+	<context:property-placeholder location="classpath:jdbc-sql.properties" />
+    <!--dmDburl=jdbc:dm://192.168.0.24:5236/xoa-->
+    <!--dmDbusername=SYSDBA-->
+    <!--dmDbpassword=gaosubo3000-->
+	<!-- mysql -->
+	<bean id="xoa1001" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url1001}" />
+		<property name="username" value="${uname1001}" />
+		<property name="password" value="${password1001}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+
+    </bean>
+    <!-- mysql -->
+    <bean id="xoa1002" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1002}" />
+        <property name="username" value="${uname1002}" />
+        <property name="password" value="${password1002}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+    
+      <bean id="xoa1003" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1003}" />
+        <property name="username" value="${uname1003}" />
+        <property name="password" value="${password1003}" />
+          <!-- 初始化连接大小 -->
+          <property name="initialSize" value="${initialSize}" />
+          <!-- 连接池最大使用连接数量 -->
+          <property name="maxActive" value="${maxActive}" />
+          <!-- 连接池最小空闲 -->
+          <property name="minIdle" value="${minIdle}" />
+          <!-- 获取连接最大等待时间 -->
+          <property name="maxWait" value="${maxWait}" />
+
+          <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+          <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+          <property name="validationQuery" value="${validationQuery}" />
+          <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+          <property name="testOnBorrow" value="${testOnBorrow}" />
+          <property name="testOnReturn" value="${testOnReturn}" />
+          <property name="testWhileIdle" value="${testWhileIdle}" />
+
+          <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+          <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+          <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+          <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+          <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+          <property name="removeAbandoned" value="${removeAbandoned}" />
+          <!-- 超时时间1800秒，也就是30分钟 -->
+          <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+          <!-- 关闭abanded连接时输出错误日志 -->
+          <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+<bean id="xoa1004" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1004}" />
+        <property name="username" value="${uname1004}" />
+        <property name="password" value="${password1004}" />
+    <!-- 初始化连接大小 -->
+    <property name="initialSize" value="${initialSize}" />
+    <!-- 连接池最大使用连接数量 -->
+    <property name="maxActive" value="${maxActive}" />
+    <!-- 连接池最小空闲 -->
+    <property name="minIdle" value="${minIdle}" />
+    <!-- 获取连接最大等待时间 -->
+    <property name="maxWait" value="${maxWait}" />
+
+    <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+    <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+    <property name="validationQuery" value="${validationQuery}" />
+    <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+    <property name="testOnBorrow" value="${testOnBorrow}" />
+    <property name="testOnReturn" value="${testOnReturn}" />
+    <property name="testWhileIdle" value="${testWhileIdle}" />
+
+    <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+    <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+    <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+    <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+    <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+    <property name="removeAbandoned" value="${removeAbandoned}" />
+    <!-- 超时时间1800秒，也就是30分钟 -->
+    <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+    <!-- 关闭abanded连接时输出错误日志 -->
+    <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+    
+    <bean id="xoa1005" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1005}" />
+        <property name="username" value="${uname1005}" />
+        <property name="password" value="${password1005}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+    <bean id="xoa1006" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1006}" />
+        <property name="username" value="${uname1006}" />
+        <property name="password" value="${password1006}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+    <bean id="xoa1007" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1007}" />
+        <property name="username" value="${uname1007}" />
+        <property name="password" value="${password1007}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+    <bean id="xoa1008" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1008}" />
+        <property name="username" value="${uname1008}" />
+        <property name="password" value="${password1008}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+    <bean id="xoa1009" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1009}" />
+        <property name="username" value="${uname1009}" />
+        <property name="password" value="${password1009}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+    <bean id="xoa1010" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url1010}" />
+        <property name="username" value="${uname1010}" />
+        <property name="password" value="${password1010}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+
+
+
+
+
+    <!-- oracle -->
+    <!--<bean id="oracleDataSources" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass" value="${oracle.driverClassName}" />
+        <property name="jdbcUrl" value="${oracle.url}" />
+        <property name="user" value="${oracle.uname}" />
+        <property name="password" value="${oracle.password}" />
+        <property name="maxPoolSize" value="${maxPoolSize}" />
+        <property name="minPoolSize" value="${minPoolSize}" />
+        <property name="initialPoolSize" value="${initialPoolSize}" />
+        <property name="maxIdleTime" value="${maxIdleTime}" />
+        <property name="checkoutTimeout" value="${checkoutTimeout}" />
+        <property name="acquireIncrement" value="${acquireIncrement}" />
+        <property name="acquireRetryAttempts" value="${acquireRetryAttempts}" />
+        <property name="acquireRetryDelay" value="${acquireRetryDelay}" />
+        <property name="autoCommitOnClose" value="${autoCommitOnClose}" />
+    </bean>-->
+
+    <!--<bean id="dynDatasources" class="com.xoa.util.dataSource.DynDatasources">-->
+    <bean id="dynDatasources" class="com.xoa.util.dataSource.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="xoa1001" value-ref="xoa1001" />
+                <entry key="xoa1002" value-ref="xoa1002"/>
+                <entry key="xoa1003" value-ref="xoa1003"/>
+                <entry key="xoa1004" value-ref="xoa1004"/>
+                <entry key="xoa1005" value-ref="xoa1005"/>
+                <entry key="xoa1006" value-ref="xoa1006"/>
+                <entry key="xoa1007" value-ref="xoa1007"/>
+                <entry key="xoa1008" value-ref="xoa1008"/>
+                <entry key="xoa1009" value-ref="xoa1009"/>
+                <entry key="xoa1010" value-ref="xoa1010"/>
+                <!--<entry key="oracleDataSources" value-ref="oracleDataSources" />-->
+            </map>
+        </property>
+        <!-- 默认为mysql -->
+        <property name="defaultTargetDataSource" ref="xoa1001" />
+    </bean>
+    <bean id="vendorProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="SQLServer">sqlserver</prop>
+                <prop key="DB2">db2</prop>
+                <prop key="Oracle">oracle</prop>
+                <prop key="MySQL">mysql</prop>
+                <prop key="DM">dm</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+        <property name="properties" ref="vendorProperties"/>
+    </bean>
+		<!-- 配置sql会话工厂：SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dynDatasources" />
+        <property name="databaseIdProvider" ref="databaseIdProvider" />
+		<property name="mapperLocations" value="classpath:com/xoa/mapping/**/*.xml" />
+		<property name="configLocation" value="classpath:config/spring/mybatis-config.xml" /> 
+	</bean>
+	
+	 <!--<bean id="myInspectDatasource" class="com.xoa.util.dataSource.MyInspectDatasource" />-->
+	<aop:aspectj-autoproxy />
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xoa.dao.**" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean" />
+	</bean>
+
+
+
+    <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="2"/>
+        <property name="keepAliveSeconds" value="200"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="60"/>
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dynDatasources" />
+    </bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>
+</beans>

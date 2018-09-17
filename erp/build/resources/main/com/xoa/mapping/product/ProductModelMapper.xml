@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.product.ProductModelMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xoa.model.product.ProductModel" >
+
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="product_unit" property="productUnit" jdbcType="VARCHAR" />
+    <result column="costprice" property="costprice" jdbcType="FLOAT" />
+    <result column="sellingprice" property="sellingprice" jdbcType="FLOAT" />
+    <result column="profile" property="profile" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="attach" property="attach" jdbcType="VARCHAR" />
+    <result column="createusername" property="createuser" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p.id, p.name, p.num, pb.name as brand_id,pu.name AS product_unit,p.sellingprice,p.costprice, p.profile, p.image, p.attach,u.realname as createuser,
+    DATE_FORMAT(p.createtime , '%Y-%m-%d %T') as createtime
+  </sql>
+  <sql id="Base_where_List" >
+    <where>
+      <if test="name != null" >
+        name LIKE CONCAT('%','${name}','%')
+      </if>
+      <if test="num != null" >
+        num LIKE CONCAT('%','${num}','%')
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="productUnit != null" >
+        product_unit = #{productUnit,jdbcType=INTEGER},
+      </if>
+
+      <if test="sellingprice != null" >
+        sellingprice LIKE CONCAT('%','${sellingprice}','%')
+      </if>
+
+      <if test="costprice != null" >
+        costprice LIKE CONCAT('%','${costprice}','%')
+      </if>
+
+      <if test="profile != null" >
+        profile LIKE CONCAT('%','${profile}','%')
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+
+    <if test="search != null" >
+       p.id LIKE CONCAT('%','${search}','%') OR p.name LIKE CONCAT('%','${search}','%')
+    </if>
+      <if test="beginRow != null and pageSize != null" >
+        and p.id LIMIT  #{beginRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </where>
+  </sql>
+
+  <sql id="Base_where_List1" >
+    <where>
+      <if test="name != null" >
+        name LIKE CONCAT('%','${name}','%')
+      </if>
+      <if test="num != null" >
+        num LIKE CONCAT('%','${num}','%')
+
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="productUnit != null" >
+        product_unit = #{productUnit,jdbcType=INTEGER},
+      </if>
+
+      <if test="sellingprice != null" >
+        sellingprice LIKE CONCAT('%','${sellingprice}','%')
+      </if>
+
+      <if test="costprice != null" >
+        costprice LIKE CONCAT('%','${costprice}','%')
+      </if>
+
+      <if test="profile != null" >
+        profile LIKE CONCAT('%','${profile}','%')
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="search != null" >
+        p.id LIKE CONCAT('%','${search}','%') OR p.name LIKE CONCAT('%','${search}','%')
+      </if>
+
+    </where>
+  </sql>
+  <select id="countByExample" parameterType="com.xoa.model.product.ProductModel" resultType="java.lang.Integer" >
+    select count(*)
+    from ((product p  left join user u   ON  p.createuser = u.uid )  left join product_unit pu   ON  p.product_unit = pu.id) left join product_brand pb ON pb.id = p.brand_id
+    <include refid="Base_where_List1" />
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.product.ProductModel" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+
+    <include refid="Base_Column_List" />
+    from ((product p  left join user u   ON  p.createuser = u.uid )  left join product_unit pu   ON  p.product_unit = pu.id) left join product_brand pb ON pb.id = p.brand_id
+
+    <include refid="Base_where_List" />
+
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+     id, name, num, brand_id,product_unit,sellingprice,costprice, profile, image, attach,createuser,createtime
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.product.ProductModel" >
+
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="productUnit != null" >
+        product_unit,
+      </if>
+      <if test="sellingprice != null" >
+        sellingprice,
+      </if>
+
+      <if test="costprice != null" >
+        costprice ,
+      </if>
+      <if test="profile != null" >
+        profile,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="attach != null" >
+        attach,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="productUnit != null" >
+        #{productUnit,jdbcType=INTEGER},
+      </if>
+      <if test="sellingprice != null" >
+        #{sellingprice,jdbcType=FLOAT},
+      </if>
+
+      <if test="costprice != null" >
+        #{costprice,jdbcType=FLOAT},
+      </if>
+      <if test="profile != null" >
+        #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.product.ProductModel" >
+
+    update product
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="productUnit != null" >
+        product_unit = #{productUnit,jdbcType=INTEGER},
+      </if>
+      <if test="sellingprice != null" >
+        sellingprice = #{sellingprice,jdbcType=FLOAT},
+      </if>
+
+      <if test="costprice != null" >
+        costprice = #{costprice,jdbcType=FLOAT},
+      </if>
+      <if test="profile != null" >
+        profile = #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

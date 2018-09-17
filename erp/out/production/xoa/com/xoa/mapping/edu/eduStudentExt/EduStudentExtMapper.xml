@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduStudentExt.EduStudentExtMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduStudentExt.EduStudentExt">
+		<id column="UID" property="uid" />
+		<result column="USER_ID" property="userId" />
+		<result column="NATIVE_PLACE" property="nativePlace" />
+		<result column="ENGLISH_NAME" property="englishName" />
+		<result column="NAME_SPELLING" property="nameSpelling" />
+		<result column="NATION" property="nation" />
+		<result column="SEMETER" property="semeter" />
+		<result column="NATIONNALITY" property="nationnality" />
+		<result column="ID_NUMBER" property="idNumber" />
+		<result column="IS_PIONEERS" property="isPioneers" />
+		<result column="RELIGION" property="religion" />
+		<result column="RELIGIOUS" property="religious" />
+		<result column="BLOOD_TYPE" property="bloodType" />
+		<result column="SCHOOL_YEAR" property="schoolYear" />
+		<result column="CLASS" property="clazz" />
+		<result column="GRADE" property="grade" />
+		<result column="PRESENT_ADDR" property="presentAddr" />
+		<result column="PERMANENT_ADDR" property="permanentAddr" />
+		<result column="ACCOUNT_PROPERTY" property="accountProperty" />
+		<result column="POSTAL_CODE" property="postalCode" />
+		<result column="COMMUNITY" property="community" />
+		<result column="POSTAL_ADDR" property="postalAddr" />
+		<result column="STUDENT_NUMBER" property="studentNumber" />
+		<result column="MOTTO" property="motto" />
+		<result column="INTRODUCE" property="introduce" />
+		<result column="SCHOOL_MONTH" property="schoolMonth" />
+		<result column="BORD_PLACE" property="bordPlace" />
+		<result column="ID_TYPE" property="idType" />
+		<result column="IS_GATQY" property="isGatqy" />
+		<result column="HEALTH_STATUS" property="healthStatus" />
+		<result column="ALBUM" property="album" />
+		<result column="USED_NAME" property="usedName" />
+		<result column="ID_VALIDITY" property="idValidity" />
+		<result column="SASSITANT_NO" property="sassitantNo" />
+		<result column="CLASS_NO" property="classNo" />
+		<result column="ENTRANCE" property="entrance" />
+		<result column="STUDY_WAY" property="studyWay" />
+		<result column="S_SOURCE" property="sSource" />
+		<result column="HOME_ADDR" property="homeAddr" />
+		<result column="ZIP" property="zip" />
+		<result column="HOME_URL" property="homeUrl" />
+		<result column="IS_ONE_CHILD" property="isOneChild" />
+		<result column="IS_PRESCHOOL" property="isPreschool" />
+		<result column="IS_LEFT_BEHIND_CHILD" property="isLeftBehindChild" />
+		<result column="IS_SQ_CHILD" property="isSqChild" />
+		<result column="IS_ORPHAN" property="isOrphan" />
+		<result column="IS_SPECIAL_CHILD" property="isSpecialChild" />
+		<result column="IS_SBJD" property="isSbjd" />
+		<result column="DISABLE_TYPE" property="disableType" />
+		<result column="IS_GOV_BUY" property="isGovBuy" />
+		<result column="IS_NEED_SUPPORT" property="isNeedSupport" />
+		<result column="IS_ENJOY_SUPPLEMENT" property="isEnjoySupplement" />
+	</resultMap>
+	<select id="getStudentInfor" parameterType="String" resultMap="BaseResultMap">
+		SELECT * from edu_student_ext where USER_ID=#{userId}
+	</select>
+	<insert id="addStudentExt" parameterType="com.xoa.model.edu.eduStudentExt.EduStudentExt">
+		INSERT  INTO edu_student_ext
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="uid != null" >
+				UID,
+			</if>
+			<if test="userId != null" >
+				USER_ID,
+			</if>
+			<if test="grade != null" >
+				GRADE,
+			</if>
+			<if test="clazz != null" >
+				CLASS,
+			</if>
+			<if test="semeter != null" >
+				SEMETER,
+			</if>
+			<if test="classNo != null" >
+				CLASS_NO,
+			</if>
+			<if test="studentNumber != null" >
+				STUDENT_NUMBER,
+			</if>
+			<if test="schoolYear != null" >
+				SCHOOL_YEAR,
+			</if>
+			<if test="nameSpelling != null" >
+				NAME_SPELLING,
+			</if>
+			<if test="englishName != null" >
+				ENGLISH_NAME,
+			</if>
+			<if test="nation != null" >
+				NATION,
+			</if>
+			<if test="nativePlace != null" >
+				NATIVE_PLACE,
+			</if>
+			<if test="idNumber != null" >
+				ID_NUMBER,
+			</if>
+			<if test="accountProperty != null" >
+				ACCOUNT_PROPERTY,
+			</if>
+			<if test="permanentAddr != null" >
+				PERMANENT_ADDR,
+			</if>
+			<if test="nationnality != null" >
+				NATIONNALITY,
+			</if>
+			<if test="religion != null" >
+				RELIGION,
+			</if>
+			<if test="religious != null" >
+				RELIGIOUS,
+			</if>
+			<if test="presentAddr != null" >
+				PRESENT_ADDR,
+			</if>
+			<if test="postalAddr != null" >
+				POSTAL_ADDR,
+			</if>
+			<if test="postalCode != null" >
+				POSTAL_CODE,
+			</if>
+			<if test="motto != null" >
+				MOTTO,
+			</if>
+			<if test="bloodType != null" >
+				BLOOD_TYPE,
+			</if>
+			<if test="introduce != null" >
+				INTRODUCE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="uid != null" >
+				#{uid},
+			</if>
+			<if test="userId != null" >
+				#{userId},
+			</if>
+			<if test="grade != null" >
+				#{grade},
+			</if>
+			<if test="clazz != null" >
+				#{clazz},
+			</if>
+			<if test="semeter != null" >
+				#{semeter},
+			</if>
+			<if test="classNo != null" >
+				#{classNo},
+			</if>
+			<if test="studentNumber != null" >
+				#{studentNumber},
+			</if>
+			<if test="schoolYear != null" >
+				#{schoolYear},
+			</if>
+			<if test="nameSpelling != null" >
+				#{nameSpelling},
+			</if>
+			<if test="englishName != null" >
+				#{englishName},
+			</if>
+			<if test="nation != null" >
+				#{nation},
+			</if>
+			<if test="nativePlace != null" >
+				#{nativePlace},
+			</if>
+			<if test="idNumber != null" >
+				#{idNumber},
+			</if>
+			<if test="accountProperty != null" >
+				#{accountProperty},
+			</if>
+			<if test="permanentAddr != null" >
+				#{permanentAddr},
+			</if>
+			<if test="nationnality != null" >
+				#{nationnality},
+			</if>
+			<if test="religion != null" >
+				#{religion},
+			</if>
+			<if test="religious != null" >
+				#{religious},
+			</if>
+			<if test="presentAddr != null" >
+				#{presentAddr},
+			</if>
+			<if test="postalAddr != null" >
+				#{postalAddr},
+			</if>
+			<if test="postalCode != null" >
+				#{postalCode},
+			</if>
+			<if test="motto != null" >
+				#{motto},
+			</if>
+			<if test="bloodType != null" >
+				#{bloodType},
+			</if>
+			<if test="introduce != null" >
+				#{introduce},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateStudentExt" parameterType="com.xoa.model.edu.eduStudentExt.EduStudentExt">
+		UPDATE edu_student_ext
+		<set>
+			<if test="grade != null and grade !='' " >
+				GRADE = #{grade},
+			</if>
+			<if test="clazz != null and clazz!= ''" >
+				CLASS = #{clazz},
+			</if>
+			<if test="semeter != null and semeter!=''" >
+				SEMETER = #{semeter},
+			</if>
+			<if test="classNo != null and classNo!=''" >
+				CLASS_NO = #{classNo},
+			</if>
+			<if test="studentNumber != null and studentNumber !=''" >
+				STUDENT_NUMBER = #{studentNumber},
+			</if>
+			<if test="schoolYear != null and schoolYear!=''" >
+				SCHOOL_YEAR = #{schoolYear},
+			</if>
+			<if test="nameSpelling != null and nameSpelling!=''" >
+				NAME_SPELLING = #{nameSpelling},
+			</if>
+			<if test="englishName != null and englishName!=''" >
+				ENGLISH_NAME = #{englishName},
+			</if>
+			<if test="nation != null and nation!=''" >
+				NATION = #{nation},
+			</if>
+			<if test="nativePlace != null and nativePlace!=''" >
+				NATIVE_PLACE = #{nativePlace},
+			</if>
+			<if test="idNumber != null and idNumber!=''" >
+				ID_NUMBER = #{idNumber},
+			</if>
+			<if test="accountProperty != null and accountProperty!=''" >
+				ACCOUNT_PROPERTY = #{accountProperty},
+			</if>
+			<if test="permanentAddr != null and permanentAddr!=''" >
+				PERMANENT_ADDR = #{permanentAddr},
+			</if>
+			<if test="nationnality != null and nationnality!=''" >
+				NATIONNALITY = #{nationnality},
+			</if>
+			<if test="religion != null and religion!=''" >
+				RELIGION = #{religion},
+			</if>
+			<if test="religious != null and religious!=''" >
+				RELIGIOUS = #{religious},
+			</if>
+			<if test="presentAddr != null and presentAddr!=''" >
+				PRESENT_ADDR = #{presentAddr},
+			</if>
+			<if test="postalAddr != null and postalAddr!=''" >
+				POSTAL_ADDR = #{postalAddr},
+			</if>
+			<if test="postalCode != null and postalCode!=''" >
+				POSTAL_CODE = #{postalCode},
+			</if>
+			<if test="motto != null and motto!=''" >
+				MOTTO = #{motto},
+			</if>
+			<if test="bloodType != null and bloodType!=''" >
+				BLOOD_TYPE = #{bloodType},
+			</if>
+			<if test="introduce != null and introduce!=''" >
+				INTRODUCE = #{introduce},
+			</if>
+		</set>
+		WHERE  USER_ID = #{userId}
+	</update>
+	<update id="editStudent" parameterType="com.xoa.model.edu.eduStudent.EduStudent">
+		UPDATE edu_student_ext
+		<set>
+			<if test="grade != null" >
+				GRADE = #{grade},
+			</if>
+		</set>
+		WHERE UID =#{uid}
+	</update>
+</mapper>

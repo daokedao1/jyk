@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.email.EmailBodyMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.email.EmailBodyModel">
+		<id column="BODY_ID" property="bodyId" javaType="INTEGER" />
+		<result column="FROM_ID" property="fromId" javaType="String" />
+		<result column="SUBJECT" property="subject" javaType="String" />
+		<result column="SEND_TIME" property="sendTime" javaType="INTEGER" />
+		<result column="SEND_FLAG" property="sendFlag" javaType="String" />
+		<result column="SMS_REMIND" property="smsRemind" javaType="String" />
+		<result column="IMPORTANT" property="important" javaType="String" />
+		<result column="SIZE" property="size" javaType="Long" />
+		<result column="FROM_WEBMAIL_ID" property="fromWebmailId"
+			javaType="INTEGER" />
+		<result column="FROM_WEBMAIL" property="fromWebmail" javaType="String" />
+		<result column="WEBMAIL_FLAG" property="webmailFlag" javaType="String" />
+		<result column="RECV_FROM_NAME" property="recvFromName"
+			javaType="String" />
+		<result column="RECV_FROM" property="recvFrom" javaType="String" />
+		<result column="RECV_TO_ID" property="recvToId" javaType="INTEGER" />
+		<result column="RECV_TO" property="recvTo" javaType="String" />
+		<result column="IS_WEBMAIL" property="isWebmail" javaType="String" />
+		<result column="IS_WF" property="isWf" javaType="String" />
+		<result column="KEYWORD" property="keyword" javaType="String" />
+		<result column="SECRET_LEVEL" property="secretLevel" javaType="INTEGER" />
+		<result column="AUDIT_MAN" property="auditMan" javaType="String" />
+		<result column="TO_ID2" property="toId2" javaType="String" />
+		<result column="COPY_TO_ID" property="copyToId" javaType="String" />
+		<result column="SECRET_TO_ID" property="secretToId" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="ATTACHMENT_ID" property="attachmentId"
+			javaType="String" />
+		<result column="ATTACHMENT_NAME" property="attachmentName"
+			javaType="String" />
+		<result column="TO_WEBMAIL" property="toWebmail" javaType="String" />
+		<result column="COMPRESS_CONTENT" property="compressContent"
+			javaType="byte[]" />
+		<result column="WEBMAIL_CONTENT" property="webmailContent"
+			javaType="byte[]" />
+		<result column="AUDIT_REMARK" property="auditRemark" javaType="String" />
+		<result column="COPY_TO_WEBMAIL" property="copyToWebmail"
+			javaType="String" />
+		<result column="SECRET_TO_WEBMAIL" property="secretToWebmail"
+			javaType="String" />
+		<result column="PRAISE" property="praise" javaType="String" />
+		<association property="users" column="BODY_ID"
+			javaType="com.xoa.model.users.Users">
+			<id property="userId" column="USER_ID" />
+			<result property="userName" column="USER_NAME" />
+			<result property="sex" column="SEX" />
+			<result property="avatar" column="AVATAR" />
+		</association>
+		<!-- 一对多收件人 -->
+		<collection property="emailList" ofType="com.xoa.model.email.EmailModel"
+			column="BODY_ID">
+			<id column="EMAIL_ID" property="emailId" javaType="INTEGER" />
+			<result column="TO_ID" property="toId" javaType="String" />
+			<result column="READ_FLAG" property="readFlag" javaType="String" />
+			<result column="DELETE_FLAG" property="deleteFlag" javaType="String" />
+			<result column="BOX_ID" property="boxId" javaType="INTEGER" />
+			<result column="BODY_ID" property="bodyId" javaType="INTEGER" />
+			<result column="RECEIPT" property="receipt" javaType="String" />
+			<result column="IS_F" property="isF" javaType="String" />
+			<result column="IS_R" property="isR" javaType="String" />
+			<result column="SIGN" property="sign" javaType="String" />
+		</collection>
+		<!-- 一对多外部邮件 -->
+		<collection property="webmailList" ofType="com.xoa.model.email.Webmail"
+					column="MAIL_ID">
+			<id column="MAIL_ID" property="mailId" javaType="Integer"/>
+			<result column="EMAIL" property="email" javaType="String"/>
+			<result column="USER_ID" property="userId" javaType="String"/>
+			<result column="POP_SERVER" property="popServer" javaType="String"/>
+			<result column="SMTP_SERVER" property="smtpServer" javaType="String"/>
+			<result column="LOGIN_TYPE" property="loginType" javaType="String"/>
+			<result column="SMTP_PASS" property="smtpPass" javaType="String"/>
+			<result column="EMAIL_USER" property="emailUser" javaType="String"/>
+			<result column="EMAIL_PASS" property="emailPass" javaType="String"/>
+			<result column="POP3_PORT" property="pop3Port" javaType="Integer"/>
+			<result column="SMTP_PORT" property="smtpPort" javaType="Integer"/>
+			<result column="IS_DEFAULT" property="isDefault" javaType="String"/>
+			<result column="POP3_SSL" property="pop3Ssl" javaType="String"/>
+			<result column="SMTP_SSL" property="smtpSsl" javaType="String"/>
+			<result column="QUOTA_LIMIT" property="quotaLimit" javaType="String"/>
+			<result column="CHECK_FLAG" property="checkFlag" javaType="String"/>
+			<result column="PRIORITY" property="priority" javaType="String"/>
+			<result column="RECV_DEL" property="recvDel" javaType="String"/>
+			<result column="RECV_REMIND" property="recvRemind" javaType="String"/>
+			<result column="RECV_FW" property="recvFw" javaType="String"/>
+			<result column="CREATE_USER" property="createUser" javaType="String"/>
+			<result column="EMAIL_UID" property="emailUid" javaType="String"/>
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		eb.BODY_ID,u.USER_NAME,eb.SUBJECT,eb.KEYWORD,eb.ATTACHMENT_NAME,eb.SEND_TIME,eb.SIZE,e.BOX_ID,e.READ_FLAG,e.DELETE_FLAG,e.SIGN
+	</sql>
+	<sql id="Page_Where_Clause">
+		<if test="startTime != null and startTime != ''">
+			eb.SEND_TIME &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			AND eb.SEND_TIME &lt;= #{endTime}
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG=#{readFlag}
+		</if>
+		<if test="boxId != null and boxId != ''">
+			AND e.BOX_ID= #{boxId}
+		</if>
+		<if test="userName!=null and userName!='' ">
+			AND u.USER_NAME= #{userName}
+		</if>
+		<if test="sign!=null and sign='' ">
+			AND e.SIGN=#{sign}
+		</if>
+		<if test="keyword!=null and keyword='' ">
+			AND eb.KEYWORD LIKE #{keyword}
+		</if>
+	</sql>
+	<select id="listqueryEmailBody" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from email_body as eb
+		LEFT JOIN user as u on eb.FROM_ID=u.USER_ID
+		LEFT
+		JOIN
+		emailModel as e on e.BODY_ID=eb.BODY_ID
+		<where>
+			<include refid="Page_Where_Clause" />
+		</where>
+		group by eb.BODY_ID
+	</select>
+
+	<!-- 发送邮件并保存到数据库 -->
+	<insert id="save" parameterType="com.xoa.model.email.EmailBodyModel"  useGeneratedKeys="true" keyProperty="bodyId">
+		<selectKey order="AFTER" keyProperty="bodyId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into email_body (
+		FROM_ID,
+		SUBJECT,
+		SEND_TIME,
+		SEND_FLAG,
+		SMS_REMIND,
+		IMPORTANT,
+		SIZE,
+		FROM_WEBMAIL_ID,
+		FROM_WEBMAIL,
+		WEBMAIL_FLAG,
+		RECV_FROM_NAME,
+		RECV_FROM,
+		RECV_TO_ID,
+		RECV_TO,
+		IS_WEBMAIL,
+		IS_WF,
+		KEYWORD,
+		SECRET_LEVEL,
+		AUDIT_MAN,
+		TO_ID2,
+		COPY_TO_ID,
+		SECRET_TO_ID,
+		CONTENT,
+		ATTACHMENT_ID,
+		ATTACHMENT_NAME,
+		TO_WEBMAIL,
+		COMPRESS_CONTENT,
+		WEBMAIL_CONTENT,
+		AUDIT_REMARK,
+		COPY_TO_WEBMAIL,
+		SECRET_TO_WEBMAIL,
+		PRAISE)
+		values(
+		#{fromId},
+		#{subject},
+		#{sendTime},
+		#{sendFlag},
+		#{smsRemind},
+		#{important},
+		#{size},
+		#{fromWebmailId},
+		#{fromWebmail},
+		#{webmailFlag},
+		#{recvFromName},
+		#{recvFrom},
+		#{recvToId},
+		#{recvTo},
+		#{isWebmail},
+		#{isWf},
+		#{keyword},
+		#{secretLevel},
+		#{auditMan},
+		#{toId2},
+		#{copyToId},
+		#{secretToId},
+		#{content},
+		#{attachmentId},
+		#{attachmentName},
+		#{toWebmail},
+		#{compressContent},
+		#{webmailContent},
+		#{auditRemark},
+		#{copyToWebmail},
+		#{secretToWebmail},
+		#{praise}
+		)
+	</insert>
+
+	<!-- 邮件条件查询 废-->
+	<select id="selectObjcet" resultMap="BaseResultMap"
+		parameterType="Map">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+	<!--草稿  -->
+	<select id="listDrafts" resultMap="BaseResultMap" parameterType="Map">
+		select eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID,u.USER_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT
+		JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where 
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG="0"
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		 GROUP BY eb.BODY_ID order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 发件箱查询 -->
+	<select id="listSendEmail" parameterType="Map" resultMap="BaseResultMap">
+		select eb.FROM_ID, eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SEND_TIME,e.DELETE_FLAG,e.READ_FLAG,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN
+		email as e on eb.BODY_ID=e.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG="1"
+		AND( e.DELETE_FLAG="" OR
+		e.DELETE_FLAG="0" OR
+		e.DELETE_FLAG="3" OR e.DELETE_FLAG="1")
+		AND  BOX_ID="0"
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		 GROUP BY eb.BODY_ID
+		 ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 废纸篓查询 空值 -->
+	<select id="listWastePaperbasket" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR FROM
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID =eb.BODY_ID
+		LEFT JOIN user as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND (
+			e.DELETE_FLAG = '3'
+			OR e.DELETE_FLAG = '4'
+		)
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  OR eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		GROUP BY
+			eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!--收件箱查询 -->
+	<select id="selectInbox" parameterType="Map" resultMap="BaseResultMap" databaseId="mysql">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,
+		u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND eb.FROM_ID LIKE #{fromUserId}
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+    <!--未读查询-->
+	<select id="selectIsRead" parameterType="Map" resultMap="BaseResultMap">
+		select
+		eb.FROM_ID,e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND e.BOX_ID='0' 
+		AND e.READ_FLAG='0'
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+
+	<!--收件箱未读查询 -->
+	<select id="selectInboxIsRead" parameterType="Map" resultMap="BaseResultMap">
+		select
+		eb.FROM_ID,e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND e.READ_FLAG='0'
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+
+
+
+	<!-- 根据id查询一条邮件 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Map">
+	 select
+	 eb.FROM_ID,
+	 e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN
+		 from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+		GROUP BY eb.BODY_ID
+	</select>
+	
+	<!--草稿箱删除，delete -->
+	<delete id="deleteDrafts" parameterType="java.lang.Integer">
+		delete from
+		email_body where BODY_ID = #{bodyId}
+	</delete>
+
+	<!-- 发件箱删除 变为2 -->
+	<update id="updateOutbox" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='2'
+	where eb.BODY_ID = #{bodyId} AND (e.DELETE_FLAG !='1'  OR e.DELETE_FLAG !='2' OR e.DELETE_FLAG !='3' OR e.DELETE_FLAG !='4')
+	</update>
+	<!-- 发件箱删除 变为4 -->
+	<update id="updateOutboxs" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='4' 
+	where eb.BODY_ID = #{bodyId} AND (e.DELETE_FLAG !='' OR e.DELETE_FLAG !='0' OR e.DELETE_FLAG !='1'  OR e.DELETE_FLAG !='2' OR e.DELETE_FLAG !='4')
+	</update>
+	
+	<!--  发件箱为1时删除  -->
+	<delete id="deleteOutbox" parameterType="java.lang.Integer">
+		DELETE FROM	email WHERE BODY_ID = #{bodyId}
+		AND DELETE_FLAG = '1'
+	</delete> 
+	
+	<!-- 收件箱删除 ，变为3 -->
+	<update id="updateInbox" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='3',e.BOX_ID = '0'
+	where e.EMAIL_ID=#{emailId}  AND (e.DELETE_FLAG =''  OR e.DELETE_FLAG ='0')
+	</update> 
+	
+	<!-- 收件箱删除 ，变为4 -->
+	<update id="updateInboxs" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='4',e.BOX_ID = '0'
+	where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='2'
+	</update>
+	
+	<!-- 废纸篓删除，变为1 -->
+	<update id="updateRecycle" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='1' 
+	where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='3'
+	</update>
+	
+	<!-- 废纸篓删除，delete -->
+	<delete id="deleteRecycle" parameterType="java.lang.Integer">
+		DELETE FROM	email  WHERE EMAIL_ID=#{emailId}
+		AND DELETE_FLAG = '4'
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.email.EmailBodyModel">
+		update email_body
+		<set>
+			<if test="fromId != null">
+				FROM_ID = #{fromId},
+			</if>
+			<if test="subject != null">
+				SUBJECT = #{subject},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime},
+			</if>
+			<if test="sendFlag != null">
+				SEND_FLAG = #{sendFlag},
+			</if>
+			<if test="smsRemind != null">
+				SMS_REMIND = #{smsRemind},
+			</if>
+			<if test="important != null">
+				IMPORTANT = #{important},
+			</if>
+			<if test="size != null">
+				SIZE = #{size},
+			</if>
+			<if test="fromWebmailId != null">
+				FROM_WEBMAIL_ID = #{fromWebmailId},
+			</if>
+			<if test="fromWebmail != null">
+				FROM_WEBMAIL = #{fromWebmail},
+			</if>
+			<if test="webmailFlag != null">
+				WEBMAIL_FLAG = #{webmailFlag},
+			</if>
+			<if test="recvFromName != null">
+				RECV_FROM_NAME = #{recvFromName},
+			</if>
+			<if test="recvFrom != null">
+				RECV_FROM = #{recvFrom},
+			</if>
+			<if test="recvToId != null">
+				RECV_TO_ID = #{recvToId},
+			</if>
+			<if test="recvTo != null">
+				RECV_TO = #{recvTo},
+			</if>
+			<if test="isWebmail != null">
+				IS_WEBMAIL = #{isWebmail},
+			</if>
+			<if test="isWf != null">
+				IS_WF = #{isWf},
+			</if>
+			<if test="keyword != null">
+				KEYWORD = #{keyword},
+			</if>
+			<if test="secretLevel != null">
+				SECRET_LEVEL = #{secretLevel},
+			</if>
+			<if test="auditMan != null">
+				AUDIT_MAN = #{auditMan},
+			</if>
+			<if test="toId2 != null">
+				TO_ID2 = #{toId2},
+			</if>
+			<if test="copyToId != null">
+				COPY_TO_ID = #{copyToId},
+			</if>
+			<if test="secretToId != null">
+				SECRET_TO_ID = #{secretToId},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID = #{attachmentId},
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME = #{attachmentName},
+			</if>
+			<if test="toWebmail != null">
+				TO_WEBMAIL = #{toWebmail},
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT =
+				#{compressContent},
+			</if>
+			<if test="webmailContent != null">
+				WEBMAIL_CONTENT =
+				#{webmailContent},
+			</if>
+			<if test="auditRemark != null">
+				AUDIT_REMARK = #{auditRemark},
+			</if>
+			<if test="copyToWebmail != null">
+				COPY_TO_WEBMAIL = #{copyToWebmail},
+			</if>
+			<if test="secretToWebmail != null">
+				SECRET_TO_WEBMAIL =
+				#{secretToWebmail},
+			</if>
+			<if test="praise != null">
+				PRAISE = #{praise},
+			</if>
+		</set>
+		where BODY_ID = #{bodyId}
+	</update>
+
+	<!-- 草稿箱修改或发送 -->
+	<update id="update" parameterType="com.xoa.model.email.EmailBodyModel"  >
+		UPDATE email_body SET
+		FROM_ID = #{fromId},
+		SUBJECT = #{subject},
+		SEND_TIME = #{sendTime},
+		SEND_FLAG = #{sendFlag},
+		SMS_REMIND = #{smsRemind},
+		IMPORTANT = #{important},
+		SIZE = #{size},
+		FROM_WEBMAIL_ID = #{fromWebmailId},
+		FROM_WEBMAIL = #{fromWebmail},
+		WEBMAIL_FLAG = #{webmailFlag},
+		RECV_FROM_NAME = #{recvFromName},
+		RECV_FROM = #{recvFrom},
+		RECV_TO_ID = #{recvToId},
+		RECV_TO = #{recvTo},
+		IS_WEBMAIL = #{isWebmail},
+		IS_WF = #{isWf},
+		KEYWORD = #{keyword},
+		SECRET_LEVEL = #{secretLevel},
+		AUDIT_MAN = #{auditMan},
+		TO_ID2 = #{toId2},
+		COPY_TO_ID = #{copyToId},
+		SECRET_TO_ID = #{secretToId},
+		CONTENT = #{content},
+		ATTACHMENT_ID = #{attachmentId},
+		ATTACHMENT_NAME = #{attachmentName},
+		TO_WEBMAIL = #{toWebmail},
+		COMPRESS_CONTENT = #{compressContent},
+		WEBMAIL_CONTENT = #{webmailContent},
+		AUDIT_REMARK = #{auditRemark},
+		COPY_TO_WEBMAIL = #{copyToWebmail},
+		SECRET_TO_WEBMAIL = #{secretToWebmail},
+		PRAISE = #{praise}
+		WHERE
+		BODY_ID = #{bodyId}
+	</update>
+
+
+	<!--其他邮件查询 -->
+	<select id="selectBoxEmail" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,
+		e.BOX_ID,
+		eb.BODY_ID,
+		eb. SUBJECT,
+		e.EMAIL_ID,
+		eb.SEND_TIME,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,
+		eb.TO_ID2,
+		e.READ_FLAG,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.USER_ID,
+		e.TO_ID,
+		u.USER_NAME,
+		u.SEX,u.AVATAR
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN USER AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN email_box ebo on ebo.BOX_ID = e.BOX_ID
+		WHERE
+		e.TO_ID = #{fromId}
+		and e.BOX_ID=#{boxId}
+		AND (
+		e.DELETE_FLAG = '0'
+		OR e.DELETE_FLAG = ''
+		OR e.DELETE_FLAG = '2'
+		)
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		ORDER by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+
+	</select>
+
+
+	<!--查询其他邮件中是否存在详细邮件 -->
+	<select id="selectIsBoxEmail" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		e.EMAIL_ID,
+		u.USER_NAME
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN USER AS u ON u.USER_ID = eb.FROM_ID
+		WHERE
+		e.TO_ID = #{fromId}
+		and e.BOX_ID=#{boxId}
+	</select>
+</mapper>

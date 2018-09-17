@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduArrangeCource.EduArrangeCourseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xoa.model.edu.eduArrangeCource.EduArrangeCourse">
+        <id column="id" property="id"/>
+        <result column="ACADEMIC_YEAR" property="academicYear"/>
+        <result column="SEMESTER" property="semester"/>
+        <result column="SECTION" property="section"/>
+        <result column="GRADE" property="grade"/>
+        <result column="CLASS" property="clazz"/>
+        <result column="AFTERNOON" property="afternoon"/>
+        <result column="MONDAY" property="monday"/>
+        <result column="TUESDAY" property="tuesday"/>
+        <result column="WEDNESDAY" property="wednesday"/>
+        <result column="THURSDAY" property="thursday"/>
+        <result column="FRIDAY" property="friday"/>
+        <result column="SATURDAY" property="saturday"/>
+        <result column="SUNDAY" property="sunday"/>
+        <result column="ATTACHMENT_ID" property="attachmentId"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName"/>
+        <result column="WEEK_FLAG" property="weekFlag"/>
+    </resultMap>
+    <resultMap id="EduArr" type="com.xoa.model.edu.eduArrangeCource.EduArrbean">
+        <id column="GRADE_CLASS" property="gradeClass"/>
+        <result column="MONDAY_AM_ONE" property="mondayAmOne"/>
+        <result column="MONDAY_AM_TWO" property="mondayAmTwo"/>
+        <result column="MONDAY_AM_THREE" property="mondayAmTree"/>
+        <result column="MONDAY_AM_FOUR" property="mondayAmFour"/>
+        <result column="MONDAY_PM_FIVE" property="mondayPmfive"/>
+        <result column="MONDAY_PM_SIX" property="mondayPmSix"/>
+        <result column="TUESDAY_PM_SEVEN" property="mondayPmSeven"/>
+
+        <result column="TUESDAY_AM_ONE" property="tuesdayAmOne"/>
+        <result column="TUESDAY_AM_TWO" property="tuesdayAmTwo"/>
+        <result column="TUESDAY_AM_THREE" property="tuesdayAmTree"/>
+        <result column="TUESDAY_AM_FOUR" property="tuesdayAmFour"/>
+        <result column="TUESDAY_PM_FIVE" property="tuesdayPmfive"/>
+        <result column="TUESDAY_PM_SIX" property="tuesdayPmSix"/>
+        <result column="TUESDAY_PM_SEVEN" property="tuesdayPmSeven"/>
+
+        <result column="WEDNESDAY_AM_ONE" property="wednesdayAmOne"/>
+        <result column="WEDNESDAY_AM_TWO" property="wednesdayAmTwo"/>
+        <result column="WEDNESDAY_AM_THREE" property="wednesdayAmTree"/>
+        <result column="WEDNESDAY_AM_FOUR" property="wednesdayAmFour"/>
+        <result column="WEDNESDAY_PM_FIVE" property="wednesdayPmfive"/>
+        <result column="WEDNESDAY_PM_SIX" property="wednesdayPmSix"/>
+        <result column="WEDNESDAY_PM_SEVEN" property="wednesdayPmSeven"/>
+
+        <result column="THURSDAY_AM_ONE" property="thursdayAmOne"/>
+        <result column="THURSDAY_AM_TWO" property="thursdayAmTwo"/>
+        <result column="THURSDAY_AM_THREE" property="thursdayAmTree"/>
+        <result column="THURSDAY_AM_FOUR" property="thursdayAmFour"/>
+        <result column="THURSDAY_PM_FIVE" property="thursdayPmfive"/>
+        <result column="THURSDAY_PM_SIX" property="thursdayPmSix"/>
+        <result column="THURSDAY_PM_SEVEN" property="thursdayPmSeven"/>
+
+        <result column="FRIDAY_AM_ONE" property="fridayAmOne"/>
+        <result column="FRIDAY_AM_TWO" property="fridayAmTwo"/>
+        <result column="FRIDAY_AM_THREE" property="fridayAmTree"/>
+        <result column="FRIDAY_AM_FOUR" property="fridayAmFour"/>
+        <result column="FRIDAY_PM_FIVE" property="fridayPmfive"/>
+        <result column="FRIDAY_PM_SIX" property="fridayPmSix"/>
+        <result column="FRIDAY_PM_SEVEN" property="fridayPmSeven"/>
+
+        <result column="SATURDAY_AM_ONE" property="saturdayAmOne"/>
+        <result column="SATURDAY_AM_TWO" property="saturdayAmTwo"/>
+        <result column="SATURDAY_AM_THREE" property="saturdayAmTree"/>
+        <result column="SATURDAY_AM_FOUR" property="saturdayAmFour"/>
+        <result column="SATURDAY_PM_FIVE" property="saturdayPmfive"/>
+        <result column="SATURDAY_PM_SIX" property="saturdayPmSix"/>
+        <result column="SATURDAY_PM_SEVEN" property="saturdayPmSeven"/>
+
+        <result column="SUNDAY_AM_ONE" property="sundayAmOne"/>
+        <result column="SUNDAY_AM_TWO" property="sundayAmTwo"/>
+        <result column="SUNDAY_AM_THREE" property="sundayAmTree"/>
+        <result column="SUNDAY_AM_FOUR" property="sundayAmFour"/>
+        <result column="SUNDAY_PM_FIVE" property="sundayPmfive"/>
+        <result column="SUNDAY_PM_SIX" property="sundayPmSix"/>
+        <result column="SUNDAY_PM_SEVEN" property="sundayPmSeven"/>
+
+        <result column="SUNDAY_PM_SEVEN" property="sundayPmSeven"/>
+        <result column="SUNDAY_PM_SEVEN" property="sundayPmSeven"/>
+    </resultMap>
+
+
+    <!--
+            班级课表默认显示班级课表，当用户选择条件时根据用户的条件查询当用户没得条件时间根据默认条件查询
+    -->
+    <select id="eduArrangeCourseClassSelect" resultMap="EduArr" parameterType="java.util.HashMap">
+        SELECT SEMESTER, CONCAT(GRADE,CLASS) AS 'GRADE_CLASS' ,
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , MONDAY , NULL)) AS 'MONDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , MONDAY , NULL)) AS 'MONDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , MONDAY , NULL)) AS 'MONDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , MONDAY , NULL)) AS 'MONDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , MONDAY , NULL)) AS 'MONDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , MONDAY , NULL)) AS 'MONDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , MONDAY , NULL)) AS 'MONDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , TUESDAY , NULL)) AS 'TUESDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , TUESDAY , NULL)) AS 'TUESDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , TUESDAY , NULL)) AS 'TUESDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , TUESDAY , NULL)) AS 'TUESDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , TUESDAY , NULL)) AS 'TUESDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , TUESDAY , NULL)) AS 'TUESDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , TUESDAY , NULL)) AS 'TUESDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , THURSDAY , NULL)) AS 'THURSDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , THURSDAY , NULL)) AS 'THURSDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , THURSDAY , NULL)) AS 'THURSDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , THURSDAY , NULL)) AS 'THURSDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , THURSDAY , NULL)) AS 'THURSDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , THURSDAY , NULL)) AS 'THURSDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , THURSDAY , NULL)) AS 'THURSDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , FRIDAY , NULL)) AS 'FRIDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , FRIDAY , NULL)) AS 'FRIDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , FRIDAY , NULL)) AS 'FRIDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , FRIDAY , NULL)) AS 'FRIDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , FRIDAY , NULL)) AS 'FRIDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , FRIDAY , NULL)) AS 'FRIDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , FRIDAY , NULL)) AS 'FRIDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , SATURDAY , NULL)) AS 'SATURDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , SATURDAY , NULL)) AS 'SATURDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , SATURDAY , NULL)) AS 'SATURDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , SATURDAY , NULL)) AS 'SATURDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , SATURDAY , NULL)) AS 'SATURDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , SATURDAY , NULL)) AS 'SATURDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , SATURDAY , NULL)) AS 'SATURDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , SUNDAY , NULL)) AS 'SUNDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , SUNDAY , NULL)) AS 'SUNDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , SUNDAY , NULL)) AS 'SUNDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , SUNDAY , NULL)) AS 'SUNDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , SUNDAY , NULL)) AS 'SUNDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , SUNDAY , NULL)) AS 'SUNDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , SUNDAY , NULL)) AS 'SUNDAY_PM_SEVEN',
+        ACADEMIC_YEAR,SEMESTER
+        FROM EDU_ARRANGE_COURSE GROUP BY SEMESTER, GRADE,CLASS HAVING 1 = 1
+        <if test="academicYear!=null">  <!--课表时间段-->
+            and ACADEMIC_YEAR=#{academicYear}
+        </if>
+        <if test="semester!=null">        <!--学期-->
+            and SEMESTER=#{semester}
+        </if>
+        <if test="gradeClass!=null">            <!--年级-->
+            and GRADE_CLASS=#{gradeClass}
+        </if>
+        ORDER BY SEMESTER DESC
+    </select>
+
+
+    <!--
+        教师课表 根据教师显示课表 ，若有条件就根据条件查询，没有条件默认查询第一个老师（根据教师名称将每天的课程查询）
+    -->
+    <!--场地课表
+        根据场地课表,若有条件根据条件查询，没有有条件根据默认场地查询
+    -->
+    <!--同一字段可以使用同一方法-->
+    <select id="eduArrangeCourseTeacherSelect" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT AFTERNOON,
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E11',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E12',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E13',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E14',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E15',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E16',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND MONDAY LIKE CONCAT('%',#{teacheri},'%') ,MONDAY, NULL)) AS 'E17',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E21',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E22',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E23',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E24',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E25',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E26',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND TUESDAY LIKE CONCAT('%',#{teacheri},'%') ,TUESDAY, NULL)) AS 'E27',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E31',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E32',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E33',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E34',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E35',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E36',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND WEDNESDAY LIKE CONCAT('%',#{teacheri},'%') ,WEDNESDAY, NULL)) AS 'E37',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E41',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E42',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E43',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E44',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E45',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E46',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND THURSDAY LIKE CONCAT('%',#{teacheri},'%') ,THURSDAY, NULL)) AS 'E47',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E51',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E52',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E53',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E54',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E55',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E56',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND FRIDAY LIKE CONCAT('%',#{teacheri},'%') ,FRIDAY, NULL)) AS 'E57',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E61',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E62',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E63',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E64',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E65',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E66',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND SATURDAY LIKE CONCAT('%',#{teacheri},'%') ,SATURDAY, NULL)) AS 'E67',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E71',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E72',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E73',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E74',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E75',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E76',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7  AND SUNDAY LIKE CONCAT('%',#{teacheri},'%') ,SUNDAY, NULL)) AS 'E77',
+        ACADEMIC_YEAR,SEMESTER
+        FROM EDU_ARRANGE_COURSE
+        WHERE 1=1
+        <if test="academicYear!=null">  <!--课表时间段-->
+            and ACADEMIC_YEAR=#{academicYear}
+        </if>
+        <if test="semester!=null">        <!--学期-->
+            and SEMESTER=#{semester}
+        </if>
+    </select>
+
+
+    <!--
+        班级总课表，根据年度 学期  查询
+    -->
+    <select id="eduArrangeCourseTotalClass" resultMap="EduArr" parameterType="java.util.HashMap">
+        SELECT SEMESTER, CONCAT(GRADE,CLASS) AS 'GRADE_CLASS' ,
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , MONDAY , NULL)) AS 'MONDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , MONDAY , NULL)) AS 'MONDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , MONDAY , NULL)) AS 'MONDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , MONDAY , NULL)) AS 'MONDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , MONDAY , NULL)) AS 'MONDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , MONDAY , NULL)) AS 'MONDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , MONDAY , NULL)) AS 'MONDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , TUESDAY , NULL)) AS 'TUESDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , TUESDAY , NULL)) AS 'TUESDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , TUESDAY , NULL)) AS 'TUESDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , TUESDAY , NULL)) AS 'TUESDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , TUESDAY , NULL)) AS 'TUESDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , TUESDAY , NULL)) AS 'TUESDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , TUESDAY , NULL)) AS 'TUESDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , WEDNESDAY , NULL)) AS 'WEDNESDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , WEDNESDAY , NULL)) AS 'WEDNESDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , THURSDAY , NULL)) AS 'THURSDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , THURSDAY , NULL)) AS 'THURSDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , THURSDAY , NULL)) AS 'THURSDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , THURSDAY , NULL)) AS 'THURSDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , THURSDAY , NULL)) AS 'THURSDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , THURSDAY , NULL)) AS 'THURSDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , THURSDAY , NULL)) AS 'THURSDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , FRIDAY , NULL)) AS 'FRIDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , FRIDAY , NULL)) AS 'FRIDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , FRIDAY , NULL)) AS 'FRIDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , FRIDAY , NULL)) AS 'FRIDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , FRIDAY , NULL)) AS 'FRIDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , FRIDAY , NULL)) AS 'FRIDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , FRIDAY , NULL)) AS 'FRIDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , SATURDAY , NULL)) AS 'SATURDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , SATURDAY , NULL)) AS 'SATURDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , SATURDAY , NULL)) AS 'SATURDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , SATURDAY , NULL)) AS 'SATURDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , SATURDAY , NULL)) AS 'SATURDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , SATURDAY , NULL)) AS 'SATURDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , SATURDAY , NULL)) AS 'SATURDAY_PM_SEVEN',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 1 , SUNDAY , NULL)) AS 'SUNDAY_AM_ONE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 2 , SUNDAY , NULL)) AS 'SUNDAY_AM_TWO',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 3 , SUNDAY , NULL)) AS 'SUNDAY_AM_THREE',
+        GROUP_CONCAT(IF(AFTERNOON='上午' AND SECTION = 4 , SUNDAY , NULL)) AS 'SUNDAY_AM_FOUR',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 5 , SUNDAY , NULL)) AS 'SUNDAY_PM_FIVE',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 6 , SUNDAY , NULL)) AS 'SUNDAY_PM_SIX',
+        GROUP_CONCAT(IF(AFTERNOON='下午' AND SECTION = 7 , SUNDAY , NULL)) AS 'SUNDAY_PM_SEVEN',
+        ACADEMIC_YEAR,SEMESTER
+        FROM EDU_ARRANGE_COURSE GROUP BY SEMESTER, GRADE,CLASS HAVING 1 = 1
+        <if test="academicYear!=null">  <!--课表时间段-->
+            and ACADEMIC_YEAR=#{academicYear}
+        </if>
+        <if test="semester!=null">        <!--学期-->
+            and SEMESTER=#{semester}
+        </if>
+    </select>
+
+    <!--
+        教师总课表，根据年度 学期  查询
+    -->
+    <select id="eduArrangeCourseTotalTeacher" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select eu.USER_NAME,eu.USER_PRIV_NAME,
+            GROUP_CONCAT(eac.SECTION,'@',if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.MONDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.MONDAY)) AS MONDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.TUESDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.TUESDAY))AS TUESDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.WEDNESDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.WEDNESDAY)) AS WEDNESDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.THURSDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.THURSDAY)) AS THURSDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.FRIDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.FRIDAY)) AS FRIDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.SATURDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.SATURDAY)) AS SATURDAY,
+            GROUP_CONCAT(if(SUBSTRING_INDEX(SUBSTRING_INDEX(eac.SUNDAY, '|', -2),'|',1)!= eu.USER_NAME,"",eac.SUNDAY)) AS SUNDAY
+             FROM edu_user eu
+             INNER JOIN edu_arrange_course  eac on (
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.MONDAY, '|', -2),'|',1) = eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.TUESDAY, '|', -2),'|',1)= eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.WEDNESDAY, '|', -2),'|',1)= eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.THURSDAY, '|', -2),'|',1)= eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.FRIDAY, '|', -2),'|',1)= eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.SATURDAY, '|', -2),'|',1)= eu.USER_NAME
+              OR
+            SUBSTRING_INDEX(SUBSTRING_INDEX(eac.SUNDAY, '|', -2),'|',1)= eu.USER_NAME
+            )
+              WHERE (
+            eu.USER_PRIV =31 or
+            eu.USER_PRIV =30 or
+            eu.USER_PRIV =17 or
+            eu.USER_PRIV =35 or
+            eu.USER_PRIV =38 or
+            eu.USER_PRIV =32 or
+            eu.USER_PRIV =39 or
+            eu.USER_PRIV =13 or
+            eu.USER_PRIV =16 or
+            eu.USER_PRIV =14
+            ) and
+            eac.ACADEMIC_YEAR=#{academicYear} and
+            eac.SEMESTER=#{semester} GROUP BY  eu.USER_NAME ORDER BY eac.SECTION
+	</select>
+
+
+    <!--导入课表-->
+    <insert id="eduArrangeCourseInsert" parameterType="com.xoa.model.edu.eduArrangeCource.EduArrangeCourse">
+				insert into edu_arrange_course  (ACADEMIC_YEAR,SEMESTER,SECTION,GRADE,CLASS,AFTERNOON,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY,ATTACHMENT_ID,ATTACHMENT_NAME,WEEK_FLAG)
+				values (#{academicYear},#{semester},#{section},#{grade},#{clazz},#{afternoon},#{monday},#{tuesday},#{wednesday},#{thursday},#{friday},#{saturday},#{sunday},#{attachmentId},#{attachmentName},#{weekFlag})
+		</insert>
+</mapper>

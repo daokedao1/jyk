@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.flowRunFeedback.FlowRunFeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.flowRunFeedback.FlowRunFeedback">
+    <id column="FEED_ID" javaType="int" property="feedId" />
+    <result column="RUN_ID" javaType="int" property="runId" />
+    <result column="PRCS_ID" javaType="int" property="prcsId" />
+    <result column="FLOW_PRCS" javaType="int" property="flowPrcs" />
+    <result column="USER_ID" javaType="string" property="userId" />
+    <result column="EDIT_TIME" javaType="string" property="editTime" />
+    <result column="FEED_FLAG" javaType="string" property="feedFlag" />
+    <result column="REPLY_ID" javaType="int" property="replyId" />
+    <result column="CONTENT" javaType="string" property="content" />
+    <result column="ATTACHMENT_ID" javaType="string" property="attachmentId" />
+    <result column="ATTACHMENT_NAME" javaType="string" property="attachmentName" />
+    <result column="SIGN_DATA" javaType="string" property="signData" />
+  </resultMap>
+  <resultMap id="BaseResultMapWithUName" type="com.xoa.model.flowRunFeedback.FlowRunFeedback" extends="BaseResultMap">
+    <result column="USER_NAME" javaType="string" property="userName" />
+    <result column="PRCS_NAME" javaType="string" property="prcsName"/>
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.xoa.model.flowRunFeedback.FlowRunFeedback" >
+    insert into flow_run_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedId != null" >
+        FEED_ID,
+      </if>
+      <if test="runId != null" >
+        RUN_ID,
+      </if>
+      <if test="prcsId != null" >
+        PRCS_ID,
+      </if>
+      <if test="flowPrcs != null" >
+        FLOW_PRCS,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="feedFlag != null" >
+        FEED_FLAG,
+      </if>
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+      <if test="signData != null" >
+        SIGN_DATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedId != null" >
+        #{feedId},
+      </if>
+      <if test="runId != null" >
+        #{runId},
+      </if>
+      <if test="prcsId != null" >
+        #{prcsId},
+      </if>
+      <if test="flowPrcs != null" >
+        #{flowPrcs},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="editTime != null" >
+        #{editTime},
+      </if>
+      <if test="feedFlag != null" >
+        #{feedFlag},
+      </if>
+      <if test="replyId != null" >
+        #{replyId},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="attachmentId != null" >
+        #{attachmentId},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName},
+      </if>
+      <if test="signData != null" >
+        #{signData},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+    SELECT * FROM flow_run_feedback WHERE RUN_ID=#{runId} AND USER_ID=#{userId} AND PRCS_ID=#{prcsId}
+  </select>
+
+  <select id="selectprcsId" parameterType="Map" resultMap="BaseResultMap">
+    SELECT * FROM flow_run_feedback WHERE RUN_ID=#{runId} AND PRCS_ID=#{prcsId}
+  </select>
+
+  <select id="selectRunId" parameterType="Map" resultMap="BaseResultMap">
+    SELECT * FROM flow_run_feedback WHERE RUN_ID=#{runId}
+  </select>
+
+  <select id="selectFeedBackByRunId" parameterType="Map" resultMap="BaseResultMap">
+    select fb.*
+FROM
+	flow_run_feedback fb,flow_process fp,flow_run fr
+WHERE
+	fr.RUN_ID=fb.RUN_ID
+AND fb.run_Id = #{runId}
+AND
+	fr.FLOW_ID=fp.FLOW_ID
+AND fb.FLOW_PRCS = fp.PRCS_ID
+AND fp.SIGNLOOK in (0,1,2)
+<!--<if test="type != null" >
+      AND fp.SIGNLOOK in (0,1)
+</if>
+<if test="type == null" >
+      AND fp.SIGNLOOK = 2
+</if>-->
+  </select>
+<select id="selectFlowFeedBackByRunId"  parameterType="Map" resultMap="BaseResultMapWithUName">
+ select fb.*,u.USER_NAME,fp.PRCS_NAME
+FROM
+	flow_run_feedback fb,flow_process fp,flow_run fr,`user` u
+WHERE
+	fr.RUN_ID=fb.RUN_ID
+AND fb.run_Id = #{runId}
+AND
+	fr.FLOW_ID=fp.FLOW_ID
+AND u.USER_ID =fb.USER_ID
+AND fb.FLOW_PRCS = fp.PRCS_ID
+AND fp.SIGNLOOK in (0,1,2)
+</select>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.flowplugin.FlowPluginMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.flowplugin.FlowPluginModel">
+        <id column="FLOW_PLUGIN_ID" property="flowPluginId" javaType="Integer"/>
+        <result column="FLOW_PLUGIN_NAME" property="flowPluginName" javaType="String"/>
+        <result column="FLOW_PLUGIN_INSTRUCTIONS" property="flowPluginInstructions" javaType="String"/>
+        <result column="FLOW_PLUGIN_PERFORM" property="flowPluginPerform" javaType="String"/>
+        <result column="FLOW_PLUGIN_MODEL" property="flowPluginModel" javaType="String"/>
+        <result column="FLOW_PLUGIN_METHOD" property="flowPluginMethod" javaType="String"/>
+        <result column="FLOW_PLUGIN_SERVICE" property="flowPluginService" javaType="String"/>
+        <result column="FLOW_PLUGIN_CREATE_DATE" property="flowPluginCreateDate" javaType="Integer"/>
+        <result column="FLOW_PLUGIN_UPDATE_DATE" property="flowPluginUpdateDate" javaType="Integer"/>
+        <result column="FLOW_PLUGIN_CREATE_USER" property="flowPluginCreateUser" javaType="String"/>
+        <result column="FLOW_PLUGIN_UPDATE_USER" property="flowPluginUpdateUser" javaType="String"/>
+        <result column="FLOW_PLUGIN_UPDATE_COUNT" property="flowPluginUpdateCount" javaType="Integer"/>
+        <result column="FLOW_PLUGIN_FLAG" property="flowPluginFlag" javaType="Integer"/>
+    </resultMap>
+
+    <!-- 保存插件 -->
+    <insert id="save" parameterType="com.xoa.model.flowplugin.FlowPluginModel">
+        <selectKey keyProperty="flowPluginId" resultType="Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO flow_plugin
+           (FLOW_PLUGIN_NAME,FLOW_PLUGIN_INSTRUCTIONS,FLOW_PLUGIN_PERFORM,FLOW_PLUGIN_MODEL,FLOW_PLUGIN_METHOD,FLOW_PLUGIN_SERVICE,
+           FLOW_PLUGIN_CREATE_DATE,FLOW_PLUGIN_UPDATE_DATE,FLOW_PLUGIN_CREATE_USER,FLOW_PLUGIN_UPDATE_USER,FLOW_PLUGIN_UPDATE_COUNT,
+           FLOW_PLUGIN_FLAG)
+        VALUES (
+            #{flowPluginName},
+            #{flowPluginInstructions},
+            #{flowPluginPerform},
+            #{flowPluginModel},
+            #{flowPluginMethod},
+            #{flowPluginService},
+            #{flowPluginCreateDate},
+            #{flowPluginUpdateDate},
+            #{flowPluginCreateUser},
+            #{flowPluginUpdateUser},
+            #{flowPluginUpdateCount},
+            #{flowPluginFlag}
+        )
+    </insert>
+
+    <!-- 根据插件ID 查询插件 -->
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT
+         FLOW_PLUGIN_ID,
+         FLOW_PLUGIN_NAME,FLOW_PLUGIN_INSTRUCTIONS,FLOW_PLUGIN_PERFORM,FLOW_PLUGIN_MODEL,FLOW_PLUGIN_METHOD,FLOW_PLUGIN_SERVICE,
+         FLOW_PLUGIN_CREATE_DATE,FLOW_PLUGIN_UPDATE_DATE,FLOW_PLUGIN_CREATE_USER,FLOW_PLUGIN_UPDATE_USER,FLOW_PLUGIN_UPDATE_COUNT,
+         FLOW_PLUGIN_FLAG
+        FROM
+        flow_plugin
+        WHERE
+        FLOW_PLUGIN_ID = #{flowPluginId}
+    </select>
+
+
+    <!-- 查询数据接口 -->
+    <select id="selectFlowPlugin" resultType="String" >
+        SELECT
+           FLOW_PLUGIN_MODEL
+        FROM FLOW_PLUGIN
+        WHERE
+        FLOW_PLUGIN_ID = #{flowPluginId}
+    </select>
+
+    <!-- 查询所有插件 -->
+    <select id="showFlowPlugin" resultMap="BaseResultMap">
+      SELECT   FLOW_PLUGIN_ID,FLOW_PLUGIN_NAME,FLOW_PLUGIN_INSTRUCTIONS,FLOW_PLUGIN_PERFORM,
+        FLOW_PLUGIN_MODEL,FLOW_PLUGIN_METHOD,FLOW_PLUGIN_SERVICE,FLOW_PLUGIN_CREATE_DATE,
+        FLOW_PLUGIN_UPDATE_DATE,FLOW_PLUGIN_CREATE_USER,FLOW_PLUGIN_UPDATE_USER,
+        FLOW_PLUGIN_UPDATE_COUNT,FLOW_PLUGIN_FLAG FROM FLOW_PLUGIN
+    </select>
+
+</mapper>

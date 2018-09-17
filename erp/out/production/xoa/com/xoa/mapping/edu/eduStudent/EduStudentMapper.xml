@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduStudent.EduStudentMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduStudent.EduStudent">
+		<id column="UID" property="uid" />
+		<result column="IS_SEND_MSG" property="isSendMsg" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_NAME_INDEX" property="userNameIndex" />
+		<result column="BYNAME" property="byname" />
+		<result column="USEING_KEY" property="useingKey" />
+		<result column="USING_FINGER" property="usingFinger" />
+		<result column="PASSWORD" property="password" />
+		<result column="KEY_SN" property="keySn" />
+		<result column="SECURE_KEY_SN" property="secureKeySn" />
+		<result column="USER_PRIV" property="userPriv" />
+		<result column="USER_PRIV_NO" property="userPrivNo" />
+		<result column="USER_PRIV_NAME" property="userPrivName" />
+		<result column="POST_PRIV" property="postPriv" />
+		<result column="POST_DEPT" property="postDept" />
+		<result column="DEPT_ID" property="deptId" />
+		<result column="DEPT_ID_OTHER" property="deptIdOther" />
+		<result column="SEX" property="sex" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="IS_LUNAR" property="isLunar" />
+		<result column="TEL_NO_DEPT" property="telNoDept" />
+		<result column="FAX_NO_DEPT" property="faxNoDept" />
+		<result column="ADD_HOME" property="addHome" />
+		<result column="POST_NO_HOME" property="postNoHome" />
+		<result column="TEL_NO_HOME" property="telNoHome" />
+		<result column="MOBIL_NO" property="mobilNo" />
+		<result column="BP_NO" property="bpNo" />
+		<result column="EMAIL" property="email" />
+		<result column="OICQ_NO" property="oicqNo" />
+		<result column="ICQ_NO" property="icqNo" />
+		<result column="MSN" property="msn" />
+		<result column="AVATAR" property="avatar" />
+		<result column="CALL_SOUND" property="callSound" />
+		<result column="LAST_VISIT_TIME" property="lastVisitTime" />
+		<result column="SMS_ON" property="smsOn" />
+		<result column="MENU_TYPE" property="menuType" />
+		<result column="LAST_PASS_TIME" property="lastPassTime" />
+		<result column="THEME" property="theme" />
+		<result column="SHORTCUT" property="shortcut" />
+		<result column="PORTAL" property="portal" />
+		<result column="PANEL" property="panel" />
+		<result column="ONLINE" property="online" />
+		<result column="ON_STATUS" property="onStatus" />
+		<result column="ATTEND_STATUS" property="attendStatus" />
+		<result column="MOBIL_NO_HIDDEN" property="mobilNoHidden" />
+		<result column="MYTABLE_LEFT" property="mytableLeft" />
+		<result column="MYTABLE_RIGHT" property="mytableRight" />
+		<result column="USER_PRIV_OTHER" property="userPrivOther" />
+		<result column="USER_NO" property="userNo" />
+		<result column="NOT_LOGIN" property="notLogin" />
+		<result column="NOT_VIEW_USER" property="notViewUser" />
+		<result column="NOT_VIEW_TABLE" property="notViewTable" />
+		<result column="NOT_SEARCH" property="notSearch" />
+		<result column="BKGROUND" property="bkground" />
+		<result column="BIND_IP" property="bindIp" />
+		<result column="LAST_VISIT_IP" property="lastVisitIp" />
+		<result column="MENU_IMAGE" property="menuImage" />
+		<result column="WEATHER_CITY" property="weatherCity" />
+		<result column="SHOW_RSS" property="showRss" />
+		<result column="MY_RSS" property="myRss" />
+		<result column="REMARK" property="remark" />
+		<result column="MENU_EXPAND" property="menuExpand" />
+		<result column="MY_STATUS" property="myStatus" />
+		<result column="LIMIT_LOGIN" property="limitLogin" />
+		<result column="PHOTO" property="photo" />
+		<result column="IM_RANGE" property="imRange" />
+		<result column="LEAVE_TIME" property="leaveTime" />
+		<result column="SECRET_LEVEL" property="secretLevel" />
+		<result column="USER_PARA" property="userPara" />
+		<result column="NOT_MOBILE_LOGIN" property="notMobileLogin" />
+		<result column="EDU_USER_TYPE" property="eduUserType" />
+
+
+		<result column="PUID" property="pUid" />
+		<result column="PUSER_ID" property="pUserId" />
+		<result column="PUSER_NAME" property="pUserName" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="CLASS" property="clazz" />
+		<result column="clazz" property="clazz" />
+		<result column="GRADE" property="grade" />
+
+		<association property="para" javaType="com.xoa.model.common.SysPara">
+			<id column="PARA_NAME" property="paraName" javaType="string"/>
+			<result column="PARA_VALUE" property="paraValue" javaType="string"/>
+		</association>
+	</resultMap>
+	<select id="getGrade"  resultType="com.xoa.model.edu.eduStudent.EduStudent">
+		SELECT
+		d.DEPT_ID as deptId,
+		d.DEPT_NAME as deptName
+		FROM
+		edu_department d
+		WHERE
+		d.DEPT_PARENT = '2'
+	</select>
+	<select id="getClassByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		d.DEPT_ID ,
+		d.DEPT_NAME
+		FROM
+		edu_department d
+		WHERE
+		d.DEPT_PARENT =#{deptId}
+	</select>
+	<select id="getUserByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		d.DEPT_ID AS deptId,
+		d.DEPT_NAME AS deptName,
+		s.USER_NAME,
+		s.USER_ID,
+		s.UID,
+		s.SEX
+		FROM
+		edu_department d,
+		edu_student s
+		WHERE
+		s.DEPT_ID = d.DEPT_ID
+		AND s.DEPT_ID = #{deptId}
+	</select>
+	<select id="getStudentInforByUid" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			s.*
+		FROM
+			edu_student s
+		WHERE
+	      s.UID=#{uid}
+	</select>
+	<!--<select id="getPersonInforByUid" parameterType="String" resultMap="BaseResultMap">
+		SELECT
+			p.UID as PUID,
+			P.USER_ID AS PUSER_ID,
+			p.USER_NAME AS PUSER_NAME,
+			p.BIRTHDAY,
+			p.SEX,
+			p.MOBIL_NO,
+			p.EMAIL
+		FROM
+			edu_parent p
+		WHERE
+			p.USER_ID = #{userId}
+	</select>-->
+	<select id="getStudentList1" parameterType="com.xoa.model.edu.eduStudent.EduStudent" resultMap="BaseResultMap">
+		SELECT
+		s.UID ,
+		s.USER_ID ,
+		s.USER_NAME,
+		s.USER_PRIV_NAME,
+		se.CLASS as clazz,
+		se.GRADE
+		FROM
+		edu_student s,
+		edu_student_ext se
+		where
+			s.USER_ID=se.USER_ID
+		  AND s.DEPT_ID =#{deptId}
+	</select>
+	<select id="getStudentList" parameterType="com.xoa.model.edu.eduStudent.EduStudent" resultMap="BaseResultMap">
+		SELECT DISTINCT
+		s.UID ,
+		s.USER_ID ,
+		s.USER_NAME,
+		s.USER_PRIV_NAME,
+		se.CLASS as clazz,
+		se.GRADE
+		FROM
+		edu_student s,
+		edu_student_ext se
+		<where>
+			s.USER_ID=se.USER_ID
+			<if test="userId!=null and userId!=''">
+				and s.USER_ID=#{userId}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and s.USER_NAME=#{userName}
+			</if>
+			<!--<if test="pUserName!=null and pUserName!=''">
+				and PUSER_NAME=#{pUserName}
+			</if>-->
+			<if test="mobilNo!=null and mobilNo!=''">
+				and s.MOBIL_NO=#{mobilNo}
+			</if>
+			<if test="sex!=null and sex!=''">
+				and s.SEX=#{sex}
+			</if>
+			<if test="grade!=null and grade!=''">
+				and se.GRADE=#{grade}
+			</if>
+			<if test="clazz!=null and clazz!=''">
+				and se.CLASS=#{clazz}
+			</if>
+		</where>
+	</select>
+	<select id="getStudentLists" parameterType="map" resultMap="BaseResultMap">
+		SELECT DISTINCT
+		s.UID ,
+		s.USER_ID ,
+		s.USER_NAME,
+		s.USER_PRIV_NAME,
+		se.CLASS as clazz,
+		se.GRADE
+		FROM
+		edu_student s,
+		edu_student_ext se
+		<where>
+			s.USER_ID=se.USER_ID
+			<if test="userId!=null and userId!=''">
+				and s.USER_ID=#{userId}
+			</if>
+			<if test="userName!=null and userName!=''">
+				and s.USER_NAME=#{userName}
+			</if>
+			<!--<if test="pUserName!=null and pUserName!=''">
+				and PUSER_NAME=#{pUserName}
+			</if>-->
+			<if test="mobilNo!=null and mobilNo!=''">
+				and s.MOBIL_NO=#{mobilNo}
+			</if>
+			<if test="sex!=null and sex!=''">
+				and s.SEX=#{sex}
+			</if>
+			<if test="grade!=null and grade!=''">
+				and se.GRADE=#{grade}
+			</if>
+			<if test="clazz!=null and clazz!=''">
+				and se.CLASS=#{clazz}
+			</if>
+		</where>
+	</select>
+	<delete id="deleteStudentByUid" parameterType="String">
+		DELETE FROM edu_student WHERE  UID in
+		<foreach item="uids" collection="array" open="(" separator="," close=")">
+			#{uids}
+		</foreach>
+	</delete>
+	<insert id="addStudent" parameterType="com.xoa.model.edu.eduStudent.EduStudent">
+		<selectKey order="AFTER" keyProperty="uid" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT  INTO edu_student
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="userId != null" >
+				USER_ID,
+			</if>
+			<if test="userName != null" >
+				USER_NAME,
+			</if>
+			<if test="password != null" >
+				PASSWORD,
+			</if>
+			<if test="sex != null" >
+				SEX,
+			</if>
+			<if test="birthday != null" >
+				BIRTHDAY,
+			</if>
+			<if test="mobilNo != null" >
+				MOBIL_NO,
+			</if>
+			<if test="email != null" >
+				EMAIL,
+			</if>
+			<if test="deptId != null" >
+				DEPT_ID,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="userId != null" >
+				#{userId},
+			</if>
+			<if test="userName != null" >
+				#{userName},
+			</if>
+			<if test="password != null" >
+				#{password},
+			</if>
+			<if test="sex != null" >
+				#{sex},
+			</if>
+			<if test="birthday != null" >
+				#{birthday},
+			</if>
+			<if test="mobilNo != null" >
+				#{mobilNo},
+			</if>
+			<if test="email != null" >
+				#{email},
+			</if>
+			<if test="deptId != null" >
+				#{deptId},
+			</if>
+
+		</trim>
+	</insert>
+	<update id="updateStudent" parameterType="com.xoa.model.edu.eduStudent.EduStudent">
+		UPDATE edu_student
+		<set>
+			<if test="userName != null" >
+				USER_NAME = #{userName},
+			</if>
+			<if test="password != null" >
+				PASSWORD = #{password},
+			</if>
+			<if test="sex != null" >
+				SEX = #{sex},
+			</if>
+			<if test="birthday != null" >
+				BIRTHDAY = #{birthday},
+			</if>
+			<if test="mobilNo != null" >
+				MOBIL_NO = #{mobilNo},
+			</if>
+			<if test="email != null" >
+				EMAIL = #{email},
+			</if>
+			<if test="deptId != null" >
+				DEPT_ID = #{deptId},
+			</if>
+
+		</set>
+		WHERE  UID = #{uid}
+	</update>
+	<update id="clearPasswordByUid" parameterType="String">
+		UPDATE edu_student
+		<set>
+			PASSWORD = ''
+		</set>
+		WHERE  UID = #{uids}
+	</update>
+	<update id="editDeptId" parameterType="com.xoa.model.edu.eduStudent.EduStudent">
+		UPDATE edu_student
+		<set>
+			<if test="deptId!=null and deptId!=''">
+				DEPT_ID=#{deptId}
+			</if>
+		</set>
+		WHERE UID=#{uid}
+	</update>
+	<select id="selectAll" resultMap="BaseResultMap">
+		SELECT edu.UID,edu.DEPT_ID,ext.GRADE FROM edu_student edu,edu_student_ext ext WHERE edu.UID=ext.UID
+	</select>
+
+	<!--根据班级年级查询对应的学生信息-->
+	<select id="studentSelect" parameterType="java.lang.String"  resultType="java.util.HashMap">
+		SELECT
+		ect.USER_ID  as 'userID',
+		ect.GRASE_CLASS as 'graseClass',
+		ect.USER_NAME as 'userName'
+		FROM
+		(
+		SELECT
+		CONCAT(GRADE, CLASS) AS 'GRASE_CLASS',
+		es.USER_NAME,
+		es.USER_ID
+		FROM
+		edu_student es
+		INNER JOIN edu_student_ext ese ON ES.USER_ID = ese.USER_ID
+		) ect
+		WHERE
+		ect.GRASE_CLASS = #{graseClass}
+	</select>
+
+	<!--根据班级ID查询对应班级-->
+	<select id="studentSelectSum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+			select count(*) FROM  edu_student where DEPT_ID=#{classId}
+	</select>
+
+	<select id="checkPassWord" parameterType="java.lang.String" resultType="com.xoa.model.edu.eduStudent.EduStudent">
+		select u.PASSWORD FROM edu_student u WHERE  u.BYNAME = #{userName};
+	</select>
+
+	<select id="findUserByName" resultMap="BaseResultMap">
+		select
+		u.UID,u.USER_ID,u.USER_NAME,u.BYNAME,u.`PASSWORD`,u.DEPT_ID,u.DEPT_ID_OTHER,u.USER_PRIV,u.USER_PRIV_OTHER,u.USER_PRIV_NAME,u.SEX,u.AVATAR,s.PARA_NAME,s.PARA_VALUE
+		from edu_student u,sys_para s WHERE
+		u.BYNAME= #{byname}   and s.PARA_NAME='IM_WINDOW_CAPTION'
+	</select>
+
+</mapper>

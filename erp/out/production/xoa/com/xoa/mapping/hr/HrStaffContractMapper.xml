@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.hr.HrStaffContractMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.hr.HrStaffContract" >
+  
+    <id column="CONTRACT_ID" property="contractId" jdbcType="INTEGER" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_DEPT_ID" property="createDeptId" jdbcType="INTEGER" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="STAFF_CONTRACT_NO" property="staffContractNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_TYPE" property="contractType" jdbcType="VARCHAR" />
+    <result column="CONTRACT_SPECIALIZATION" property="contractSpecialization" jdbcType="VARCHAR" />
+    <result column="MAKE_CONTRACT" property="makeContract" jdbcType="DATE" />
+    <result column="TRAIL_EFFECTIVE_TIME" property="trailEffectiveTime" jdbcType="DATE" />
+    <result column="PROBATIONARY_PERIOD" property="probationaryPeriod" jdbcType="VARCHAR" />
+    <result column="TRAIL_OVER_TIME" property="trailOverTime" jdbcType="DATE" />
+    <result column="PASS_OR_NOT" property="passOrNot" jdbcType="VARCHAR" />
+    <result column="PROBATION_END_DATE" property="probationEndDate" jdbcType="DATE" />
+    <result column="PROBATION_EFFECTIVE_DATE" property="probationEffectiveDate" jdbcType="DATE" />
+    <result column="ACTIVE_PERIOD" property="activePeriod" jdbcType="VARCHAR" />
+    <result column="CONTRACT_END_TIME" property="contractEndTime" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="REMOVE_OR_NOT" property="removeOrNot" jdbcType="VARCHAR" />
+    <result column="CONTRACT_REMOVE_TIME" property="contractRemoveTime" jdbcType="DATE" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SIGN_TIMES" property="SingTimes" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_ID" property="attachmentId" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="DATE" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="DATE" />
+    <result column="REMIND_TIME" property="remindTime" jdbcType="DATE" />
+    <result column="STAFF_USER_NAME" property="staffUserName" jdbcType="VARCHAR" />
+    <result column="REMIND_USER" property="remindUser" jdbcType="VARCHAR" />
+    <result column="REMIND_TYPE" property="remindType" jdbcType="INTEGER" />
+    <result column="HAS_REMINDED" property="hasReminded" jdbcType="INTEGER" />
+    <result column="RENEW_TIME" property="renewTime" jdbcType="VARCHAR" />
+    <result column="CONTRACT_ENTERPRIES" property="contractEnterpries" jdbcType="VARCHAR" />
+    <result column="IS_TRIAL" property="isTrial" jdbcType="VARCHAR" />
+    <result column="IS_RENEW" property="isRenew" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getcontractinfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM  hr_staff_contract WHERE  CONTRACT_ID =#{contractId};
+  </select>
+  <update id="updateContractInfo" parameterType="com.xoa.model.hr.HrStaffContract">
+
+    UPDATE hr_staff_contract
+    <set>
+      <if test="createUserId!=null">
+        CREATE_USER_ID=#{createUserId},
+      </if>
+      <if test="createDeptId!=null">
+        CREATE_DEPT_ID=#{createDeptId},
+      </if>
+      <if test="staffName!=null">
+        STAFF_NAME=#{staffName},
+      </if>
+      <if test="staffContractNo!=null">
+        STAFF_CONTRACT_NO=#{staffContractNo},
+    </if>
+      <if test="contractType!=null">
+      CONTRACT_TYPE=#{contractType},
+    </if>
+      <if test="contractSpecialization!=null">
+      CONTRACT_SPECIALIZATION=#{contractSpecialization},
+    </if>
+      <if test="makeContract!=null">
+      MAKE_CONTRACT=#{makeContract},
+    </if>
+      <if test="trailEffectiveTime!=null and trailEffectiveTime!='' ">
+      TRAIL_EFFECTIVE_TIME=#{trailEffectiveTime},
+    </if>
+      <if test="probationaryPeriod!=null">
+      PROBATIONARY_PERIOD=#{probationaryPeriod},
+    </if>
+      <if test="trailOverTime!=null">
+      TRAIL_OVER_TIME=#{trailOverTime},
+    </if>
+      <if test="passOrNot!=null">
+      PASS_OR_NOT=#{passOrNot},
+    </if>
+      <if test="probationEndDate!=null">
+      PROBATION_END_DATE=#{probationEndDate},
+    </if>
+      <if test="probationEffectiveDate!=null">
+        PROBATION_EFFECTIVE_DATE=#{probationEffectiveDate},
+      </if>
+      <if test="activePeriod!=null">
+        ACTIVE_PERIOD=#{activePeriod},
+      </if>
+      <if test="contractEndTime!=null">
+      CONTRACT_END_TIME=#{contractEndTime},
+    </if>
+      <if test="remark!=null">
+      REMARK=#{remark},
+    </if>
+      <if test="removeOrNot!=null">
+      REMOVE_OR_NOT=#{removeOrNot},
+    </if>
+      <if test="contractRemoveTime!=null and contractRemoveTime!='' ">
+        CONTRACT_REMOVE_TIME=#{contractRemoveTime},
+      </if>
+      <if test="status!=null">
+        STATUS=#{status},
+      </if>
+      <if test="singTimes!=null">
+        SIGN_TIMES=#{singTimes},
+      </if>
+      <if test="attachmentId!=null">
+      ATTACHMENT_ID=#{attachmentId},
+    </if>
+      <if test="attachmentName!=null">
+        ATTACHMENT_NAME=#{attachmentName},
+      </if>
+      <if test="addTime!=null">
+        ADD_TIME=#{addTime},
+      </if>
+      <if test="lastUpdateTime!=null">
+        LAST_UPDATE_TIME=#{lastUpdateTime},
+      </if>
+      <if test="remindTime!=null and remindTime!='' ">
+        REMIND_TIME=#{remindTime},
+      </if>
+      <if test="staffUserName!=null">
+      STAFF_USER_NAME=#{staffUserName},
+    </if>
+      <if test="remindUser!=null">
+      REMIND_USER=#{remindUser},
+    </if>
+      <if test="remindType!=null">
+        REMIND_TYPE=#{remindType},
+      </if>
+      <if test="hasReminded!=null">
+        HAS_REMINDED=#{hasReminded},
+      </if>
+      <if test="renewTime!=null">
+        RENEW_TIME=#{renewTime},
+      </if>
+      <if test="contractEnterpries!=null">
+        CONTRACT_ENTERPRIES=#{contractEnterpries},
+      </if>
+      <if test="isTrial!=null">
+        IS_TRIAL=#{isTrial},
+      </if>
+      <if test="isRenew!=null">
+        IS_RENEW=#{isRenew},
+      </if>
+      <if test="userName!=null">
+        USER_NAME=#{userName},
+      </if>
+    </set>
+    <where>
+    CONTRACT_ID=#{contractId}
+    </where>
+  </update>
+  <delete id="deleteContractInfo" parameterType="java.lang.Integer">
+    DELETE  from hr_staff_contract  WHERE CONTRACT_ID =#{contractId}
+  </delete>
+  <select id="getAllContract" resultMap="BaseResultMap" parameterType="map">
+    SELECT * FROM hr_staff_contract
+  </select>
+  <insert id="addContract" parameterType="com.xoa.model.hr.HrStaffContract">
+    INSERT INTO hr_staff_contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="createUserId!=null ">
+      CREATE_USER_ID,
+    </if>
+    <if test="createDeptId!=null  ">
+      CREATE_DEPT_ID,
+    </if>
+    <if test="staffName!=null  ">
+      STAFF_NAME,
+    </if>
+    <if test="staffContractNo!=null  ">
+      STAFF_CONTRACT_NO,
+    </if>
+    <if test="contractType!=null  ">
+      CONTRACT_TYPE,
+    </if>
+    <if test="contractSpecialization!=null  ">
+      CONTRACT_SPECIALIZATION,
+    </if>
+    <if test="makeContract!=null ">
+      MAKE_CONTRACT,
+    </if>
+    <if test="trailEffectiveTime!=null ">
+      TRAIL_EFFECTIVE_TIME,
+    </if>
+    <if test="probationaryPeriod!=null  ">
+      PROBATIONARY_PERIOD,
+    </if>
+    <if test="trailOverTime!=null  ">
+      TRAIL_OVER_TIME,
+    </if>
+    <if test="passOrNot!=null  ">
+      PASS_OR_NOT,
+    </if>
+    <if test="probationEndDate!=null  ">
+      PROBATION_END_DATE,
+    </if>
+    <if test="probationEffectiveDate!=null  ">
+      PROBATION_EFFECTIVE_DATE,
+    </if>
+    <if test="activePeriod!=null  ">
+      ACTIVE_PERIOD,
+    </if>
+    <if test="contractEndTime!=null  ">
+      CONTRACT_END_TIME,
+    </if>
+    <if test="remark!=null  ">
+      REMARK,
+    </if>
+    <if test="removeOrNot!=null  ">
+      REMOVE_OR_NOT,
+    </if>
+    <if test="contractRemoveTime!=null  ">
+      CONTRACT_REMOVE_TIME,
+    </if>
+    <if test="status!=null  ">
+      STATUS,
+    </if>
+    <if test="singTimes!=null ">
+      SIGN_TIMES,
+    </if>
+    <if test="attachmentId!=null  ">
+      ATTACHMENT_ID,
+    </if>
+    <if test="attachmentName!=null  ">
+      ATTACHMENT_NAME,
+    </if>
+    <if test="addTime!=null  ">
+      ADD_TIME,
+    </if>
+    <if test="lastUpdateTime!=null  ">
+      LAST_UPDATE_TIME,
+    </if>
+    <if test="remindTime!=null   ">
+      REMIND_TIME,
+    </if>
+    <if test="staffUserName!=null  ">
+      STAFF_USER_NAME,
+    </if>
+    <if test="remindUser!=null  ">
+      REMIND_USER,
+    </if>
+    <if test="remindType!=null  ">
+      REMIND_TYPE,
+    </if>
+    <if test="hasReminded!=null  ">
+      HAS_REMINDED,
+    </if>
+    <if test="renewTime!=null  ">
+      RENEW_TIME,
+    </if>
+    <if test="contractEnterpries!=null  ">
+      CONTRACT_ENTERPRIES,
+    </if>
+    <if test="isTrial!=null  ">
+      IS_TRIAL,
+    </if>
+    <if test="isRenew!=null ">
+      IS_RENEW,
+    </if>
+    <if test="userName!=null  ">
+      USER_NAME,
+    </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createUserId!=null  ">
+      #{createUserId},
+      </if>
+      <if test="createDeptId!=null  ">
+        #{createDeptId},
+      </if>
+      <if test="staffName!=null  ">
+        #{staffName},
+      </if>
+      <if test="staffContractNo!=null  ">
+        #{staffContractNo},
+      </if>
+      <if test="contractType!=null  ">
+        #{contractType},
+      </if>
+      <if test="contractSpecialization!=null   ">
+        #{contractSpecialization},
+      </if>
+      <if test="makeContract!=null  ">
+        #{makeContract},
+      </if>
+      <if test="trailEffectiveTime!=null  ">
+        #{trailEffectiveTime},
+      </if>
+      <if test="probationaryPeriod!=null  ">
+        #{probationaryPeriod},
+      </if>
+      <if test="trailOverTime!=null ">
+        #{trailOverTime},
+      </if>
+      <if test="passOrNot!=null  ">
+        #{passOrNot},
+      </if>
+      <if test="probationEndDate!=null  ">
+        #{probationEndDate},
+      </if>
+      <if test="probationEffectiveDate!=null ">
+        #{probationEffectiveDate},
+      </if>
+      <if test="activePeriod!=null ">
+        #{activePeriod},
+      </if>
+      <if test="contractEndTime!=null  ">
+        #{contractEndTime},
+      </if>
+      <if test="remark!=null  ">
+        #{remark},
+      </if>
+      <if test="removeOrNot!=null  ">
+        #{removeOrNot},
+      </if>
+      <if test="contractRemoveTime!=null ">
+        #{contractRemoveTime},
+      </if>
+      <if test="status!=null  ">
+        #{status},
+      </if>
+      <if test="singTimes!=null ">
+        #{singTimes},
+      </if>
+      <if test="attachmentId!=null ">
+        #{attachmentId},
+      </if>
+      <if test="attachmentName!=null ">
+        #{attachmentName},
+      </if>
+      <if test="addTime!=null  ">
+        #{addTime},
+      </if>
+      <if test="lastUpdateTime!=null ">
+        #{lastUpdateTime},
+      </if>
+      <if test="remindTime!=null ">
+        #{remindTime},
+      </if>
+      <if test="staffUserName!=null  ">
+        #{staffUserName},
+      </if>
+      <if test="remindUser!=null ">
+        #{remindUser},
+      </if>
+      <if test="remindType!=null ">
+        #{remindType},
+      </if>
+      <if test="hasReminded!=null ">
+        #{hasReminded},
+      </if>
+      <if test="renewTime!=null ">
+        #{renewTime},
+      </if>
+      <if test="contractEnterpries!=null  ">
+        #{contractEnterpries},
+      </if>
+      <if test="isTrial!=null ">
+        #{isTrial},
+      </if>
+      <if test="isRenew!=null  ">
+        #{isRenew},
+      </if>
+      <if test="userName!=null ">
+        #{userName},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getTrialContract" parameterType="map" resultMap="BaseResultMap">
+    SELECT * from hr_staff_contract
+    <if test="startTime!=null and endTime !=null">
+    WHERE TRAIL_OVER_TIME BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="getMaturityContract" parameterType="map" resultMap="BaseResultMap">
+    SELECT * FROM hr_staff_contract
+    <where>
+      <trim prefixOverrides="and">
+        <if test="IsRenew!= null and IsRenew!='' ">
+          and IS_RENEW=#{IsRenew}
+        </if>
+        <if test="contractType!=null and ContractType!='' ">
+          and CONTRACT_TYPE=#{contractType}
+        </if>
+        <if test="startTime!=null and endTime !=null">
+        AND CONTRACT_END_TIME BETWEEN #{startTime} AND #{endTime}
+       </if>
+      </trim>
+    </where>
+  </select>
+  <select id="getContract" parameterType="map" resultMap="BaseResultMap">
+    SELECT * FROM hr_staff_contract
+     <where>
+       <trim prefixOverrides="AND">
+       <if test="staffName!=null and staffName!=''">
+         AND STAFF_NAME=#{staffName}
+       </if>
+       <if test="StaffContractNo!=null and StaffContractNo!=''">
+         AND  STAFF_CONTRACT_NO=#{StaffContractNo}
+       </if>
+       <if test="ContractType!=null and ContractType!=''">
+         AND  CONTRACT_TYPE=#{ContractType}
+       </if>
+       <if test="ContractEnterpries!=null and ContractEnterpries!=''">
+         AND CONTRACT_ENTERPRIES=#{ContractEnterpries}
+       </if>
+       <if test="contractSpecialization!=null and contractSpecialization!=''">
+         AND CONTRACT_SPECIALIZATION=#{contractSpecialization}
+       </if>
+       <if test="SignstartTime!=null and SignendTime!=null">
+         AND MAKE_CONTRACT BETWEEN #{SignstartTime} AND #{SignendTime}
+       </if>
+       <if test="SignstartTime!=null and SignendTime==null">
+         AND MAKE_CONTRACT &gt;= #{SignstartTime}
+       </if>
+       <if test="SignstartTime==null and SignendTime!=null">
+         AND MAKE_CONTRACT &lt;= #{SignendTime}
+       </if>
+       <if test="TrialstartTime!=null and TrialendTime!=null">
+         AND TRAIL_OVER_TIME BETWEEN #{TrialstartTime} AND #{TrialendTime}
+       </if>
+       <if test="TrialstartTime!=null and TrialendTime==null">
+         AND TRAIL_OVER_TIME &gt;= #{TrialstartTime}
+       </if>
+       <if test="TrialstartTime==null and TrialendTime!=null">
+         AND TRAIL_OVER_TIME &lt;= #{TrialendTime}
+       </if>
+       <if test="MaturitystartTime!=null and MaturityendTime!=null">
+         AND CONTRACT_END_TIME BETWEEN #{MaturitystartTime} AND #{MaturityendTime}
+       </if>
+       <if test="MaturitystartTime!=null and MaturityendTime==null">
+         AND CONTRACT_END_TIME &gt;= #{MaturitystartTime}
+       </if>
+       <if test="MaturitystartTime==null and MaturityendTime!=null">
+         AND CONTRACT_END_TIME &lt;= #{MaturityendTime}
+       </if>
+       <if test="RelievestartTime!=null and RelieveendTime!=null">
+         AND CONTRACT_REMOVE_TIME BETWEEN #{RelievestartTime} AND #{RelieveendTime}
+       </if>
+       <if test="RelievestartTime!=null and RelieveendTime==null">
+         AND CONTRACT_REMOVE_TIME &gt;= #{RelievestartTime}
+       </if>
+       <if test="RelievestartTime==null and RelieveendTime!=null">
+         AND CONTRACT_REMOVE_TIME &lt;= #{RelieveendTime}
+       </if>
+       </trim>
+     </where>
+  </select>
+  <delete id="deleteByIds" >
+    delete from hr_staff_contract where CONTRACT_ID in 
+    <foreach item="id" collection="ids" open="(" close=")" separator="," >
+        #{id}
+    </foreach>
+  </delete>
+  <select id="getAllCount" resultType="Integer">
+    select COUNT(CONTRACT_ID) from hr_staff_contract;
+  </select>
+
+
+</mapper>

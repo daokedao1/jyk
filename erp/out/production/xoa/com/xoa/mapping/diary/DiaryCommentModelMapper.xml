@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.DiaryCommentModelMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.diary.DiaryCommentModel" >
+    <id column="COMMENT_ID" property="commentId" javaType="int" />
+    <result column="DIA_ID" property="diaId" javaType="int" />
+    <result column="USER_ID" property="userId" javaType="string" />
+    <result column="SEND_TIME" property="sendTime" javaType="string" />
+    <result column="COMMENT_FLAG" property="commentFlag" javaType="string" />
+    <result column="CONTENT" property="content" javaType="string" />
+    <result column="ATTACHMENT_ID" property="attachmentId" javaType="string" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" javaType="string" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COMMENT_ID, DIA_ID, USER_ID, SEND_TIME, COMMENT_FLAG
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME
+  </sql>
+ <!--  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from diary_comment
+    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from diary_comment
+    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    insert into diary_comment (COMMENT_ID, DIA_ID, USER_ID, 
+      SEND_TIME, COMMENT_FLAG, CONTENT, 
+      ATTACHMENT_ID, ATTACHMENT_NAME)
+    values (#{commentId,jdbcType=INTEGER}, #{diaId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{commentFlag,jdbcType=CHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{attachmentId,jdbcType=LONGVARCHAR}, #{attachmentName,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertDiaryComment" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    insert into diary_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="diaId != null" >
+        DIA_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="commentFlag != null" >
+        COMMENT_FLAG,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="diaId != null" >
+        #{diaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentFlag != null" >
+        #{commentFlag,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentId != null" >
+        #{attachmentId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    update diary_comment
+    <set >
+      <if test="diaId != null" >
+        DIA_ID = #{diaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentFlag != null" >
+        COMMENT_FLAG = #{commentFlag,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID = #{attachmentId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME = #{attachmentName,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    update diary_comment
+    set DIA_ID = #{diaId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      COMMENT_FLAG = #{commentFlag,jdbcType=CHAR},
+      CONTENT = #{content,jdbcType=LONGVARCHAR},
+      ATTACHMENT_ID = #{attachmentId,jdbcType=LONGVARCHAR},
+      ATTACHMENT_NAME = #{attachmentName,jdbcType=LONGVARCHAR}
+    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    update diary_comment
+    set DIA_ID = #{diaId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      COMMENT_FLAG = #{commentFlag,jdbcType=CHAR}
+    where COMMENT_ID = #{commentId,jdbcType=INTEGER}
+  </update>-->
+  <insert id="insertDiaryComment" parameterType="com.xoa.model.diary.DiaryCommentModel" >
+    insert into diary_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="diaId != null" >
+        DIA_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="commentFlag != null" >
+        COMMENT_FLAG,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="diaId != null" >
+        #{diaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentFlag != null" >
+        #{commentFlag,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentId != null" >
+        #{attachmentId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getDiaryCommentByDiaId" resultMap="BaseResultMap" parameterType="String">
+    SELECT
+      <include refid="Base_Column_List" />
+       ,
+      <include refid="Blob_Column_List" />
+    FROM
+      diary_comment
+    WHERE
+      DIA_ID=#{diaId}
+  </select>
+
+  <delete id="delDiaryCommentByCommentId" parameterType="String">
+    DELETE  from diary_comment where  COMMENT_ID=#{commentId}
+  </delete>
+
+  <select id="getDiaryCommentCount" resultType="Integer" parameterType="Integer">
+    SELECT  count(*) from diary_comment WHERE DIA_ID=#{diaId}
+  </select>
+
+
+
+</mapper>

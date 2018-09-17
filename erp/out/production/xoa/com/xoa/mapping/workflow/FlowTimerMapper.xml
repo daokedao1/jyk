@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.workflow.FlowTimerMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowTimer">
+    <id column="TID" jdbcType="INTEGER" property="tid" />
+    <result column="FLOW_ID" jdbcType="INTEGER" property="flowId" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="REMIND_DATE" jdbcType="VARCHAR" property="remindDate" />
+    <result column="REMIND_TIME" jdbcType="TIME" property="remindTime" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    <result column="USER_STR" jdbcType="LONGVARCHAR" property="userStr" />
+    <result column="DEPT_STR" jdbcType="LONGVARCHAR" property="deptStr" />
+    <result column="PRIV_STR" jdbcType="LONGVARCHAR" property="privStr" />
+  </resultMap>
+  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithBLOBsExtend" type="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    <result column="USER_NAME" javaType="java.lang.String" property="userName" />
+    <result column="TYPE_NAME" javaType="java.lang.String" property="typeName" />
+    <result column="DEPT_NAME" javaType="java.lang.String" property="deptName" />
+    <result column="ROLE_NAME" javaType="java.lang.String" property="roleName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TID, FLOW_ID, TYPE, REMIND_DATE, REMIND_TIME, LAST_TIME
+  </sql>
+  <sql id="Blob_Column_List">
+    USER_STR, DEPT_STR, PRIV_STR
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xoa.model.workflow.FlowTimerExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_timer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xoa.model.workflow.FlowTimerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flow_timer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_timer
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from flow_timer
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.workflow.FlowTimerExample">
+    delete from flow_timer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    insert into flow_timer (TID, FLOW_ID, TYPE, 
+      REMIND_DATE, REMIND_TIME, LAST_TIME, 
+      USER_STR, DEPT_STR, PRIV_STR
+      )
+    values (#{tid,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{remindDate,jdbcType=VARCHAR}, #{remindTime,jdbcType=TIME}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{userStr,jdbcType=LONGVARCHAR}, #{deptStr,jdbcType=LONGVARCHAR}, #{privStr,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    insert into flow_timer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        TID,
+      </if>
+      <if test="flowId != null">
+        FLOW_ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="remindDate != null">
+        REMIND_DATE,
+      </if>
+      <if test="remindTime != null">
+        REMIND_TIME,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+      <if test="userStr != null">
+        USER_STR,
+      </if>
+      <if test="deptStr != null">
+        DEPT_STR,
+      </if>
+      <if test="privStr != null">
+        PRIV_STR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="flowId != null">
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remindDate != null">
+        #{remindDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remindTime != null">
+        #{remindTime,jdbcType=TIME},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStr != null">
+        #{userStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deptStr != null">
+        #{deptStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="privStr != null">
+        #{privStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.workflow.FlowTimerExample" resultType="java.lang.Integer">
+    select count(*) from flow_timer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update flow_timer
+    <set>
+      <if test="record.tid != null">
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowId != null">
+        FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindDate != null">
+        REMIND_DATE = #{record.remindDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindTime != null">
+        REMIND_TIME = #{record.remindTime,jdbcType=TIME},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userStr != null">
+        USER_STR = #{record.userStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.deptStr != null">
+        DEPT_STR = #{record.deptStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.privStr != null">
+        PRIV_STR = #{record.privStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update flow_timer
+    set TID = #{record.tid,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      REMIND_DATE = #{record.remindDate,jdbcType=VARCHAR},
+      REMIND_TIME = #{record.remindTime,jdbcType=TIME},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      USER_STR = #{record.userStr,jdbcType=LONGVARCHAR},
+      DEPT_STR = #{record.deptStr,jdbcType=LONGVARCHAR},
+      PRIV_STR = #{record.privStr,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update flow_timer
+    set TID = #{record.tid,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      REMIND_DATE = #{record.remindDate,jdbcType=VARCHAR},
+      REMIND_TIME = #{record.remindTime,jdbcType=TIME},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    update flow_timer
+    <set>
+      <if test="flowId != null">
+        FLOW_ID = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remindDate != null">
+        REMIND_DATE = #{remindDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remindTime != null">
+        REMIND_TIME = #{remindTime,jdbcType=TIME},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStr != null">
+        USER_STR = #{userStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="deptStr != null">
+        DEPT_STR = #{deptStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="privStr != null">
+        PRIV_STR = #{privStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.workflow.FlowTimerWithBLOBs">
+    update flow_timer
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=VARCHAR},
+      REMIND_DATE = #{remindDate,jdbcType=VARCHAR},
+      REMIND_TIME = #{remindTime,jdbcType=TIME},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      USER_STR = #{userStr,jdbcType=LONGVARCHAR},
+      DEPT_STR = #{deptStr,jdbcType=LONGVARCHAR},
+      PRIV_STR = #{privStr,jdbcType=LONGVARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FlowTimer">
+    update flow_timer
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=VARCHAR},
+      REMIND_DATE = #{remindDate,jdbcType=VARCHAR},
+      REMIND_TIME = #{remindTime,jdbcType=TIME},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <select id="queryByFlowId" resultMap="ResultMapWithBLOBsExtend" parameterType="java.lang.Integer">
+    SELECT flow_timer.*,
+        userName.USER_NAME,
+-- 提醒类型(1-仅此一次,2-按日,3-按周,4-按月,5-按年,)
+           case
+      WHEN flow_timer.TYPE='1' then '仅此一次'
+      WHEN flow_timer.TYPE='2' then '按日'
+      WHEN flow_timer.TYPE='3' then '按周'
+      WHEN flow_timer.TYPE='4' then '按月'
+      WHEN flow_timer.TYPE='5' then '按年'
+        ELSE '未知类型' END
+       AS TYPE_NAME,
+        departName.DPET_NAME AS  DEPT_NAME,
+         roleName.ROLE_NAME AS ROLE_NAME
+         FROM flow_timer LEFT JOIN
+        (SELECT GROUP_CONCAT(`user`.USER_NAME) as USER_NAME,flow_timer.TID AS b FROM
+          `user`,flow_timer WHERE
+            (flow_timer.USER_STR LIKE CONCAT("%,",`user`.UID,",%")
+                OR flow_timer.USER_STR LIKE CONCAT("%",`user`.UID,",%")
+                )
+                GROUP BY flow_timer.TID
+          ) AS userName ON b =flow_timer.TID
+        LEFT JOIN (
+         SELECT GROUP_CONCAT(department.DEPT_NAME) as DPET_NAME,flow_timer.TID AS d FROM
+          department,flow_timer WHERE
+           (flow_timer.DEPT_STR LIKE CONCAT("%,",department.DEPT_ID,",%")
+          OR flow_timer.DEPT_STR LIKE CONCAT("%",department.DEPT_ID,",%")) GROUP BY flow_timer.TID
+        ) AS departName ON d =flow_timer.TID
+        LEFT JOIN (
+          SELECT GROUP_CONCAT(user_priv.PRIV_NAME) AS ROLE_NAME,flow_timer.TID AS c FROM
+           user_priv, flow_timer WHERE
+            (flow_timer.PRIV_STR LIKE CONCAT("%,",user_priv.USER_PRIV,",%")
+       OR flow_timer.PRIV_STR LIKE CONCAT("%",user_priv.USER_PRIV,",%")
+      )
+            GROUP BY flow_timer.TID
+       )AS roleName ON c =flow_timer.TID
+        WHERE flow_timer.FLOW_ID=#{flowId}
+  </select>
+  <delete id="deleteBatchKey" parameterType="java.lang.Integer">
+    delete from flow_timer where TID in
+    <foreach item="timerId" collection="array" open="(" separator="," close=")">
+      #{timerId}
+    </foreach>
+  </delete>
+
+</mapper>

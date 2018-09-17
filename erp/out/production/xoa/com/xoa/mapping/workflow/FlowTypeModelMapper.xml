@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FlowTypeModelMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowTypeModel" >
+    <id column="FLOW_ID" property="flowId" javaType="java.lang.Integer" />
+    <result column="FLOW_NAME" property="flowName" javaType="java.lang.String" />
+    <result column="FORM_ID" property="formId" javaType="java.lang.Integer" />
+    <result column="FLOW_DOC" property="flowDoc" javaType="java.lang.String" />
+    <result column="FLOW_TYPE" property="flowType" javaType="java.lang.String" />
+    <result column="FLOW_NO" property="flowNo" javaType="java.lang.Integer" />
+    <result column="FLOW_SORT" property="flowSort" javaType="java.lang.Integer" />
+    <result column="AUTO_NUM" property="autoNum" javaType="java.lang.Integer" />
+    <result column="AUTO_LEN" property="autoLen" javaType="java.lang.Integer" />
+    <result column="AUTO_EDIT" property="autoEdit" javaType="java.lang.String" />
+    <result column="COMMENT_PRIV" property="commentPriv" javaType="java.lang.String" />
+    <result column="DEPT_ID" property="deptId" javaType="java.lang.Integer" />
+    <result column="FREE_PRESET" property="freePreset" javaType="java.lang.String" />
+    <result column="FREE_OTHER" property="freeOther" javaType="java.lang.String" />
+    <result column="ALLOW_PRE_SET" property="allowPreSet" javaType="java.lang.String" />
+    <result column="FORCE_PRE_SET" property="forcePreSet" javaType="java.lang.String" />
+    <result column="VIEW_PRIV" property="viewPriv" javaType="java.lang.Integer" />
+    <result column="IS_VERSION" property="isVersion" javaType="java.lang.Integer" />
+    <result column="FLOW_ACTION" property="flowAction" javaType="java.lang.String" />
+    <result column="AUTO_NUM_YEAR" property="autoNumYear" javaType="java.lang.Integer" />
+    <result column="AUTO_NUM_MONTH" property="autoNumMonth" javaType="java.lang.Integer" />
+    <result column="AUTO_NUM_TIME" property="autoNumTime" javaType="java.util.Date" />
+    <result column="MANAGE_USER" property="manageUser" javaType="java.lang.String" />
+    <result column="AUTO_NAME" property="autoName" javaType="java.lang.String" />
+    <result column="QUERY_USER" property="queryUser" javaType="java.lang.String" />
+    <result column="FLOW_DESC" property="flowDesc" javaType="java.lang.String" />
+    <result column="NEW_USER" property="newUser" javaType="java.lang.String" />
+    <result column="QUERY_ITEM" property="queryItem" javaType="java.lang.String" />
+    <result column="QUERY_USER_DEPT" property="queryUserDept" javaType="java.lang.String" />
+    <result column="MANAGE_USER_DEPT" property="manageUserDept" javaType="java.lang.String" />
+    <result column="EDIT_PRIV" property="editPriv" javaType="java.lang.String" />
+    <result column="LIST_FLDS_STR" property="listFldsStr" javaType="java.lang.String" />
+    <result column="MODEL_ID" property="modelId" javaType="java.lang.String" />
+    <result column="MODEL_NAME" property="modelName" javaType="java.lang.String" />
+    <result column="ATTACHMENT_ID" property="attachmentId" javaType="java.lang.String" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" javaType="java.lang.String" />
+    <result column="VIEW_USER" property="viewUser" javaType="java.lang.String" />
+    <result column="VIEW_DEPT" property="viewDept" javaType="java.lang.String" />
+    <result column="VIEW_ROLE" property="viewRole" javaType="java.lang.String" />
+  </resultMap>
+  <resultMap id="FlowDetailMap" type="com.xoa.model.workflow.FlowDetailInfo" extends="BaseResultMap">
+    <result column="RUN_NAME" property="runName"  javaType="string" />
+    <result column="DEPT_NAME" property="depName"  javaType="string" />
+    <result column="SORT_NAME" property="sortName"  javaType="string" />
+    <result column="FORM_NAME" property="formName"  javaType="string" />
+    <result column="procNum" property="procNum"  javaType="int" />
+    <result column="endRun" property="endRun"  javaType="int" />
+    <result column="allRun" property="runAll"  javaType="int" />
+    <result column="runIngCount" property="runIngCount"  javaType="int" />
+    <result column="archiveRun" property="archiveRun"  javaType="int" />
+    <result column="CAN_BACK" property="canBack"  javaType="int" />
+    <result column="CAN_SING" property="canSign"  javaType="int" />
+    <result column="CAN_SYNC" property="canSync"  javaType="int" />
+  </resultMap>
+  <resultMap id="FlowWithDep" type="com.xoa.model.workflow.FlowTypeModel" extends="BaseResultMap">
+    <result column="DEPT_NAME" property="depName"  javaType="string" />
+  </resultMap>
+  <resultMap id="FlowWithRun" type="com.xoa.model.workflow.FlowTypeModel" extends="BaseResultMap">
+    <result column="RUN_NAME" property="runName"  javaType="string" />
+  </resultMap>
+  <resultMap id="FlowWithdDocument" type="com.xoa.model.document.FlowTypeDocumentDocument" >
+    <id column="FLOW_ID" property="flowId" javaType="java.lang.Integer" />
+    <result column="FLOW_NAME" property="flowName" javaType="java.lang.String" />
+    <result column="SORT_DETAIL_TYPE" property="documentType" javaType="java.lang.String" />
+  </resultMap>
+  <!-- 新建流程自定义属性 -->
+  <insert id="save" parameterType="com.xoa.model.workflow.FlowTypeModel" useGeneratedKeys="true" keyProperty="flowId" >
+      insert into flow_type (FLOW_NAME,FORM_ID,FLOW_DOC,FLOW_TYPE,FLOW_NO,FLOW_SORT,AUTO_NUM,
+    AUTO_LEN,AUTO_EDIT,COMMENT_PRIV,DEPT_ID,FREE_PRESET,FREE_OTHER,ALLOW_PRE_SET,FORCE_PRE_SET,
+    VIEW_PRIV,IS_VERSION,FLOW_ACTION,AUTO_NUM_YEAR,AUTO_NUM_MONTH,AUTO_NUM_TIME,MANAGE_USER,AUTO_NAME,
+    QUERY_USER,FLOW_DESC,NEW_USER,QUERY_ITEM,QUERY_USER_DEPT,MANAGE_USER_DEPT,EDIT_PRIV,
+    LIST_FLDS_STR,MODEL_ID,MODEL_NAME,ATTACHMENT_ID,ATTACHMENT_NAME,VIEW_USER,VIEW_DEPT,VIEW_ROLE)
+     VALUES
+      (#{flowName},#{formId},#{flowDoc},#{flowType},#{flowNo},#{flowSort},#{autoNum},#{autoLen},
+    #{autoEdit},#{commentPriv},#{deptId},#{freePreset},#{freeOther},#{allowPreSet},#{forcePreSet},
+    #{viewPriv},#{isVersion},#{flowAction},#{autoNumYear},#{autoNumMonth},#{autoNumTime},
+    #{manageUser},#{autoName},#{queryUser},#{flowDesc},#{newUser},#{queryItem},#{queryUserDept},
+    #{manageUserDept},#{editPriv},#{listFldsStr},#{modelId},#{modelName},#{attachmentId},
+    #{attachmentName},#{viewUser},#{viewDept},#{viewRole});
+  </insert>
+
+  <!-- 流程查询自定义属性 -->
+  <select id="queryOneObject"  resultMap="BaseResultMap"
+          >
+    SELECT *
+    FROM FLOW_TYPE
+    WHERE
+    FLOW_ID =#{flowId}
+  </select>
+
+  <!-- 修改自定义属性 -->
+  <update id="update" parameterType="com.xoa.model.workflow.FlowTypeModel">
+    UPDATE FLOW_TYPE
+    <set>
+      <if test="flowName != null and flowName != ''">
+      FLOW_NAME = #{flowName},
+      </if>
+    <if test="formId != null and formId != ''">
+      FORM_ID = #{formId},
+    </if>
+    <if test="flowDoc != null and flowDoc != ''">
+      FLOW_DOC = #{flowDoc},
+    </if>
+    <if test="flowType != null and flowType != ''">
+      FLOW_TYPE = #{flowType},
+    </if>
+      <if test="flowNo != null and flowNo != 0">
+        FLOW_NO = #{flowNo},
+      </if>
+      <if test="flowSort != null and flowSort != ''">
+      FLOW_SORT = #{flowSort},
+      </if>
+      <if test="autoNum != null and autoNum != ''">
+      AUTO_NUM = #{autoNum},
+      </if>
+      <if test="autoLen != null and autoLen != ''">
+      AUTO_LEN = #{autoLen},
+      </if>
+      <if test="autoEdit != null and autoEdit != ''">
+      AUTO_EDIT = #{autoEdit},
+      </if>
+      <if test="commentPriv!=null and commentPriv != ''">
+      COMMENT_PRIV = #{commentPriv},
+      </if>
+      <if test="deptId != null and deptId != ''">
+      DEPT_ID = #{deptId},
+      </if>
+      <if test="freePreset != null and freePreset != ''">
+      FREE_PRESET = #{freePreset},
+      </if>
+      <if test="freeOther != null and freeOther != ''">
+      FREE_OTHER = #{freeOther},
+      </if>
+      <if test="allowPreSet != null and allowPreSet != '' ">
+      ALLOW_PRE_SET = #{allowPreSet},
+      </if>
+      <if test="forcePreSet != null and forcePreSet != '' ">
+      FORCE_PRE_SET = #{forcePreSet},
+      </if>
+      <if test="viewPriv != null and viewPriv != ''">
+      VIEW_PRIV = #{viewPriv},
+      </if>
+      <if test="isVersion != null and isVersion != '' ">
+      IS_VERSION = #{isVersion},
+      </if>
+      <if test="flowAction != null and flowAction != ''">
+      FLOW_ACTION = #{flowAction},
+      </if>
+      <if test="autoNumYear != null and autoNumYear != ''">
+      AUTO_NUM_YEAR = #{autoNumYear},
+      </if>
+      <if test="autoNumMonth != null and autoNumMonth != ''">
+      AUTO_NUM_MONTH = #{autoNumMonth},
+      </if>
+      <if test="autoNumTime != null and autoNumTime != ''">
+      AUTO_NUM_TIME = #{autoNumTime},
+      </if>
+      <if test="manageUser != null and manageUser != ''">
+      MANAGE_USER = #{manageUser},
+      </if>
+      <if test="autoName != null and autoName != ''">
+      AUTO_NAME = #{autoName},
+      </if>
+      <if test="queryUser != null and queryUser != ''">
+      QUERY_USER = #{queryUser},
+      </if>
+      <if test="flowDesc != null and flowDesc != ''">
+      FLOW_DESC = #{flowDesc},
+      </if>
+      <if test="newUser != null and newUser != ''">
+      NEW_USER = #{newUser},
+      </if>
+      <if test="queryItem != null and queryItem != ''">
+      QUERY_ITEM = #{queryItem},
+      </if>
+      <if test="queryUserDept != null and queryUserDept != ''">
+      QUERY_USER_DEPT = #{queryUserDept},
+      </if>
+      <if test="manageUserDept != null and manageUserDept != ''">
+      MANAGE_USER_DEPT = #{manageUserDept},
+      </if>
+      <if test="editPriv != null and editPriv != ''">
+      EDIT_PRIV = #{editPriv},
+      </if>
+      <if test="listFldsStr != null and listFldsStr!= ''">
+      LIST_FLDS_STR = #{listFldsStr},
+      </if>
+      <if test="modelId != null and modelId != ''">
+      MODEL_ID = #{modelId},
+      </if>
+      <if test="modelName != null and modelName != ''">
+      MODEL_NAME = #{modelName},
+      </if>
+      <if test="attachmentId != null and attachmentId != ''">
+      ATTACHMENT_ID = #{attachmentId},
+      </if>
+      <if test="attachmentName != null and attachmentName != ''">
+      ATTACHMENT_NAME = #{attachmentName},
+      </if>
+      <if test="viewUser != null and viewUser != ''">
+      VIEW_USER = #{viewUser},
+      </if>
+      <if test="viewDept != null and  viewDept != ''">
+      VIEW_DEPT = #{viewDept},
+      </if>
+      <if test="viewRole != null and  viewRole != ''">
+        VIEW_ROLE = #{viewRole}
+      </if>
+    </set>
+    WHERE
+    FLOW_ID = #{flowId}
+  </update>
+
+
+    <update id="updateFlowTypeModel" parameterType="com.xoa.model.workflow.FlowTypeModel">
+    UPDATE FLOW_TYPE
+    <set>
+      <if test="flowName != null and flowName !='' ">
+        FLOW_NAME = #{flowName},
+      </if>
+      <if test="formId != null ">
+        FORM_ID = #{formId},
+      </if>
+      <if test="flowDoc != null ">
+        FLOW_DOC = #{flowDoc},
+      </if>
+      <if test="flowType != null">
+        FLOW_TYPE = #{flowType},
+      </if>
+      <if test="flowNo != null and flowNo != 0">
+        FLOW_NO = #{flowNo},
+      </if>
+      <if test="flowSort != null ">
+        FLOW_SORT = #{flowSort},
+      </if>
+      <if test="autoNum != null ">
+        AUTO_NUM = #{autoNum},
+      </if>
+      <if test="autoLen != null ">
+        AUTO_LEN = #{autoLen},
+      </if>
+      <if test="autoEdit != null ">
+        AUTO_EDIT = #{autoEdit},
+      </if>
+      <if test="commentPriv!=null ">
+        COMMENT_PRIV = #{commentPriv},
+      </if>
+      <if test="deptId != null ">
+        DEPT_ID = #{deptId},
+      </if>
+      <if test="freePreset != null ">
+        FREE_PRESET = #{freePreset},
+      </if>
+      <if test="freeOther != null ">
+        FREE_OTHER = #{freeOther},
+      </if>
+      <if test="allowPreSet != null  ">
+        ALLOW_PRE_SET = #{allowPreSet},
+      </if>
+      <if test="forcePreSet != null  ">
+        FORCE_PRE_SET = #{forcePreSet},
+      </if>
+    <if test="isVersion != null ">
+        IS_VERSION = #{isVersion},
+      </if>
+      <if test="flowAction != null ">
+        FLOW_ACTION = #{flowAction},
+      </if>
+      <if test="autoNumYear != null ">
+        AUTO_NUM_YEAR = #{autoNumYear},
+      </if>
+      <if test="autoNumMonth != null ">
+        AUTO_NUM_MONTH = #{autoNumMonth},
+      </if>
+      <if test="autoNumTime != null ">
+        AUTO_NUM_TIME = #{autoNumTime},
+      </if>
+      <if test="manageUser != null ">
+        MANAGE_USER = #{manageUser},
+      </if>
+      <if test="autoName != null ">
+        AUTO_NAME = #{autoName},
+      </if>
+      <if test="queryUser != null ">
+        QUERY_USER = #{queryUser},
+      </if>
+      <if test="flowDesc != null ">
+        FLOW_DESC = #{flowDesc},
+      </if>
+      <if test="newUser != null ">
+        NEW_USER = #{newUser},
+      </if>
+      <if test="queryItem != null ">
+        QUERY_ITEM = #{queryItem},
+      </if>
+      <if test="queryUserDept != null">
+        QUERY_USER_DEPT = #{queryUserDept},
+      </if>
+      <if test="manageUserDept != null  ">
+        MANAGE_USER_DEPT = #{manageUserDept},
+      </if>
+      <if test="editPriv != null ">
+        EDIT_PRIV = #{editPriv},
+      </if>
+      <if test="listFldsStr != null ">
+        LIST_FLDS_STR = #{listFldsStr},
+      </if>
+      <if test="modelId != null ">
+        MODEL_ID = #{modelId},
+      </if>
+      <if test="modelName != null ">
+        MODEL_NAME = #{modelName},
+      </if>
+      <if test="attachmentId != null ">
+        ATTACHMENT_ID = #{attachmentId},
+      </if>
+      <if test="attachmentName != null ">
+        ATTACHMENT_NAME = #{attachmentName},
+      </if>
+      <if test="viewUser != null ">
+        VIEW_USER = #{viewUser},
+      </if>
+      <if test="viewDept != null ">
+        VIEW_DEPT = #{viewDept},
+      </if>
+      <if test="viewDept != null ">
+        VIEW_DEPT = #{viewDept},
+      </if>
+      <if test="viewRole != null ">
+        VIEW_ROLE = #{viewRole},
+      </if>
+      <if test="viewPriv != null">
+        VIEW_PRIV = #{viewPriv},
+      </if>
+    </set>
+    WHERE
+    FLOW_ID = #{flowId}
+  </update>
+
+
+  <select id="selectBySortid" resultMap="FlowWithDep" parameterType="java.lang.Integer">
+    SELECT  flow_type.*,department.DEPT_NAME FROM  flow_type LEFT JOIN department ON department.DEPT_ID=flow_type.DEPT_ID
+    <where>
+      <if test="flowId != null">
+        flow_type.FLOW_SORT =#{flowId}
+      </if>
+      <if test="flowId ==null">
+
+        flow_type.FLOW_SORT =0 OR flow_type IS NULL
+      </if>
+    </where>
+  </select>
+
+  <select id="selectBySearch" resultMap="FlowWithDep" parameterType="Map">
+    SELECT  flow_type.*,department.DEPT_NAME FROM  flow_type LEFT JOIN department ON department.DEPT_ID=flow_type.DEPT_ID
+    WHERE  flow_type.FLOW_NAME LIKE CONCAT("%",#{searchValue},"%")
+    <if test="sortId!=null">
+    AND  flow_type.FLOW_SORT = #{sortId}
+    </if>
+  </select>
+  <select id="selectFlowAuthOrSearch" resultMap="FlowWithRun" parameterType="Map">
+    SELECT flow_type.*,flowRun.RUN_NAME FROM flow_type
+    INNER JOIN  flow_sort ON  flow_type.FLOW_SORT=flow_sort.SORT_ID AND  (flow_sort.SORT_MAIN_TYPE ='0'
+    OR flow_sort.SORT_MAIN_TYPE =""
+    )
+    INNER JOIN flow_process ON flow_process.FLOW_ID= flow_type.FLOW_ID  AND flow_process.PRCS_ID in (
+    SELECT MIN( flow_process.PRCS_ID) FROM flow_process WHERE flow_process.FLOW_ID= flow_type.FLOW_ID
+    )
+    AND (
+    <trim suffixOverrides="OR">
+      (
+      flow_process.PRCS_USER LIKE concat("%,",#{user},",%") OR
+      flow_process.PRCS_USER LIKE concat(#{user},",%")
+      )
+     OR
+      (
+      flow_process.PRCS_DEPT LIKE concat("%,",#{deptId},",%") OR
+      flow_process.PRCS_DEPT LIKE concat(#{deptId},",%")
+      )
+      OR
+      (
+      flow_process.PRCS_PRIV LIKE concat("%,",#{privId},",%") OR
+      flow_process.PRCS_PRIV LIKE concat(#{privId},",%")
+      )
+      OR flow_process.PRCS_DEPT='ALL_DEPT' OR
+      <!--<if test="privIds!=null">-->
+        <!--<foreach item="item" collection="privIds">-->
+          <!--(-->
+          <!--flow_process.PRCS_PRIV LIKE concat("%,",#{item},",%") OR-->
+          <!--flow_process.PRCS_PRIV LIKE concat("%",#{item},",%")-->
+          <!--)-->
+         <!--OR-->
+        <!--</foreach>-->
+      <!--</if>-->
+      <!--<if test="deptIds!=null">-->
+        <!--<foreach item="item" collection="deptIds">-->
+          <!--(-->
+          <!--flow_process.PRCS_DEPT LIKE concat("%,",#{item},",%") OR-->
+          <!--flow_process.PRCS_DEPT LIKE concat("%",#{item},",%")-->
+          <!--)-->
+           <!--OR-->
+        <!--</foreach>-->
+      <!--</if>-->
+    </trim>
+    )
+    LEFT JOIN(
+    SELECT
+    *
+    FROM flow_run ORDER BY flow_run.BEGIN_TIME DESC
+    ) AS flowRun ON flowRun.FLOW_ID= flow_type.FLOW_ID
+    <where>
+      <if test="sortId!=null">
+        (
+        #{sortId} LIKE concat("%,",flow_type.FLOW_SORT,",%") OR
+        #{sortId} LIKE concat(flow_type.FLOW_SORT,",%")
+        )
+      </if>
+      <if test="searchValue!=null">
+        AND flow_type.FLOW_NAME LIKE CONCAT("%",#{searchValue},"%")
+      </if>
+    </where>
+    GROUP BY flow_type.FLOW_ID
+    ORDER BY  flowRun.BEGIN_TIME DESC
+  </select>
+  <select id="selectFlowAuthOrSearchByCodeId" resultMap="FlowWithRun" parameterType="Map">
+    SELECT flow_type.*,flowRun.RUN_NAME FROM flow_type
+    INNER JOIN  flow_sort ON  flow_type.FLOW_SORT=flow_sort.SORT_ID AND  flow_sort.SORT_MAIN_TYPE != '0'
+    INNER JOIN flow_process ON flow_process.FLOW_ID= flow_type.FLOW_ID  AND flow_process.PRCS_ID in (
+    SELECT MIN( flow_process.PRCS_ID) FROM flow_process WHERE flow_process.FLOW_ID= flow_type.FLOW_ID
+    )
+    AND (
+    <trim suffixOverrides="OR">
+      (
+      flow_process.PRCS_USER LIKE concat("%,",#{user},",%") OR
+      flow_process.PRCS_USER LIKE concat(#{user},",%")
+      )
+      OR
+      (
+      flow_process.PRCS_DEPT LIKE concat("%,",#{deptId},",%") OR
+      flow_process.PRCS_DEPT LIKE concat(#{deptId},",%")
+      )
+      OR
+      (
+      flow_process.PRCS_PRIV LIKE concat("%,",#{privId},",%") OR
+      flow_process.PRCS_PRIV LIKE concat(#{privId},",%")
+      )
+      OR flow_process.PRCS_DEPT='ALL_DEPT' OR
+    </trim>
+    )
+    LEFT JOIN(
+    SELECT
+    *
+    FROM flow_run ORDER BY flow_run.BEGIN_TIME DESC
+    ) AS flowRun ON flowRun.FLOW_ID= flow_type.FLOW_ID
+    <where>
+      (
+      flow_sort.SORT_DETAIL_TYPE=#{detailType}
+      )
+      AND
+        (
+        #{sortId} LIKE concat("%,",flow_type.FLOW_SORT,",%") OR
+        #{sortId} LIKE concat(flow_type.FLOW_SORT,",%")
+        )
+    </where>
+    GROUP BY flow_type.FLOW_ID
+    ORDER BY  flowRun.BEGIN_TIME DESC
+  </select>
+  <select id="selectFlowDetailInfo" resultMap="FlowDetailMap" parameterType="Integer">
+    SELECT flow_type.*,flow_sort.SORT_NAME,flow_form_type.FORM_NAME,
+  department.DEPT_NAME,flowRun.RUN_NAME,
+  proc.procNum,
+  runEnd.endRun,runAll.allRun,runarchive.archiveRun,
+  (runAll.allRun-runEnd.endRun) as runIngCount,
+  flowPro.CAN_BACK,flowPro.CAN_SING,flowPro.CAN_SYNC
+   FROM flow_type
+  INNER JOIN flow_sort ON flow_sort.SORT_ID=flow_type.FLOW_SORT
+  INNER JOIN flow_form_type ON flow_form_type.FORM_ID = flow_type.FORM_ID
+  LEFT JOIN (
+   SELECT * FROM flow_run WHERE flow_run.FLOW_ID=#{flowId} ORDER BY flow_run.BEGIN_TIME DESC LIMIT 0,1
+  ) AS flowRun ON  flowRun.FLOW_ID=flow_type.FLOW_ID
+  LEFT JOIN department ON department.DEPT_ID =flow_type.DEPT_ID
+  LEFT JOIN(
+  SELECT COUNT(*) procNum ,flow_process.FLOW_ID pId FROM flow_process WHERE flow_process.FLOW_ID=#{flowId}
+  ) as proc ON proc.pId=flow_type.FLOW_ID
+  LEFT JOIN(
+  SELECT COUNT(*) endRun,flow_run.FLOW_ID runId FROM flow_run WHERE flow_run.END_TIME IS NOT NULL AND flow_run.FLOW_ID=#{flowId}
+  ) as runEnd ON runEnd.runId=flow_type.FLOW_ID
+  LEFT JOIN(
+    SELECT COUNT(*) allRun,flow_run.FLOW_ID runId FROM flow_run WHERE flow_run.FLOW_ID=#{flowId}
+  ) as runAll ON  runAll.runId =flow_type.FLOW_ID
+  LEFT JOIN(
+    SELECT COUNT(*) archiveRun,flow_run.FLOW_ID runId FROM flow_run WHERE flow_run.FLOW_ID=#{flowId} AND flow_run.ARCHIVE=1
+  ) AS runarchive ON runarchive.runId =flow_type.FLOW_ID
+  LEFT JOIN (
+  SELECT SUM(flow_process.ALLOW_BACK) CAN_BACK,
+  SUM(flow_process.SYNC_DEAL) CAN_SYNC,
+  SUM(flow_process.FEEDBACK) CAN_SING,
+  flow_process.FLOW_ID runId
+   FROM flow_process WHERE flow_process.FLOW_ID=#{flowId} GROUP BY flow_process.FLOW_ID
+  ) AS flowPro ON flowPro.runId =flow_type.FLOW_ID
+  WHERE flow_type.FLOW_ID =#{flowId}
+  </select>
+
+  <!-- 根据flowId和formId查询一条数据 -->
+  <select id="selectOnlyType" resultMap="BaseResultMap">
+     SELECT FLOW_ID, FLOW_NAME,FORM_ID,FLOW_DOC,FLOW_TYPE,FLOW_NO,FLOW_SORT,AUTO_NUM,
+    AUTO_LEN,AUTO_EDIT,COMMENT_PRIV,DEPT_ID,FREE_PRESET,FREE_OTHER,ALLOW_PRE_SET,FORCE_PRE_SET,
+    VIEW_PRIV,IS_VERSION,FLOW_ACTION,AUTO_NUM_YEAR,AUTO_NUM_MONTH,AUTO_NUM_TIME,MANAGE_USER,AUTO_NAME,
+    QUERY_USER,FLOW_DESC,NEW_USER,QUERY_ITEM,QUERY_USER_DEPT,MANAGE_USER_DEPT,EDIT_PRIV,
+    LIST_FLDS_STR,MODEL_ID,MODEL_NAME,ATTACHMENT_ID,ATTACHMENT_NAME,VIEW_USER,VIEW_DEPT,VIEW_ROLE
+    FROM FLOW_TYPE
+    WHERE
+    FLOW_ID =#{flowId}
+    AND
+    FORM_ID = #{formId}
+  </select>
+
+  <!-- 查询说明和附件 -->
+  <select id="selectAttachmentAndInstructions" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT  FLOW_DOC,ATTACHMENT_ID,ATTACHMENT_NAME,FLOW_ID,FORM_ID,FLOW_DESC,FLOW_NAME
+     FROM  FLOW_TYPE
+     WHERE
+     FLOW_ID =#{flowId}
+     AND
+     FORM_ID = #{formId}
+  </select>
+
+  <select id="sflowType" parameterType="Integer" resultMap="BaseResultMap">
+    select ft.FLOW_ID ,ft.FLOW_TYPE from flow_run fr,flow_type ft where  fr.FLOW_ID=ft.FLOW_ID and fr.run_Id=#{runId}
+  </select>
+
+  <select id="getDataBySortParent" parameterType="Integer" resultMap="BaseResultMap">
+    select ft.FLOW_ID,ft.FLOW_NAME,ft.FLOW_TYPE,ft.FLOW_SORT,ft.AUTO_NAME,fs.SORT_NAME,fs.SORT_ID from flow_type ft,flow_sort fs where ft.FLOW_SORT = fs.SORT_ID and fs.sort_id in (SELECT fs2.sort_id from flow_sort fs2 where fs2.sort_parent= #{sortParent});
+  </select>
+  <select id="selectDocumentFloeType" resultMap="FlowWithdDocument">
+     SELECT ft.FLOW_ID,ft.FLOW_NAME,fs.SORT_DETAIL_TYPE FROM flow_type ft
+     INNER JOIN flow_sort fs ON fs.SORT_ID =ft.FLOW_SORT
+      WHERE fs.SORT_MAIN_TYPE ='DOCUMENTTYPE' ORDER BY SORT_DETAIL_TYPE DESC
+  </select>
+  <delete id="deleteByFlowId" parameterType="java.lang.Integer">
+    delete from flow_type
+    where FLOW_ID = #{flowId}
+  </delete>
+
+</mapper>

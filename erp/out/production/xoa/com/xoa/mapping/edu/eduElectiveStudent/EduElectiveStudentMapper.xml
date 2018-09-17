@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduElectiveStudent.EduElectiveStudentMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.eduElectiveStudent.EduElectiveStudent">
+		<id column="id" property="id" />
+		<result column="sid" property="sid" />
+		<result column="student_id" property="studentId" />
+		<result column="student_name" property="studentName" />
+		<result column="nid" property="nid" />
+		<result column="year" property="year" />
+		<result column="class_id" property="classId" />
+		<result column="teach_comments" property="teachComments" />
+		<result column="student_comments" property="studentComments" />
+	</resultMap>
+
+
+	<!--选修课按上课统计详情-->
+	<select id="eduElectiveStudentSelect" parameterType="java.lang.String" resultType="java.util.HashMap">
+				SELECT
+				ees.id,
+				ees.sid,
+				eep.elective_course AS 'electiveCourse',
+				ees.student_id AS 'studentId',
+				ees.student_name AS 'studentName'
+				FROM
+					edu_elective_student ees
+				INNER JOIN edu_elective_publish eep ON ees.sid = eep.nid
+				where eep.elective_course=#{electiveCourse}
+	</select>
+
+	<!--根据选修课查询学生对应的-->
+	<select id="eduElectiveStudentClass" parameterType="java.lang.String"  resultType="java.util.HashMap">
+				SELECT
+				ees.student_name AS 'studentName',
+				ed.DEPT_NAME AS 'calssName'
+				FROM
+					edu_elective_student ees
+				INNER JOIN edu_department ed ON ees.class_id = ed.DEPT_ID
+				WHERE
+				ees.nid =#{nid}
+	</select>
+
+	<!--查询未报选修课程的同学           有问题-->
+	<select id="eduElectiveStudentNotSelect" parameterType="java.lang.String" resultType="java.util.HashMap">
+				SELECT
+				ees.id,
+				ees.sid,
+				eep.elective_course AS 'electiveCourse',
+				ees.student_id AS 'studentId',
+				ees.student_name AS 'studentName'
+				FROM
+					edu_elective_student ees
+				INNER JOIN edu_elective_publish eep ON ees.sid = eep.nid
+				where  not  eep.elective_course=#{electiveCourse}
+				and  not
+	</select>
+
+	<!--删除报课学生-->
+	<delete id="eduElectiveStudentDelete" parameterType="java.lang.Integer">
+				delete from edu_elective_student WHERE  id=#{id}
+	</delete>
+
+	<!--给学生添加课程-->
+	<insert id="eduElectiveStudentInsert" parameterType="com.xoa.model.edu.eduElectiveStudent.EduElectiveStudent">
+				insert into edu_elective_student (sid,student_id,student_name,nid,year,class_id,teach_comments,student_comments)
+				VALUES (#{sid},#{studentId},#{studentName},#{nid},#{year},#{classId},#{teachComments},#{student_comments})
+	</insert>
+</mapper>

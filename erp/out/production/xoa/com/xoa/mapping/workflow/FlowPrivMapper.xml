@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.workflow.FlowPrivMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowPriv">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="FLOW_ID" jdbcType="INTEGER" property="flowId" />
+    <result column="PRIV_TYPE" jdbcType="INTEGER" property="privType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xoa.model.workflow.FlowPrivWithBLOBs">
+    <result column="PRIV_SCOPE" jdbcType="LONGVARCHAR" property="privScope" />
+    <result column="USER" jdbcType="LONGVARCHAR" property="user" />
+    <result column="DEPT" jdbcType="LONGVARCHAR" property="dept" />
+    <result column="ROLE" jdbcType="LONGVARCHAR" property="role" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBsExtend" type="com.xoa.model.workflow.FlowPrivWithBLOBs" extends="ResultMapWithBLOBs">
+    <result column="PRIV_SCOPE_NAME" javaType="java.lang.String" property="privScopeName" />
+    <result column="USER_NAME" javaType="java.lang.String" property="userName" />
+    <result column="DEPT_NAME" javaType="java.lang.String" property="deptName"/>
+    <result column="ROLE_NAME" javaType="java.lang.String" property="roleName"/>
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, FLOW_ID, PRIV_TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    PRIV_SCOPE, USER, DEPT, ROLE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xoa.model.workflow.FlowPrivExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_priv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xoa.model.workflow.FlowPrivExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flow_priv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_priv
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from flow_priv
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.workflow.FlowPrivExample">
+    delete from flow_priv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.workflow.FlowPrivWithBLOBs">
+    insert into flow_priv (ID, FLOW_ID, PRIV_TYPE, 
+      PRIV_SCOPE, USER, DEPT, 
+      ROLE)
+    values (#{id,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{privType,jdbcType=INTEGER}, 
+      #{privScope,jdbcType=LONGVARCHAR}, #{user,jdbcType=LONGVARCHAR}, #{dept,jdbcType=LONGVARCHAR}, 
+      #{role,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowPrivWithBLOBs">
+    insert into flow_priv
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="flowId != null">
+        FLOW_ID,
+      </if>
+      <if test="privType != null">
+        PRIV_TYPE,
+      </if>
+      <if test="privScope != null">
+        PRIV_SCOPE,
+      </if>
+      <if test="user != null">
+        USER,
+      </if>
+      <if test="dept != null">
+        DEPT,
+      </if>
+      <if test="role != null">
+        ROLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="flowId != null">
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="privType != null">
+        #{privType,jdbcType=INTEGER},
+      </if>
+      <if test="privScope != null">
+        #{privScope,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dept != null">
+        #{dept,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.workflow.FlowPrivExample" resultType="java.lang.Integer">
+    select count(*) from flow_priv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update flow_priv
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowId != null">
+        FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.privType != null">
+        PRIV_TYPE = #{record.privType,jdbcType=INTEGER},
+      </if>
+      <if test="record.privScope != null">
+        PRIV_SCOPE = #{record.privScope,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.user != null">
+        USER = #{record.user,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dept != null">
+        DEPT = #{record.dept,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.role != null">
+        ROLE = #{record.role,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update flow_priv
+    set ID = #{record.id,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      PRIV_TYPE = #{record.privType,jdbcType=INTEGER},
+      PRIV_SCOPE = #{record.privScope,jdbcType=LONGVARCHAR},
+      USER = #{record.user,jdbcType=LONGVARCHAR},
+      DEPT = #{record.dept,jdbcType=LONGVARCHAR},
+      ROLE = #{record.role,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update flow_priv
+    set ID = #{record.id,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      PRIV_TYPE = #{record.privType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FlowPrivWithBLOBs">
+    update flow_priv
+    <set>
+      <if test="flowId != null">
+        FLOW_ID = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="privType != null">
+        PRIV_TYPE = #{privType,jdbcType=INTEGER},
+      </if>
+      <if test="privScope != null">
+        PRIV_SCOPE = #{privScope,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="user != null">
+        USER = #{user,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dept != null">
+        DEPT = #{dept,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="role != null">
+        ROLE = #{role,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.workflow.FlowPrivWithBLOBs">
+    update flow_priv
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      PRIV_TYPE = #{privType,jdbcType=INTEGER},
+      PRIV_SCOPE = #{privScope,jdbcType=LONGVARCHAR},
+      USER = #{user,jdbcType=LONGVARCHAR},
+      DEPT = #{dept,jdbcType=LONGVARCHAR},
+      ROLE = #{role,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FlowPriv">
+    update flow_priv
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      PRIV_TYPE = #{privType,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryByFlowId" resultMap="ResultMapWithBLOBsExtend" parameterType="java.lang.Integer">
+        SELECT flow_priv.*,
+        userName.USER_NAME,
+          case
+        WHEN flow_priv.PRIV_SCOPE='ALL_DEPT' then '全部部门'
+        WHEN flow_priv.PRIV_SCOPE='SELF_ORG' then '本机构'
+        WHEN flow_priv.PRIV_SCOPE='SELF_DEPT' then '本部门'
+        ELSE scopeName.SCOP_NAME END
+        AS PRIV_SCOPE_NAME,
+        departName.DPET_NAME AS  DEPT_NAME,
+        roleName.ROLE_NAME AS ROLE_NAME
+         FROM flow_priv LEFT JOIN
+        (SELECT GROUP_CONCAT(`user`.USER_NAME) as USER_NAME,flow_priv.ID AS b FROM
+          `user`,flow_priv WHERE
+          (flow_priv.`USER` LIKE  concat("%,",`user`.UID,",%") OR
+           flow_priv.`USER` LIKE  concat("%",`user`.UID,",%")
+          )
+           GROUP BY flow_priv.ID
+        ) AS userName ON b =flow_priv.ID
+        LEFT JOIN (
+         SELECT GROUP_CONCAT(department.DEPT_NAME) as SCOP_NAME,flow_priv.ID AS a FROM
+          department,flow_priv WHERE (
+          flow_priv.PRIV_SCOPE LIKE concat("%,",department.DEPT_ID,",%") OR
+         flow_priv.PRIV_SCOPE LIKE concat("%",department.DEPT_ID,",%")
+          ) GROUP BY flow_priv.ID
+        ) AS scopeName ON a =flow_priv.ID
+        LEFT JOIN (
+         SELECT GROUP_CONCAT(department.DEPT_NAME) as DPET_NAME,flow_priv.ID AS d FROM
+          department,flow_priv WHERE (
+             flow_priv.DEPT LIKE concat("%,",department.DEPT_ID,",%") OR
+             flow_priv.DEPT LIKE concat("%",department.DEPT_ID,",%")
+          )
+         GROUP BY flow_priv.ID
+        ) AS departName ON d =flow_priv.ID
+         LEFT JOIN (
+          SELECT GROUP_CONCAT(user_priv.PRIV_NAME) AS ROLE_NAME,flow_priv.ID AS c FROM
+           user_priv, flow_priv WHERE (
+           flow_priv.ROLE LIKE concat("%,",user_priv.USER_PRIV,",%") OR
+           flow_priv.ROLE LIKE concat("%",user_priv.USER_PRIV,",%")
+           )
+            GROUP BY flow_priv.ID
+       )AS roleName ON c =flow_priv.ID
+        WHERE flow_priv.FLOW_ID=#{flowId}
+  </select>
+  <delete id="deleteBatchKey" parameterType="java.lang.Integer">
+    delete from flow_priv where ID in
+    <foreach item="privId" collection="array" open="(" separator="," close=")">
+      #{privId}
+    </foreach>
+  </delete>
+</mapper>

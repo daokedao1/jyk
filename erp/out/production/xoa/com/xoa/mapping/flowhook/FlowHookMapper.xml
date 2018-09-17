@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.flowhook.FlowHookMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowHook" >
+    <id column="hid" property="hid" javaType="Integer" />
+    <result column="flow_id" property="flowId" javaType="Integer" />
+    <result column="hname" property="hname" javaType="String" />
+    <result column="hdesc" property="hdesc" javaType="String" />
+    <result column="hmodule" property="hmodule" javaType="String" />
+    <result column="plugin" property="plugin" javaType="String" />
+    <result column="status" property="status" javaType="Integer" />
+    <result column="system" property="system" javaType="String" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.workflow.FlowHookWithBLOBs" extends="BaseResultMap" >
+    <result column="map" property="map" javaType="String" />
+    <result column="condition" property="condition" javaType="String" />
+    <result column="condition_set" property="conditionSet" javaType="String" />
+    <result column="order_id" property="orderId" javaType="Integer" />
+    <result column="data_direction" property="dataDirection" javaType="Integer" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hid, flow_id, hname, hdesc, hmodule, plugin, status, system
+  </sql>
+  <sql id="Blob_Column_List" >
+    map, `condition`, condition_set,order_id,data_direction
+  </sql>
+  <select id="selectByhid" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    select <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from flow_hook
+    where hid = #{hid}
+  </select>
+  <select id="queryByHmodule" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs">
+    select
+    <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from flow_hook where
+    flow_hook.hmodule=#{hmodule} AND flow_hook.flow_id=#{flowId}
+
+  </select>
+  <select id="gethookAll" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    select   *  from flow_hook order by order_id ASC
+  </select>
+  
+  <delete id="deleteByhid" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    delete from flow_hook
+    where hid = #{hid}
+  </delete>
+  <insert id="insertFlowHook" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    insert into flow_hook (hid, flow_id, hname, 
+      hdesc, hmodule, plugin, 
+      status, system, map, 
+      `condition`, condition_set,order_id,data_direction)
+    values (#{hid}, #{flowId}, #{hname}, 
+      #{hdesc}, #{hmodule}, #{plugin}, 
+      #{status}, #{system}, #{map}, 
+      #{condition}, #{conditionSet},#{orderId},#{dataDirection})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    insert into flow_hook
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="hname != null" >
+        hname,
+      </if>
+      <if test="hdesc != null" >
+        hdesc,
+      </if>
+      <if test="hmodule != null" >
+        hmodule,
+      </if>
+      <if test="plugin != null" >
+        plugin,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="system != null" >
+        system,
+      </if>
+      <if test="map != null" >
+        map,
+      </if>
+      <if test="condition != null" >
+        `condition`,
+      </if>
+      <if test="conditionSet != null" >
+        condition_set,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="dataDirection != null" >
+        data_direction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        #{hid},
+      </if>
+      <if test="flowId != null" >
+        #{flowId},
+      </if>
+      <if test="hname != null" >
+        #{hname},
+      </if>
+      <if test="hdesc != null" >
+        #{hdesc},
+      </if>
+      <if test="hmodule != null" >
+        #{hmodule},
+      </if>
+      <if test="plugin != null" >
+        #{plugin},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="system != null" >
+        #{system},
+      </if>
+      <if test="map != null" >
+        #{map},
+      </if>
+      <if test="condition != null" >
+        #{condition},
+      </if>
+      <if test="conditionSet != null" >
+        #{conditionSet},
+      </if>
+      <if test="orderId != null" >
+        #{orderId},
+      </if>
+      <if test="dataDirection != null" >
+        #{dataDirection},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByhidSelective" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    update flow_hook
+    <set >
+      <if test="flowId != null" >
+        flow_id = #{flowId},
+      </if>
+      <if test="hname != null" >
+        hname = #{hname},
+      </if>
+      <if test="hdesc != null" >
+        hdesc = #{hdesc},
+      </if>
+      <if test="hmodule != null" >
+        hmodule = #{hmodule},
+      </if>
+      <if test="plugin != null" >
+        plugin = #{plugin},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="system != null" >
+        system = #{system},
+      </if>
+      <if test="map != null" >
+        map = #{map},
+      </if>
+      <if test="condition != null" >
+        `condition` = #{condition},
+      </if>
+      <if test="conditionSet != null" >
+        condition_set = #{conditionSet},
+      </if>
+      <if test="orderId != null" >
+        order_id=#{orderId},
+      </if>
+      <if test="dataDirection != null" >
+        data_direction=#{dataDirection},
+      </if>
+    </set>
+    where order_id=#{orderId}
+  </update>
+  <update id="updateByhidWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    update flow_hook
+    set flow_id = #{flowId},
+      hname = #{hname},
+      hdesc = #{hdesc},
+      hmodule = #{hmodule},
+      plugin = #{plugin},
+      status = #{status},
+      system = #{system},
+      map = #{map},
+      `condition` = #{condition},
+      condition_set = #{conditionSet}
+    where hid = #{hid}
+  </update>
+  <update id="updateByhid" parameterType="com.xoa.model.workflow.FlowHook" >
+    update flow_hook
+    set flow_id = #{flowId},
+      hname = #{hname},
+      hdesc = #{hdesc},
+      hmodule = #{hmodule},
+      plugin = #{plugin},
+      status = #{status},
+      system = #{system}
+    where hid = #{hid}
+  </update>
+
+  <select id="selectByOrderId" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from flow_hook
+    where order_id = #{orderId}
+  </select>
+
+  <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowHookWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from flow_hook
+    where hname = #{hname}
+  </select>
+
+</mapper>

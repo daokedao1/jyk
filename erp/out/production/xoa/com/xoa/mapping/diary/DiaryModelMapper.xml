@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.DiaryModelMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.DiaryModel" >
+        <id column="DIA_ID" property="diaId"  javaType="integer" />
+        <result column="USER_ID" property="userId" javaType="string" />
+        <result column="userName" property="userName" javaType="string" />
+        <result column="DIA_DATE" property="diaDate" javaType="string" />
+        <result column="DIA_TIME" property="diaTime" javaType="string" />
+        <result column="DIA_TYPE" property="diaType" javaType="string" />
+        <result column="SUBJECT" property="subject" javaType="string" />
+        <result column="LAST_COMMENT_TIME" property="lastCommentTime" javaType="string" />
+        <result column="TO_ALL" property="toAll" javaType="integer" />
+        <result column="CRM_DIARY" property="crmDiary" javaType="integer" />
+        <result column="CONTENT" property="content" javaType="string" />
+        <result column="ATTACHMENT_ID" property="attachmentId" javaType="string" />
+        <result column="ATTACHMENT_NAME" property="attachmentName" javaType="string" />
+        <result column="TO_ID" property="toId" javaType="string" />
+        <result column="COMPRESS_CONTENT" property="compressContent" javaType="String" />
+        <result column="READERS" property="readers" javaType="string" />
+        <result column="photo" property="photo" javaType="string" />
+        <result column="avatar" property="avatar" javaType="string" />
+        <result column="sex" property="sex" javaType="string" />
+        <association javaType="com.xoa.model.diary.DiaryTop" property="diaryTop">
+            <id column="TOP_ID" property="topId"  javaType="integer" />
+            <result column="DIA_CATE" property="diaCate" javaType="integer" />
+        </association>
+    </resultMap>
+    <sql id="diaryList" >
+        d.DIA_ID,u.USER_NAME as userName,u.PHOTO as photo,u.AVATAR as avatar,u.SEX as sex,d.USER_ID,d.DIA_DATE,if(d.DIA_TIME='0000-00-00 00:00:00','',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,if(d.LAST_COMMENT_TIME='0000-00-00 00:00:00','',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,  d.READERS
+    </sql>
+   <!-- <sql id="diaryList" databaseId="dm">
+        *
+    </sql>-->
+    <sql id="diaryAllList" >
+   USER_ID,DIA_DATE,DIA_TIME,DIA_TYPE,SUBJECT,LAST_COMMENT_TIME,TO_ALL,CRM_DIARY,CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME, TO_ID, COMPRESS_CONTENT, READERS
+  </sql>
+    <insert id="saveDiary" parameterType="com.xoa.model.diary.DiaryModel">
+        insert into diary (<include refid="diaryAllList"/>)
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId == null or userId == ''" >
+                '',
+            </if>
+            <if test="userId != null and userId !=''" >
+                #{userId},
+            </if>
+            <if test="diaDate == null or diaDate == ''" >
+                '0000-00-00',
+            </if>
+            <if test="diaDate != null and diaDate !=''" >
+                #{diaDate},
+            </if>
+            <if test="diaTime == null or diaTime == ''" >
+                '0000-00-00 00:00:00',
+            </if>
+            <if test="diaTime != null and diaTime !=''" >
+                #{diaTime},
+            </if>
+            <if test="diaType == null or diaType == ''" >
+                '',
+            </if>
+            <if test="diaType != null and diaType !=''" >
+                #{diaType},
+            </if>
+
+            <if test="subject == null or subject == ''" >
+                '',
+            </if>
+            <if test="subject != null and subject !=''" >
+                #{subject},
+            </if>
+
+            <if test="lastCommentTime == null or lastCommentTime == ''" >
+                '0000-00-00 00:00:00',
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''" >
+                #{lastCommentTime},
+            </if>
+
+            <if test="toAll == null" >
+                0,
+            </if>
+            <if test="toAll != null" >
+                #{toAll},
+            </if>
+            <if test="crmDiary == null" >
+                0,
+            </if>
+            <if test="crmDiary != null" >
+                #{crmDiary},
+            </if>
+            <if test="content == null or content == ''" >
+                '',
+            </if>
+            <if test="content != null and content !=''" >
+                #{content},
+            </if>
+
+            <if test="attachmentId == null or attachmentId == ''" >
+                '',
+            </if>
+            <if test="attachmentId != null and attachmentId !=''" >
+                #{attachmentId},
+            </if>
+
+            <if test="attachmentName == null or attachmentName == ''" >
+                '',
+            </if>
+            <if test="attachmentName != null and attachmentName !=''" >
+                #{attachmentName},
+            </if>
+
+            <if test="toId == null or toId == ''" >
+                '',
+            </if>
+            <if test="toId != null and toId !=''" >
+                #{toId},
+            </if>
+
+            <if test="compressContent == null or compressContent == ''" >
+                '',
+            </if>
+            <if test="compressContent != null and compressContent !=''" >
+                #{compressContent},
+            </if>
+            <if test="readers == null or readers == ''" >
+                '',
+            </if>
+            <if test="readers != null and readers !=''" >
+                #{readers},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateDiary"  parameterType="com.xoa.model.diary.DiaryModel">
+        update  diary
+        <set>
+            <if test="userId != null" >
+                USER_ID=#{userId},
+            </if>
+            <if test="diaDate != null" >
+                DIA_DATE=#{diaDate},
+            </if>
+            <if test="diaTime != null and diaTime != ''" >
+                DIA_TIME=#{diaTime},
+            </if>
+            <if test="subject != null" >
+                SUBJECT=#{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime != ''" >
+                LAST_COMMENT_TIME=#{lastCommentTime},
+            </if>
+            <if test="toAll != null" >
+                TO_ALL= #{toAll},
+            </if>
+            <if test="crmDiary != null" >
+                CRM_DIARY=#{crmDiary},
+            </if>
+            <if test="diaType != null" >
+                DIA_TYPE=#{diaType},
+            </if>
+            <if test="content != null" >
+                CONTENT=#{content},
+            </if>
+            <if test="attachmentId != null" >
+                ATTACHMENT_ID=#{attachmentId},
+            </if>
+            <if test="attachmentName != null" >
+                ATTACHMENT_NAME=#{attachmentName},
+            </if>
+            <if test="toId != null">
+                TO_ID= #{toId},
+            </if>
+            <if test="readers != null" >
+                READERS=#{readers},
+            </if>
+        </set>
+        where DIA_ID = #{diaId}
+    </update>
+
+    <update id="updateReadersByDiaId" parameterType="com.xoa.model.diary.DiaryModel">
+        update diary
+        <set>
+            <if test="readers != null" >
+                READERS=#{readers}
+            </if>
+        </set>
+        where DIA_ID=#{diaId}
+    </update>
+
+
+    <select id="getDiarySelf"  parameterType="map" resultMap="BaseResultMap">
+        select <include refid="diaryList"/>  from diary d
+        INNER JOIN `user` u  ON d.USER_ID = u.USER_ID
+        LEFT JOIN  diary_top top ON  top.DIA_ID=d.DIA_ID
+        WHERE
+        d.USER_ID = #{userId}
+        ORDER BY
+        top.DIA_ID=d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryByDiaId"  parameterType="map" resultMap="BaseResultMap">
+        select <include refid="diaryList"/>  from  diary d,user u  where  d.DIA_ID=#{diaId} and d.USER_ID=u.USER_ID
+    </select>
+
+    <select id="getDiaryList" resultMap="BaseResultMap" parameterType="map">
+        select  <include refid="diaryList"/>  from
+        diary d INNER JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN  diary_top top ON  top.DIA_ID=d.DIA_ID  where  (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or (
+        (TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType}))
+        order  by
+        top.DIA_ID=d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+    <select id="getCountSelf" parameterType="map" resultType="integer">
+   select   count(*)  from  diary d  where   d.USER_ID=#{userId}
+  </select>
+    <select id="getCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="mysql">
+  select   d.DIA_ID,d.TO_ALL,d.TO_ID  from diary d  where d.USER_ID <![CDATA[<>]]>#{userIdOther}  and d.DIA_TYPE=#{diaTypeOther} and ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+  </select>
+    <select id="getCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+  select   d.DIA_ID,d.TO_ALL,d.TO_ID  from diary d  where d.USER_ID <![CDATA[<>]]>#{userIdOther}  and d.DIA_TYPE=#{diaTypeOther} and ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+  </select>
+    <select id="getDeptUserId" parameterType="map" resultType="string">
+        select USER_ID FROM USER WHERE DEPT_ID IN
+        <foreach collection="list" item="dept" open="(" separator="," close=")" >
+            #{dept}
+        </foreach>
+    </select>
+    <select id="getUserIdByPriv" parameterType="list" resultType="string">
+        select USER_ID FROM USER WHERE USER_PRIV IN
+        <foreach collection="list" item="priv" open="(" separator="," close=")" >
+            #{priv}
+        </foreach>
+    </select>
+    <!--  <select id="getDiaryOtherList"  parameterType="map" resultMap="BaseResultMap">
+     select <include refid="diaryList"/>  from diary d,user u where d.USER_ID <![CDATA[<>]]>#{userIdOther} and u.USER_ID=d.USER_ID  and d.DIA_TYPE=#{diaTypeOther} and find_in_set(#{userIdOther},TO_ID)>0 order  by d.DIA_ID desc
+     </select> -->
+    <!--getDiaryOtherList start  -->
+    <select id="getDiaryOtherList"  parameterType="map" resultMap="BaseResultMap" databaseId="mysql">
+        select <include refid="diaryList"/>
+        FROM
+        diary d
+        INNER JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN  diary_top top ON  top.DIA_ID=d.DIA_ID
+
+        WHERE
+
+        d.DIA_TYPE=#{diaTypeOther}   and
+        d.USER_ID <![CDATA[<>]]>#{userIdOther} and
+        ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%'))  or TO_ALL=1)
+        order  by
+        top.DIA_ID=d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+    <!--<select id="getDiaryOtherList"  parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+      select <include refid="diaryList"/>  from diary d,user u where d.USER_ID <![CDATA[<>]]>#{userIdOther} and u.USER_ID=d.USER_ID  and d.DIA_TYPE=#{diaTypeOther} and ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%'))  or TO_ALL=1) order  by d.DIA_ID desc
+
+       order  by d.DIA_ID desc
+     </select>-->
+    <!--getDiaryOtherList end-->
+
+    <!-- 高级搜索 -->
+    <select id="diarySelectOne" parameterType="map" resultMap="BaseResultMap" >
+        select  <include refid="diaryList"/>  from  diary d,user u  where  u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null">
+            and
+            <foreach collection="list" item="userid" open="(" separator="  or  " close=")">
+                (TO_ID LIKE concat('%,',#{userid},',%') OR TO_ID LIKE concat(#{userid},',%'))
+            </foreach>
+        </if>
+        order  by d.DIA_ID desc
+    </select>
+
+    <select id="selectName" parameterType="List" resultType="java.lang.String">
+        select  user_name from USER  where  user_id  in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="diarySelectTwo" parameterType="map" resultMap="BaseResultMap">
+        select <include refid="diaryList"/>  from  diary d,user u  where  d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order   by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectThree" parameterType="map" resultMap="BaseResultMap">
+        select <include refid="diaryList"/>  from diary d,user u where d.USER_ID <![CDATA[<>]]>#{userId} and u.USER_ID=d.USER_ID  and d.DIA_TYPE=#{diaType} and ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%'))  or TO_ALL=1)
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order  by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFour" parameterType="map" resultMap="BaseResultMap">
+        select  <include refid="diaryList"/>  from  diary d,user u  where  u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null">
+            and
+            <foreach collection="list" item="userid" open="(" separator="  or  " close=")">
+                (TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%'))
+            </foreach>
+        </if>
+        order  by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFive" parameterType="map" resultMap="BaseResultMap" >
+        select  <include refid="diaryList"/>  from  diary d,user u  where  u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType}))
+        <if test="time != null">
+            and DIA_DATE=#{time}
+        </if>
+        order  by d.DIA_ID desc
+    </select>
+    <!-- 高级搜索 -->
+
+    <delete id="deletDiaById" parameterType="com.xoa.model.diary.DiaryModel">
+  delete from diary where DIA_ID=#{diaId}
+  </delete>
+
+    <select id="getReadUsers" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT readers from diary WHERE DIA_ID=#{diaId}
+    </select>
+
+    <!-- <insert id="insert" parameterType="com.xoa.model.diary.DiaryModelWithBLOBs" >
+      insert into diary (DIA_ID, USER_ID, DIA_DATE,
+        DIA_TIME, DIA_TYPE, SUBJECT,
+        LAST_COMMENT_TIME, TO_ALL, CRM_DIARY,
+        CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME,
+        TO_ID, COMPRESS_CONTENT, READERS
+        )
+      values (#{diaId}, #{userId}, #{diaDate},
+        #{diaTime}, #{diaType}, #{subject},
+        #{lastCommentTime}, #{toAll}, #{crmDiary},
+        #{content}, #{attachmentId}, #{attachmentName},
+        #{toId}, #{compressContent}, #{readers}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xoa.model.diary.DiaryModel" >
+      insert into diary
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="diaId != null" >
+          DIA_ID,
+        </if>
+        <if test="userId != null" >
+          USER_ID,
+        </if>
+        <if test="diaDate != null" >
+          DIA_DATE,
+        </if>
+        <if test="diaTime != null" >
+          DIA_TIME,
+        </if>
+        <if test="diaType != null" >
+          DIA_TYPE,
+        </if>
+        <if test="subject != null" >
+          SUBJECT,
+        </if>
+        <if test="lastCommentTime != null" >
+          LAST_COMMENT_TIME,
+        </if>
+        <if test="toAll != null" >
+          TO_ALL,
+        </if>
+        <if test="crmDiary != null" >
+          CRM_DIARY,
+        </if>
+        <if test="content != null" >
+          CONTENT,
+        </if>
+        <if test="attachmentId != null" >
+          ATTACHMENT_ID,
+        </if>
+        <if test="attachmentName != null" >
+          ATTACHMENT_NAME,
+        </if>
+        <if test="toId != null" >
+          TO_ID,
+        </if>
+        <if test="compressContent != null" >
+          COMPRESS_CONTENT,
+        </if>
+        <if test="readers != null" >
+          READERS,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="diaId != null" >
+          #{diaId},
+        </if>
+        <if test="userId != null" >
+          #{userId},
+        </if>
+        <if test="diaDate != null" >
+          #{diaDate},
+        </if>
+        <if test="diaTime != null" >
+          #{diaTime},
+        </if>
+        <if test="diaType != null" >
+          #{diaType},
+        </if>
+        <if test="subject != null" >
+          #{subject},
+        </if>
+        <if test="lastCommentTime != null" >
+          #{lastCommentTime},
+        </if>
+        <if test="toAll != null" >
+          #{toAll},
+        </if>
+        <if test="crmDiary != null" >
+          #{crmDiary},
+        </if>
+        <if test="content != null" >
+          #{content},
+        </if>
+        <if test="attachmentId != null" >
+          #{attachmentId},
+        </if>
+        <if test="attachmentName != null" >
+          #{attachmentName},
+        </if>
+        <if test="toId != null" >
+          #{toId},
+        </if>
+        <if test="compressContent != null" >
+          #{compressContent},
+        </if>
+        <if test="readers != null" >
+          #{readers},
+        </if>
+      </trim>
+    </insert> -->
+
+</mapper>

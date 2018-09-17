@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.Attend" >
+    <id column="AID" property="aid" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="INTEGER" />
+    <result column="DATE" property="date" jdbcType="DATE" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="ATIME" property="atime" jdbcType="INTEGER" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="PHONE_ID" property="phoneId" jdbcType="VARCHAR" />
+    <result column="DEVICE" property="device" jdbcType="VARCHAR" />
+    <result column="FILE_ID" property="fileId" jdbcType="LONGVARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="LONGVARCHAR" />
+      <result column="userName" property="userName" javaType="string" />
+      <result column="depName" property="depName" javaType="string"  />
+    </resultMap>
+
+
+  <insert id="addAttend" parameterType="com.xoa.model.attend.Attend">
+insert into attend (AID, UID, DATE,
+      TYPE, ATIME, ADDRESS,
+      REMARK, PHONE_ID, DEVICE,
+      FILE_ID, FILE_NAME)
+    values (#{aid}, #{uid}, #{date},
+      #{type}, #{atime}, #{address},
+      #{remark}, #{phoneId}, #{device},
+      #{fileId}, #{fileName})
+
+  </insert>
+  <select id="selectAttend" resultMap="BaseResultMap" parameterType="Map">
+   SELECT AID,UID,DATE,ATIME,ADDRESS FROM  attend  WHERE UID= #{uid} AND  DATE = #{date} AND  TYPE = #{type}
+</select>
+    <select id="selectAttendList" resultMap="BaseResultMap" parameterType="Map">
+     SELECT  * FROM  attend a WHERE  a.UID= #{uid}
+       <if test="date!=null ">
+                AND  a.DATE = #{date}
+        </if>
+        <if test="type!=null ">
+            AND  a.TYPE =#{type}
+        </if>
+ </select>
+
+    <select id="quertAttendList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT  * FROM  attend a
+        <where>
+        <if test="date!=null ">
+            AND  a.DATE = #{date}
+        </if>
+        <if test="type!=null ">
+            AND  a.TYPE =#{type}
+        </if>
+        </where>
+    </select>
+
+
+<select id="AttendList" resultMap="BaseResultMap" parameterType="Map">
+SELECT  * FROM  attend a WHERE   TYPE=1
+    <if test="date!=null ">
+    AND  a.DATE = #{date}
+</if>
+    order by  a.ATIME asc
+</select>
+
+    <select id="selectAttendType" resultMap="BaseResultMap" >
+         SELECT a.* FROM  attend a
+        <where>
+            <if test="type!=null ">
+                AND  a.TYPE =#{type}
+            </if>
+    </where>
+    </select>
+    <select id="selectAttendAll" resultMap="BaseResultMap">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE =#{type}
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+
+    <select id="selectAttend0" resultMap="BaseResultMap">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE ='0'
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+    <select id="queryCountPhone" resultMap="BaseResultMap">
+        SELECT COUNT(*) as count,PHONE_ID FROM `ATTEND` WHERE UID=#{uid} and `DATE` &lt;= #{end} AND `DATE`&gt;= #{strat} GROUP BY(PHONE_ID)
+    </select>
+    <select id="queryAttendPhone" resultMap="BaseResultMap" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  UID=#{uid}
+        </if>
+
+      <if
+                test="end != null and end != '' and strat != null and strat != ''">
+            and `DATE` &lt;= #{end} AND `DATE`&gt;= #{strat}
+        </if>
+    </select>
+
+    <select id="queryAttendPhoneId" resultMap="BaseResultMap" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  UID=#{uid}
+        </if>
+        <if test="date!=null ">
+            AND  `DATE` = #{date}
+        </if>
+        <if test="type!=null ">
+            AND  TYPE =#{type}
+        </if>
+    </select>
+
+
+    <select id="findByAttendCount" resultMap="BaseResultMap">
+SELECT
+	ad.*, u.USER_NAME userName ,dep.DEPT_NAME depName
+FROM
+	attend ad
+INNER JOIN `user` u ON ad.UID = u.UID
+
+AND u.DEPT_ID = #{depId}
+LEFT JOIN department dep ON  dep.DEPT_ID=u.DEPT_ID
+
+WHERE
+ ad.TYPE !=0
+
+    </select>
+
+
+
+
+</mapper>

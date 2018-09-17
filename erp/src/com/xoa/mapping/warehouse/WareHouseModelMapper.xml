@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.warehouse.WareHouseModelMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.warehouse.WareHouseModel" >
+
+    <id column="wid" property="wid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="wnum" property="wnum" jdbcType="VARCHAR" />
+    <result column="wname" property="wname" jdbcType="VARCHAR" />
+    <result column="manage_user" property="manageUser" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    w.wid, w.type, w.wnum, w.wname,u.realname AS manage_user, w.address, create_user, DATE_FORMAT(w.create_date , '%Y-%m-%d %T') as create_date, w.remark
+  </sql>
+  <sql id="Base_where_List" >
+      <where>
+          <if test="wid != null" >
+            wid = #{wid,jdbcType=INTEGER},
+          </if>
+        <if test="type != null" >
+          type = #{type,jdbcType=INTEGER},
+        </if>
+        <if test="wnum != null" >
+          wnum = #{wnum,jdbcType=VARCHAR},
+        </if>
+        <if test="wname != null" >
+          wname = #{wname,jdbcType=VARCHAR},
+        </if>
+        <if test="manageUser != null" >
+          manage_user = #{manageUser,jdbcType=INTEGER},
+        </if>
+        <if test="address != null" >
+          address = #{address,jdbcType=VARCHAR},
+        </if>
+        <if test="createUser != null" >
+          create_user = #{createUser,jdbcType=INTEGER},
+        </if>
+        <if test="createDate != null" >
+          create_date = #{createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="remark != null" >
+          remark = #{remark,jdbcType=VARCHAR},
+        </if>
+        <if test="search != null" >
+          wid LIKE CONCAT('%','${search}','%') OR wname LIKE CONCAT('%','${search}','%')
+        </if>
+      </where>
+  </sql>
+
+  <select id="countByExample" parameterType="com.xoa.model.warehouse.WareHouseModel" resultType="java.lang.Integer" >
+
+    select count(*) from erp_warehouse w left join user u   ON  w.manage_user = u.uid
+
+      <include refid="Base_where_List" />
+
+  </select>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.warehouse.WareHouseModel" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+
+      from erp_warehouse w  left join user u   ON  w.manage_user = u.uid
+
+      <include refid="Base_where_List" />
+
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>
+
+      <if test="beginRow != null and pageSize != null" >
+          LIMIT  #{beginRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+    select
+    <include refid="Base_Column_List" />
+    from erp_warehouse
+    where wid = #{wid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    delete from erp_warehouse
+    where wid = #{wid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.xoa.model.warehouse.WareHouseModel" >
+
+    insert into erp_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        wid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="wnum != null" >
+        wnum,
+      </if>
+      <if test="wname != null" >
+        wname,
+      </if>
+      <if test="manageUser != null" >
+        manage_user,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        #{wid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wnum != null" >
+        #{wnum,jdbcType=VARCHAR},
+      </if>
+      <if test="wname != null" >
+        #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="manageUser != null" >
+        #{manageUser,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.warehouse.WareHouseModel" >
+
+    update erp_warehouse
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wnum != null" >
+        wnum = #{wnum,jdbcType=VARCHAR},
+      </if>
+      <if test="wname != null" >
+        wname = #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="manageUser != null" >
+        manage_user = #{manageUser,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

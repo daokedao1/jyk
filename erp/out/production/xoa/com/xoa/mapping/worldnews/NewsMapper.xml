@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.worldnews.NewsMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.worldnews.News">
+		<id column="NEWS_ID" property="newsId" javaType="int" />
+		<result column="SUBJECT" property="subject" javaType="String" />
+		<result column="PROVIDER" property="provider" javaType="String" />
+		<result column="NEWS_TIME" property="newsTime" javaType="Date" />
+		<result column="CLICK_COUNT" property="clickCount" javaType="int" />
+		<result column="ANONYMITY_YN" property="anonymityYn" javaType="String" />
+		<result column="FORMAT" property="format" javaType="String" />
+		<result column="TYPE_ID" property="typeId" javaType="String" />
+		<result column="PUBLISH" property="publish" javaType="String" />
+		<result column="TOP" property="top" javaType="String" />
+		<result column="LAST_EDITOR" property="lastEditor" javaType="String" />
+		<result column="LAST_EDIT_TIME" property="lastEditTime"
+				javaType="Date" />
+		<result column="SUBJECT_COLOR" property="subjectColor"
+				javaType="String" />
+		<result column="KEYWORD" property="keyword" javaType="String" />
+		<result column="TOP_DAYS" property="topDays" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="ATTACHMENT_ID" property="attachmentId"
+				javaType="String" />
+		<result column="ATTACHMENT_NAME" property="attachmentName"
+				javaType="String" />
+		<result column="TO_ID" property="toId" javaType="String" />
+		<result column="PRIV_ID" property="privId" javaType="String" />
+		<result column="USER_ID" property="userId" javaType="String" />
+		<result column="READERS" property="readers" javaType="String" />
+		<result column="COMPRESS_CONTENT" property="compressContent"
+				javaType="String" />
+		<result column="SUMMARY" property="summary" javaType="String" />
+		<association property="users" javaType="com.xoa.model.users.Users">
+			<id column="UID" property="uid" javaType="int" />
+			<result column="USER_ID" property="userId" javaType="String" />
+			<result column="USER_NAME" property="userName" javaType="String" />
+			<result column="SEX" property="sex" javaType="string"/>
+			<result column="AVATAR" property="avatar" javaType="string"/>
+		</association>
+
+		<association property="codes" javaType="com.xoa.model.common.SysCode">
+			<id column="CODE_ID" property="codeId" javaType="int" />
+			<result column="CODE_NO" property="codeNo" javaType="String" />
+			<result column="CODE_NAME" property="codeName" javaType="String" />
+			<result column="CODE_ORDER" property="codeOrder" javaType="String" />
+			<result column="PARENT_NO" property="parentNo" javaType="String" />
+		</association>
+	</resultMap>
+	<sql id="columns">
+		n.NEWS_ID,n.`SUBJECT`,n.TYPE_ID,n.NEWS_TIME,n.CLICK_COUNT,n.PROVIDER,n.CONTENT,n.READERS,u.USER_NAME,n.PRIV_ID,n.USER_ID,n.TO_ID,n.PUBLISH,n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.ANONYMITY_YN,u.AVATAR,u.SEX,n.TOP
+	     </sql>
+	<!-- 查询信息并返回 列表 -->
+	<select id="selectNews" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="columns"/>
+		FROM
+		news n,`user` u WHERE n.PROVIDER=u.USER_ID
+
+		<if test="nTime != null and nTime != ''">
+			AND DATE(n.NEWS_TIME) = #{nTime}
+		</if>
+		<if test="format != null and format != ''">
+			AND n.FORMAT = #{format}
+		</if>
+		<if test="provider != null and provider != ''">
+			AND n.PROVIDER = #{provider}
+		</if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND n.SUBJECT like CONCAT('%',#{subject},'%')
+		</if>
+		<if test="newsTime != null and newsTime != '' and lastEditTime != null and lastEditTime != ''">
+			AND DATE(n.NEWS_TIME) between #{newsTime} and #{lastEditTime}
+		</if>
+		<if test="content != null and content != ''">
+			AND n.CONTENT like CONCAT('%',#{content},'%')
+		</if>
+		<if
+				test="clickCount != null and clickCount != '' and click != null and click != ''">
+			AND n.CLICK_COUNT between #{clickCount} and #{click}
+		</if>
+     ORDER BY n.TOP DESC,n.NEWS_TIME DESC
+	</select>
+	<!-- 查询新闻管理信息并返回 列表 -->
+	<select id="selectNewsManage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="columns"/>
+		FROM
+		news n,`user` u WHERE n.PROVIDER=u.USER_ID AND  n.PUBLISH=1  AND(
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="nTime != null and nTime != ''">
+			AND DATE(n.NEWS_TIME) = #{nTime}
+		</if>
+		<if test="provider != null and provider != ''">
+			AND n.PROVIDER = #{provider}
+		</if>
+		<if test="format != null and format != ''">
+			AND n.FORMAT = #{format}
+		</if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND n.SUBJECT like CONCAT('%',#{subject},'%')
+		</if>
+		<if
+				test="newsTime != null and newsTime != '' and lastEditTime != null and lastEditTime != ''">
+			AND DATE(n.NEWS_TIME) between #{newsTime} and #{lastEditTime}
+		</if>
+		<if test="content != null and content != ''">
+			AND n.CONTENT like CONCAT('%',#{content},'%')
+		</if>
+		<if
+				test="clickCount != null and clickCount != '' and click != null and click != ''">
+			AND n.CLICK_COUNT between #{clickCount} and #{click}
+		</if>
+     ORDER BY n.TOP DESC,n.NEWS_TIME DESC
+	</select>
+	<!-- 查询未读已读信息并返回 列表 -->
+	<select id="unreadNews" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="columns"/>
+		FROM news n,`user` u  WHERE n.PROVIDER=u.USER_ID  AND  n.PUBLISH=1 AND (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="nTime != null and nTime != ''">
+			AND DATE(n.NEWS_TIME) = #{nTime}
+		</if>
+		<if test="provider != null and provider != ''">
+			AND n.PROVIDER = #{provider}
+		</if>
+		<if test="format != null and format != ''">
+			AND n.FORMAT = #{format}
+		</if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND n.SUBJECT like CONCAT('%',#{subject},'%')
+		</if>
+		<if
+				test="newsTime != null and newsTime != '' and lastEditTime != null and lastEditTime != ''">
+			AND DATE(n.NEWS_TIME) between #{newsTime} and #{lastEditTime}
+		</if>
+		<if test="content != null and content != ''">
+			AND n.CONTENT like CONCAT('%',#{content},'%')
+		</if>
+		<if
+				test="clickCount != null and clickCount != '' and click != null and click != ''">
+			AND n.CLICK_COUNT between #{clickCount} and #{click}
+		</if>
+		AND find_in_set(#{name}, n.READERS)=0
+		ORDER BY n.TOP DESC,n.NEWS_TIME DESC
+	</select>
+
+	<!-- 查询未读已读信息并返回 列表 -->
+	<select id="readNews" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="columns"/>FROM
+		news n,`user` u WHERE n.PROVIDER=u.USER_ID  AND  n.PUBLISH=1 AND (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="nTime != null and nTime != ''">
+			AND DATE(n.NEWS_TIME) = #{nTime}
+		</if>
+		<if test="provider != null and provider != ''">
+			AND n.PROVIDER = #{provider}
+		</if>
+		<if test="format != null and format != ''">
+			AND n.FORMAT = #{format}
+		</if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND n.SUBJECT like CONCAT('%',#{subject},'%')
+		</if>
+		<if
+				test="newsTime != null and newsTime != '' and lastEditTime != null and lastEditTime != ''">
+			AND DATE(n.NEWS_TIME) between #{newsTime} and #{lastEditTime}
+		</if>
+		<if test="content != null and content != ''">
+			AND n.CONTENT like CONCAT('%',#{content},'%')
+		</if>
+		<if
+				test="clickCount != null and clickCount != '' and click != null and click != ''">
+			AND n.CLICK_COUNT between #{clickCount} and #{click}
+		</if>
+		AND find_in_set(#{name}, n.READERS)>0
+		ORDER BY n.TOP DESC,n.NEWS_TIME DESC
+	</select>
+
+	<select id="showAllCountNews" parameterType="com.xoa.model.worldnews.News"
+			resultMap="BaseResultMap">
+		SELECT NEWS_ID, SUBJECT, PROVIDER,
+		NEWS_TIME, CLICK_COUNT,
+		ANONYMITY_YN,
+		FORMAT, TYPE_ID, PUBLISH,
+		TOP, LAST_EDITOR,
+		LAST_EDIT_TIME,
+		SUBJECT_COLOR, KEYWORD, TOP_DAYS,
+		CONTENT,
+		ATTACHMENT_ID, ATTACHMENT_NAME,
+		TO_ID, PRIV_ID, USER_ID,
+		READERS,
+		COMPRESS_CONTENT, SUMMARY
+		FROM news
+	</select>
+	<select id="detailedNews" resultMap="BaseResultMap" parameterType="Map">
+		select
+		n.NEWS_ID,n.`SUBJECT`,n.TYPE_ID,n.NEWS_TIME,n.CLICK_COUNT,n.PROVIDER,n.CONTENT,n.READERS,u.USER_NAME,n.PRIV_ID,n.USER_ID,n.TO_ID,n.PUBLISH,n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.TOP,n.TOP_DAYS,n.ANONYMITY_YN,u.AVATAR,u.SEX
+		FROM
+		news n,`user` u,user_function uf  WHERE n.PROVIDER=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT' OR
+			(uf.user_func_id_str LIKE concat('%,','105',',%')
+			OR uf.user_func_id_str LIKE concat('105',',%')
+			)OR
+
+		</trim>)
+  	and
+     	n.NEWS_ID=#{newsId} <!--and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				find_in_set(#{userPriv}, n.PRIV_ID) OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				find_in_set(#{deptId}, n.TO_ID) OR
+			</if>
+			<if test="userId != null and userId != ''">
+				find_in_set(#{userId}, n.USER_ID) OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>
+		)-->
+	</select>
+	<delete id="deleteNews" parameterType="java.lang.Integer">
+		delete from news
+		where
+		NEWS_ID = ${newsId}
+	</delete>
+	<insert id="save" parameterType="com.xoa.model.worldnews.News" useGeneratedKeys="true" keyProperty="newsId">
+		<!-- insert into news (NEWS_ID,
+		SUBJECT, PROVIDER,
+		NEWS_TIME, CLICK_COUNT, ANONYMITY_YN,
+		FORMAT,
+		TYPE_ID, PUBLISH,
+		TOP, LAST_EDITOR, LAST_EDIT_TIME,
+		SUBJECT_COLOR,
+		KEYWORD, TOP_DAYS,
+		CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME,
+		TO_ID,
+		PRIV_ID, USER_ID,
+		READERS, COMPRESS_CONTENT, SUMMARY
+		)
+		values (#{newsId},
+		#{subject},
+		#{provider},
+		#{newsTime}, #{clickCount}, #{anonymityYn},
+		#{format}, #{typeId},
+		#{publish},
+		#{top}, #{lastEditor},
+		#{lastEditTime},
+		#{subjectColor}, #{keyword},
+		#{topDays},
+		#{content},
+		#{attachmentId},
+		#{attachmentName},
+		#{toId}, #{privId}, #{userId},
+		#{readers},
+		#{compressContent},
+		#{summary}
+		) -->
+		<selectKey order="AFTER" keyProperty="newsId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into news
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="newsId != null" ><!-- 唯一自增ID -->
+				NEWS_ID,
+			</if>
+			<if test="subject != null" ><!-- 新闻标题 -->
+				SUBJECT,
+			</if>
+			<if test="provider != null" ><!-- 发布者-->
+				PROVIDER,
+			</if>
+			<if test="newsTime != null" ><!-- 发布时间-->
+				NEWS_TIME,
+			</if>
+			<if test="clickCount != null" ><!-- 点击数 -->
+				CLICK_COUNT,
+			</if>
+			<if test="anonymityYn != null" ><!-- 评论类型(0-实名评论,1-匿名评论,2-禁止评论) -->
+				ANONYMITY_YN,
+			</if>
+			<if test="format != null" ><!-- 新闻格式(0-普通格式,1-MHT格式,2-超链接 -->
+				FORMAT,
+			</if>
+			<if test="typeId != null" ><!-- 新闻类型 -->
+				TYPE_ID,
+			</if>
+			<if test="publish != null" ><!-- 发布标识(0-未发布,1-已发布,2-已终止) -->
+				PUBLISH,
+			</if>
+			<if test="top != null" ><!--是否置顶(0-否,1-是) -->
+				TOP,
+			</if>
+			<if test="lastEditor != null" ><!-- 最后编辑人 -->
+				LAST_EDITOR,
+			</if>
+			<if test="lastEditTime != null" ><!-- 最后编辑时间-->
+				LAST_EDIT_TIME,
+			</if>
+			<if test="subjectColor != null" ><!-- 新闻标题颜色 -->
+				SUBJECT_COLOR,
+			</if>
+			<if test="keyword != null" ><!-- 内容关键词 -->
+				KEYWORD,
+			</if>
+			<if test="topDays != null" ><!-- 限制新闻置顶时间-->
+				TOP_DAYS,
+			</if>
+			<if test="content != null" ><!-- 新闻内容 -->
+				CONTENT,
+			</if>
+			<if test="attachmentId != null" ><!-- 附件ID串-->
+				ATTACHMENT_ID,
+			</if>
+			<if test="attachmentName != null" ><!-- 附件名称串 -->
+				ATTACHMENT_NAME,
+			</if>
+			<if test="toId != null" ><!-- 发布部门 -->
+				TO_ID,
+			</if>
+			<if test="privId != null" ><!-- 发布角色 -->
+				PRIV_ID,
+			</if>
+			<if test="userId != null" ><!-- 发布人员-->
+				USER_ID,
+			</if>
+			<if test="readers != null" ><!-- 阅读人员ID串 -->
+				READERS,
+			</if>
+			<if test="compressContent != null" ><!-- 压缩后的新闻内容-->
+				COMPRESS_CONTENT,
+			</if>
+			<if test="summary != null" ><!-- 新闻内容简介 -->
+				SUMMARY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="newsId != null" >
+				#{newsId},
+			</if>
+			<if test="subject != null" >
+				#{subject},
+			</if>
+			<if test="provider != null" >
+				#{provider},
+			</if>
+			<if test="newsTime != null" >
+				#{newsTime},
+			</if>
+			<if test="clickCount != null" >
+				#{clickCount},
+			</if>
+			<if test="anonymityYn != null" >
+				#{anonymityYn},
+			</if>
+			<if test="format != null" >
+				#{format},
+			</if>
+			<if test="typeId != null" >
+				#{typeId},
+			</if>
+			<if test="publish != null" >
+				#{publish},
+			</if>
+			<if test="top != null" >
+				#{top},
+			</if>
+			<if test="lastEditor != null" >
+				#{lastEditor},
+			</if>
+			<if test="lastEditTime != null" >
+				#{lastEditTime},
+			</if>
+			<if test="subjectColor != null" >
+				#{subjectColor},
+			</if>
+			<if test="keyword != null" >
+				#{keyword},
+			</if>
+			<if test="topDays != null" >
+				#{topDays},
+			</if>
+			<if test="content != null" >
+				#{content},
+			</if>
+			<if test="attachmentId != null" >
+				#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				#{attachmentName},
+			</if>
+			<if test="toId != null" >
+				#{toId},
+			</if>
+			<if test="privId != null" >
+				#{privId},
+			</if>
+			<if test="userId != null" >
+				#{userId},
+			</if>
+			<if test="readers != null" >
+				#{readers},
+			</if>
+			<if test="compressContent != null" >
+				#{compressContent},
+			</if>
+			<if test="summary != null" >
+				#{summary},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.xoa.model.worldnews.News">
+		<!-- update news
+		set
+		SUBJECT =
+		#{subject},
+		PROVIDER = #{provider},
+		NEWS_TIME = #{newsTime},
+		CLICK_COUNT
+		= #{clickCount},
+		ANONYMITY_YN = #{anonymityYn},
+		FORMAT=#{format},
+		TYPE_ID = #{typeId},
+		PUBLISH = #{publish},
+		TOP = #{top},
+		LAST_EDITOR =
+		#{lastEditor},
+		LAST_EDIT_TIME = #{lastEditTime},
+		SUBJECT_COLOR =
+		#{subjectColor},
+		KEYWORD = #{keyword},
+		TOP_DAYS=#{topDays},
+		CONTENT=#{content},
+		ATTACHMENT_ID=#{attachmentId},
+		ATTACHMENT_NAME=#{attachmentName},
+		TO_ID=#{toId},
+		PRIV_ID=#{privId},
+		USER_ID=#{userId},
+		READERS=#{readers},
+		COMPRESS_CONTENT=#{compressContent},
+		SUMMARY=#{summary}
+		where
+		NEWS_ID =
+		#{newsId} -->
+		update news
+		<set >
+			<if test="subject != null and subject != ''" >
+				SUBJECT = #{subject},
+			</if>
+			<if test="provider != null and provider != ''" >
+				PROVIDER = #{provider},
+			</if>
+			<if test="newsTime != null and newsTime != ''" >
+				NEWS_TIME = #{newsTime},
+			</if>
+			CLICK_COUNT = #{clickCount},
+			<if test="anonymityYn != null and anonymityYn != ''" >
+				ANONYMITY_YN = #{anonymityYn},
+			</if>
+			<if test="format != null and format != ''" >
+				FORMAT = #{format},
+			</if>
+			<if test="typeId != null and typeId != ''" >
+				TYPE_ID = #{typeId},
+			</if>
+			<if test="publish != null and publish != ''" >
+				PUBLISH = #{publish},
+			</if>
+			<if test="top != null and top != ''" >
+				TOP = #{top},
+			</if>
+			<if test="lastEditor != null and lastEditor != ''" >
+				LAST_EDITOR = #{lastEditor},
+			</if>
+			<if test="lastEditTime != null and lastEditTime != ''" >
+				LAST_EDIT_TIME = #{lastEditTime},
+			</if>
+			<if test="subjectColor != null and subjectColor != ''" >
+				SUBJECT_COLOR = #{subjectColor},
+			</if>
+			<if test="keyword != null and keyword != ''" >
+				KEYWORD = #{keyword},
+			</if>
+			<if test="topDays != null and topDays != ''" >
+				TOP_DAYS = #{topDays},
+			</if>
+			<if test="content != null and content != ''" >
+				CONTENT = #{content},
+			</if>
+			<if test="attachmentId != null " >
+				ATTACHMENT_ID = #{attachmentId},
+			</if>
+			<if test="attachmentName != null " >
+				ATTACHMENT_NAME = #{attachmentName},
+			</if>
+			<if test="toId != null" >
+				TO_ID = #{toId},
+			</if>
+			<if test="privId != null" >
+				PRIV_ID = #{privId},
+			</if>
+			<if test="userId != null" >
+				USER_ID = #{userId},
+			</if>
+		READERS = #{readers},
+		<if test="compressContent != null and compressContent != ''" >
+				COMPRESS_CONTENT = #{compressContent},
+			</if>
+			<if test="summary != null and summary != ''" >
+				SUMMARY = #{summary},
+			</if>
+		</set>
+		where NEWS_ID = #{newsId}
+	</update>
+	<update id="updateNews" parameterType="com.xoa.model.worldnews.News">
+		update news set
+		CLICK_COUNT = #{clickCount},READERS=#{readers} where NEWS_ID
+		=
+		#{newsId}
+	</update>
+	<update id="updateclickCount" parameterType="com.xoa.model.worldnews.News">
+		update news set
+		CLICK_COUNT = #{clickCount} where NEWS_ID = #{newsId}
+	</update>
+	<update id="updatePublish" parameterType="com.xoa.model.worldnews.News">
+		update news set
+		PUBLISH = #{publish} where NEWS_ID = #{newsId}
+	</update>
+
+	<delete id="deleteByids"   parameterType="string">
+		DELETE FROM news WHERE NEWS_ID in
+		<foreach item="ids" collection="array" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+
+	</delete>
+
+	<update id="updateByIds"  parameterType="string">
+		update news set
+		<if test="top != null and top != ''">
+			TOP = #{top}
+		</if>
+		<if test="publish != null and publish != ''" >
+			PUBLISH = #{publish}
+		</if>
+		WHERE  NEWS_ID  in
+		<foreach item="id" collection="ids" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+
+	</update>
+
+	<select id="getNewCountByType" resultMap="BaseResultMap">
+		SELECT
+			n.NEWS_ID,n.`SUBJECT`,n.TYPE_ID,n.NEWS_TIME,n.CLICK_COUNT,n.PROVIDER,n.CONTENT,n.READERS,n.PRIV_ID,n.USER_ID,n.TO_ID,n.PUBLISH,n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.ANONYMITY_YN,n.TOP,s.CODE_NO,s.CODE_NAME
+		FROM
+			news as n
+		LEFT JOIN
+			(SELECT CODE_NO,CODE_NAME FROM sys_code WHERE sys_code.PARENT_NO="NEWS") AS s
+		ON
+			n.TYPE_ID = s.CODE_NO
+		WHERE
+		 	n.PUBLISH='1'
+</select>
+</mapper>

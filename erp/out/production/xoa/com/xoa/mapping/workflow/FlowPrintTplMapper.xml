@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FlowPrintTplMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowPrintTpl" >
+    <id column="T_ID" property="tId" jdbcType="INTEGER" />
+    <result column="FLOW_ID" property="flowId" jdbcType="INTEGER" />
+    <result column="T_TYPE" property="tType" javaType="java.lang.String" />
+    <result column="T_NAME" property="tName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.workflow.FlowPrintTplWithBLOBs" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+    <result column="FLOW_PRCS" property="flowPrcs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    T_ID, FLOW_ID, T_TYPE, T_NAME, CREATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, FLOW_PRCS
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.workflow.FlowPrintTplExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_print_tpl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.workflow.FlowPrintTplExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flow_print_tpl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flow_print_tpl
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flow_print_tpl
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.workflow.FlowPrintTplExample" >
+    delete from flow_print_tpl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.workflow.FlowPrintTplWithBLOBs" >
+    insert into flow_print_tpl (T_ID, FLOW_ID, T_TYPE, 
+      T_NAME, CREATE_TIME, CONTENT, 
+      FLOW_PRCS)
+    values (#{tId,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{tType,jdbcType=CHAR}, 
+      #{tName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, 
+      #{flowPrcs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowPrintTplWithBLOBs" >
+    insert into flow_print_tpl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        T_ID,
+      </if>
+      <if test="flowId != null" >
+        FLOW_ID,
+      </if>
+      <if test="tType != null" >
+        T_TYPE,
+      </if>
+      <if test="tName != null" >
+        T_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="flowPrcs != null" >
+        FLOW_PRCS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="tType != null" >
+        #{tType,jdbcType=CHAR},
+      </if>
+      <if test="tName != null" >
+        #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="flowPrcs != null" >
+        #{flowPrcs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.workflow.FlowPrintTplExample" resultType="java.lang.Integer" >
+    select count(*) from flow_print_tpl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flow_print_tpl
+    <set >
+      <if test="record.tId != null" >
+        T_ID = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowId != null" >
+        FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tType != null" >
+        T_TYPE = #{record.tType,jdbcType=CHAR},
+      </if>
+      <if test="record.tName != null" >
+        T_NAME = #{record.tName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.flowPrcs != null" >
+        FLOW_PRCS = #{record.flowPrcs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update flow_print_tpl
+    set T_ID = #{record.tId,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      T_TYPE = #{record.tType,jdbcType=CHAR},
+      T_NAME = #{record.tName,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      FLOW_PRCS = #{record.flowPrcs,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flow_print_tpl
+    set T_ID = #{record.tId,jdbcType=INTEGER},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      T_TYPE = #{record.tType,jdbcType=CHAR},
+      T_NAME = #{record.tName,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FlowPrintTplWithBLOBs" >
+    update flow_print_tpl
+    <set >
+      <if test="flowId != null" >
+        FLOW_ID = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="tType != null" >
+        T_TYPE = #{tType,jdbcType=CHAR},
+      </if>
+      <if test="tName != null" >
+        T_NAME = #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="flowPrcs != null" >
+        FLOW_PRCS = #{flowPrcs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.workflow.FlowPrintTplWithBLOBs" >
+    update flow_print_tpl
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      T_TYPE = #{tType,jdbcType=CHAR},
+      T_NAME = #{tName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=LONGVARCHAR},
+      FLOW_PRCS = #{flowPrcs,jdbcType=LONGVARCHAR}
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FlowPrintTpl" >
+    update flow_print_tpl
+    set FLOW_ID = #{flowId,jdbcType=INTEGER},
+      T_TYPE = #{tType,jdbcType=CHAR},
+      T_NAME = #{tName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </update>
+  <select id="queryByFlowId" resultMap="ResultMapWithBLOBs" parameterType="Integer">
+    SELECT  flow_print_tpl.*  FROM flow_print_tpl WHERE flow_print_tpl.FLOW_ID=#{flowId}
+  </select>
+  <delete id="deleteBatchKey" parameterType="java.lang.Integer">
+    delete from flow_print_tpl where T_ID in
+    <foreach item="tId" collection="array" open="(" separator="," close=")">
+      #{tId}
+    </foreach>
+  </delete>
+</mapper>

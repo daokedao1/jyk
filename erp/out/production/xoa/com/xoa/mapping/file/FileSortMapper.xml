@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.file.FileSortMapper">
+	<resultMap id="file_SortResultMap" type="com.xoa.model.file.FileSortModel">
+		<id column="SORT_ID" property="sortId" javaType="int"  />
+		<result column="SORT_PARENT" property="sortParent" javaType="integer" />
+		<result column="SORT_NO" property="sortNo" javaType="string" />
+		<result column="SORT_NAME" property="sortName" javaType="string" />
+		<result column="SORT_TYPE" property="sortType" javaType="string" />
+		<result column="USER_ID" property="userId" javaType="string" />
+		<result column="NEW_USER" property="newUser" javaType="string" />
+		<result column="MANAGE_USER" property="managerUser" javaType="string" />
+		<result column="DEL_USER" property="delUser" javaType="string" />
+		<result column="DOWN_USER" property="downUser" javaType="string" />
+		<result column="SHARE_USER" property="sharUser" javaType="string" />
+		<result column="OWNER" property="owner" javaType="string" />
+		<result column="SIGN_USER" property="signUser" javaType="string" />
+		<result column="REVIEW" property="review" javaType="string" />
+		<result column="DESCRIPTION" property="descrtption" javaType="string" />
+		<result  column="fileType"  property="fileType" javaType="string" />
+	</resultMap>
+	<sql id="FileSort">
+	SORT_ID,SORT_PARENT,SORT_NO,SORT_NAME,SORT_TYPE,USER_ID,NEW_USER,MANAGE_USER,DEL_USER,DOWN_USER,SHARE_USER,OWNER,SIGN_USER,REVIEW,DESCRIPTION
+	</sql>
+	<sql id="insertFile">
+	SORT_PARENT,SORT_NO,SORT_NAME,SORT_TYPE,USER_ID,NEW_USER,MANAGE_USER,DEL_USER,DOWN_USER,SHARE_USER,OWNER,SIGN_USER,REVIEW,DESCRIPTION
+	</sql>
+	<select id="getFileSort" resultMap="file_SortResultMap" parameterType="com.xoa.model.file.FileSortModel">
+		select  <include refid="FileSort"/> ,'folder' as fileType  from file_sort  where  1=1 
+		<if test="sortId != null and sortId !=''" >
+           and SORT_ID=#{sortId}
+        </if>
+        <if test="sortParent != null">
+           and SORT_PARENT=#{sortParent}
+        </if>
+         <if test="sortName != null and sortName !=''" >
+           and SORT_NO=#{sortName}
+        </if>
+         <if test="userId != null and userId !=''" >
+           and USER_ID=#{userId}
+        </if>
+        <if test="sortType != null and sortType !=''" >
+           and SORT_TYPE=#{sortType}
+          </if>
+          order by SORT_ID
+	</select>
+	<select id="getFileCheck" resultType="int" parameterType="com.xoa.model.file.FileSortModel">
+		select  count(*)  from file_sort where  USER_ID=#{userId}   and SORT_PARENT=#{sortParent}  and SORT_TYPE=#{sortType}
+           and  (  SORT_NO=#{sortNo} or  SORT_NAME=#{sortName})
+	</select>
+	<!-- ajax  -->
+	<select id="getSortChrildren" parameterType="int" resultMap="file_SortResultMap">
+	select * from file_sort where  SORT_PARENT=#{tempNo}  order by SORT_NO;
+	</select>
+	
+	<select id="getOne" parameterType="com.xoa.model.file.FileSortModel" resultMap="file_SortResultMap">
+	select * from file_sort where  SORT_ID = #{sortId}
+	</select>
+	<insert id="saveFileSort"  parameterType="com.xoa.model.file.FileSortModel">
+	insert into file_sort  (<include refid="insertFile"/>)
+ <!--  <if test="sortParent != null and sortParent !='' or sortParent==0" >
+        SORT_PARENT,
+      </if>
+      SORT_PARENT,SORT_NO,SORT_NAME,SORT_TYPE,USER_ID,NEW_USER,MANAGE_USER,DEL_USER,DOWN_USER,SHARE_USER,OWNER,SIGN_USER,REVIEW
+      -->
+      values 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <if test="sortParent==null">
+      0,
+     </if>
+      <if test="sortParent!=null">
+      #{sortParent},
+     </if>
+         #{sortNo},
+        #{sortName},
+        '5',
+      <if test="userId == null or userId == ''" >
+        '',
+      </if>
+      <if test="userId != null and userId !=''" >
+        #{userId},
+      </if>
+      
+      <if test="newUser == null or newUser == ''" >
+        '',
+      </if>
+      <if test="newUser != null and newUser != ''" >
+        #{newUser},
+      </if>
+      
+      <if test="managerUser == null or managerUser == ''" >
+        '',
+      </if>
+      <if test="managerUser != null and managerUser != ''" >
+        #{managerUser},
+      </if>
+      
+      <if test="delUser == null or delUser == ''" >
+        '',
+      </if>
+      <if test="delUser != null and delUser != ''" >
+        #{delUser},
+      </if>
+      
+      <if test="downUser == null or downUser == ''" >
+        '',
+      </if>
+      <if test="downUser != null and downUser != ''" >
+        #{downUser},
+      </if>
+      
+      <if test="sharUser == null or sharUser == ''" >
+        '',
+      </if>
+      <if test="sharUser != null and sharUser != ''" >
+        #{sharUser},
+      </if>
+      
+      <if test="owner == null or owner == ''" >
+        '',
+      </if>
+      <if test="owner != null and owner != ''" >
+        #{owner},
+      </if>
+      
+      <if test="signUser == null or signUser == ''" >
+        '',
+      </if>
+      <if test="signUser != null and signUser != ''" >
+        #{signUser},
+      </if>
+      
+      <if test="review == null or review ==''" >
+        '',
+      </if>
+      <if test="review != null and review != ''" >
+        #{review},
+      </if>
+    </trim>
+	</insert>
+	
+	<update id="updateFileSort" parameterType="com.xoa.model.file.FileSortModel">
+	update file_sort 
+    <set>
+    <trim  suffixOverrides="," >
+      <if test="sortNo != null and sortNo != ''" >
+        sort_no = #{sortNo},
+      </if>
+       <if test="sortName != null and sortName != ''" >
+        sort_name = #{sortName},
+      </if>
+      </trim>
+    </set>
+      where sort_id=#{sortId}
+	</update>
+	
+	<delete id="deleteBySortId" parameterType="com.xoa.model.file.FileSortModel">
+	delete from file_sort where SORT_ID=#{sortid};
+	</delete>
+	
+	<select id="getRootTree" parameterType="map" resultMap="file_SortResultMap">
+	select * from file_sort where SORT_PARENT=#{sortid}  AND  SORT_TYPE=#{sortType}  order by SORT_NO;
+	</select>
+	
+	<select id="getChildTree" parameterType="int" resultMap="file_SortResultMap">
+		select * from file_sort  where SORT_PARENT in 
+		<foreach collection="list" index="index"  item="sortid" open="(" separator="," close=")">
+		    #{sortid}
+		</foreach>;
+	</select>
+	
+	<insert id="saveFileSortChr" parameterType="com.xoa.model.file.FileSortModel">
+	insert into file_sort (<include refid="insertFile"/>) 
+	values 
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+	<!--  <if test="sortParent != null and sortParent !='' or sortParent==0" >
+        SORT_PARENT,
+    <sql id="insertFile">
+	SORT_PARENT,SORT_NO,SORT_NAME,SORT_TYPE,USER_ID,NEW_USER,MANAGE_USER,DEL_USER,DOWN_USER,SHARE_USER,OWNER,SIGN_USER,REVIEW
+	</sql>
+      -->
+         #{sortParent},
+         #{sortNo},
+        #{sortName},
+         <if test="sortType == null or sortType == ''" >
+        '',
+      </if>
+      <if test="sortType != null and sortType !=''" >
+        #{sortType},
+      </if>
+    <if test="userId == null or userId == ''" >
+        '',
+      </if>
+      <if test="userId != null and userId !=''" >
+        #{userId},
+      </if>
+      
+      <if test="newUser == null or newUser == ''" >
+        '',
+      </if>
+      <if test="newUser != null and newUser != ''" >
+        #{newUser},
+      </if>
+      
+      <if test="managerUser == null or managerUser == ''" >
+        '',
+      </if>
+      <if test="managerUser != null and managerUser != ''" >
+        #{managerUser},
+      </if>
+      
+      <if test="delUser == null or delUser == ''" >
+        '',
+      </if>
+      <if test="delUser != null and delUser != ''" >
+        #{delUser},
+      </if>
+      
+      <if test="downUser == null or downUser == ''" >
+        '',
+      </if>
+      <if test="downUser != null and downUser != ''" >
+        #{downUser},
+      </if>
+      
+      <if test="sharUser == null or sharUser == ''" >
+        '',
+      </if>
+      <if test="sharUser != null and sharUser != ''" >
+        #{sharUser},
+      </if>
+      
+      <if test="owner == null or owner == ''" >
+        '',
+      </if>
+      <if test="owner != null and owner != ''" >
+        #{owner},
+      </if>
+      
+      <if test="signUser == null or signUser == ''" >
+        '',
+      </if>
+      <if test="signUser != null and signUser != ''" >
+        #{signUser},
+      </if>
+      
+      <if test="review == null or review ==''" >
+        '',
+      </if>
+      <if test="review != null and review != ''" >
+        #{review},
+      </if>
+       <if test="descrtption == null or descrtption ==''" >
+        '',
+      </if>
+      <if test="descrtption != null and descrtption != ''" >
+        #{descrtption},
+      </if>
+    </trim>
+	</insert>
+
+    <update id="updateSortAuth" parameterType="Map">
+        update file_sort
+        <set>
+            <if test="userId!=null">
+                USER_ID=#{userId},
+            </if>
+            <if test="newUser!=null">
+                NEW_USER=#{newUser},
+            </if>
+            <if test="manageUser!=null">
+                MANAGE_USER=#{manageUser},
+            </if>
+            <if test="delUser!=null">
+                DEL_USER=#{delUser},
+            </if>
+            <if test="downUser!=null">
+                DOWN_USER=#{downUser},
+            </if>
+            <if test="shareUser!=null">
+                SHARE_USER=#{shareUser},
+            </if>
+            <if test="owner!=null">
+                OWNER=#{owner},
+            </if>
+            <if test="signUser!=null">
+                SIGN_USER=#{signUser},
+            </if>
+            <if test="review!=null">
+                REVIEW=#{review},
+            </if>
+        </set>
+        where SORT_ID=#{sortId};
+    </update>
+     <select id="queryFileSortAndChildBySortId" resultMap="file_SortResultMap" parameterType="Integer">
+       select * FROM file_sort AS f where f.SORT_ID=#{sortId} OR f.SORT_PARENT=#{sortId}
+     </select>
+    <select id="getNowFileSortAuth" resultMap="file_SortResultMap" parameterType="Integer">
+        SELECT * FROM file_sort WHERE SORT_ID =#{sortId}
+    </select>
+
+    <update id="updateSortAuthByChildSort" parameterType="Map">
+        update file_sort
+        <set>
+            <if test="userId!=null">
+                USER_ID=#{userId},
+            </if>
+            <if test="newUser!=null">
+                NEW_USER=#{newUser},
+            </if>
+            <if test="manageUser!=null">
+                MANAGE_USER=#{manageUser},
+            </if>
+            <if test="delUser!=null">
+                DEL_USER=#{delUser},
+            </if>
+            <if test="downUser!=null">
+                DOWN_USER=#{downUser},
+            </if>
+            <if test="shareUser!=null">
+                SHARE_USER=#{shareUser},
+            </if>
+            <if test="owner!=null">
+                OWNER=#{owner},
+            </if>
+            <if test="signUser!=null">
+                SIGN_USER=#{signUser},
+            </if>
+            <if test="review!=null">
+                REVIEW=#{review},
+            </if>
+        </set>
+        where SORT_ID IN
+        <foreach item="item"  collection="sortIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+<select id="getfolderPath" parameterType="integer" resultMap="file_SortResultMap">
+select * from file_sort where  SORT_ID=#{integer}
+</select>
+</mapper>

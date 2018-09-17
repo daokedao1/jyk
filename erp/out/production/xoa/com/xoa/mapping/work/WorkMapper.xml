@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.work.WorkMapper" >
+    <update id="createTable" parameterType="Map" databaseId="mysql">
+    create table ${tableName} <trim prefix="(" suffixOverrides="," suffix=")">
+        `id` int(10) not null auto_increment,
+        `run_id` int(10) not null default '0',
+        `run_name` varchar(200) not null default '',
+        `begin_user` varchar(20) not null default '',
+        `begin_time` datetime null,
+        `flow_auto_num` int(11) not null default '0',
+        `flow_auto_num_year` int(11) not null default '0',
+        `flow_auto_num_month` int(11) not null default '0',
+        <if test="keys!=null and keys.size()!=0">
+            <foreach item="key" collection="keys" separator=",">
+                ${key} text not null
+            </foreach>
+            ,
+        </if>
+        primary key(id),unique key(run_id)
+    </trim>
+
+    </update>
+
+    <update id="createTable" parameterType="Map" databaseId="dm">
+        create table ${tableName} <trim prefix="(" suffixOverrides="," suffix=")">
+        `id` int(10) not null auto_increment,
+        `run_id` int(10) not null default '0',
+        `run_name` varchar(200) not null default '',
+        `begin_user` varchar(20) not null default '',
+        `begin_time` datetime null,
+        `flow_auto_num` int(11) not null default '0',
+        `flow_auto_num_year` int(11) not null default '0',
+        `flow_auto_num_month` int(11) not null default '0',
+        <if test="keys!=null and keys.size()!=0">
+            <foreach item="key" collection="keys" separator=",">
+                ${key} text not null
+            </foreach>
+            ,
+        </if>
+        primary key(id),unique key(run_id)
+    </trim>
+    </update>
+
+    <insert id="insert" parameterType="Map" databaseId="mysql">
+        INSERT  INTO  ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="keys!=null and keys.size()!=0">
+            <foreach item="key" collection="keys" separator=",">
+                ${key}
+            </foreach>
+
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="keys!=null and keys.size()!=0">
+            <foreach item="value" collection="values" separator=",">
+              '${value }'
+            </foreach>
+        </if>
+        </trim>
+
+    </insert>
+
+    <update id="update">
+        UPDATE  ${tableName}
+        <set>
+                <if test="keys!=null and keys.size()!=0">
+                    <foreach item="key" collection="keys" separator=",">
+                        ${key}
+                    </foreach>
+                </if>
+        </set>
+        WHERE run_Id=${runId}
+    </update>
+
+    <select id="select"  resultType="java.util.Map">
+        SELECT * FROM ${tableName} WHERE run_id=${runId}
+    </select>
+
+    <select id="showColumns"  resultType="String">
+         select column_name from information_schema.columns  where TABLE_SCHEMA='${tableSchema}' and table_name='${tableName}';
+    </select>
+
+      <update id="addcolumn" parameterType="java.util.Map">  
+        alter table ${tableName} 
+         <if test="keys!=null and keys.size()!=0">
+            <foreach item="key" collection="keys" separator=",">
+              add column ${key} text not null
+            </foreach>
+        </if>  
+    </update>
+
+    <update id="createTableList" parameterType="Map" databaseId="dm">
+        create table ${tableName} <trim prefix="(" suffixOverrides="," suffix=")">
+        `id` int(11) not null auto_increment,
+        `run_id` int(11) not null default '0',
+        `main_table` varchar(200) not null default '',
+        `main_id` int(11) not null default '',
+        <if test="keys!=null and keys.size()!=0">
+            <foreach item="key" collection="keys" separator=",">
+                ${key} text not null
+            </foreach>
+            ,
+        </if>
+        primary key(id),unique key(run_id)
+    </trim>
+    </update>
+
+  
+</mapper>

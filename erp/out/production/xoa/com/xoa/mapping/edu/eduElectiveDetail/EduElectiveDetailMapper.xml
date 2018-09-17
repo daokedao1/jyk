@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.eduElectiveDetail.EduElectiveDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xoa.model.edu.eduElectiveDetail.EduElectiveDetail">
+        <id column="id" property="id"/>
+        <result column="nid" property="nid"/>
+        <result column="place" property="place"/>
+        <result column="class_time" property="classTime"/>
+        <result column="class_over" property="classOver"/>
+        <result column="score" property="score"/>
+        <result column="class_hour" property="classHour"/>
+        <result column="exam_type" property="examType"/>
+        <result column="counseling_teachers" property="counselingTeachers"/>
+        <result column="tuition" property="tuition"/>
+        <result column="material_cost" property="materialCost"/>
+        <result column="maxpeople" property="maxpeople"/>
+        <result column="minpeople" property="minpeople"/>
+        <result column="teacherin_id" property="teacherinId"/>
+        <result column="teacherin_name" property="teacherinName"/>
+        <result column="teacherout" property="teacherout"/>
+        <result column="course_content" property="courseContent"/>
+        <result column="meaning_characteristics" property="meaningCharacteristics"/>
+        <result column="remarks" property="remarks"/>
+        <result column="sid" property="sid"/>
+        <result column="counts" property="counts"/>
+    </resultMap>
+
+
+    <!--根据ID查询对详情-->
+    <select id="eduSelectOneDetail" parameterType="java.lang.Integer"
+            resultType="com.xoa.model.edu.eduElectiveDetail.EduElectiveDetail">
+		SELECT
+			eed.ID AS 'ID',
+			eed.nid as 'nid',
+            eep.elective_course  as 'courseName',
+            eed.place,
+            eed.class_time  as 'classTime',
+            eed.class_over  as 'classOver',
+            eed.score,
+            eed.class_hour  as 'classHour',
+            eed.exam_type  as 'examType',
+            eed.counseling_teachers as 'counselingTeachers',
+            eed.teacherin_id  as 'teacherinId',
+            eed.teacherin_name as 'teacherinName',
+            eed.teacherout,
+            eed.course_content  'courseContent',
+            eed.meaning_characteristics 'meaningCharacteristics',
+            eed.remarks,
+            eed.maxpeople,
+			eed.minpeople,
+			eed.tuition,
+			eed.material_cost as 'materialCost'
+        FROM
+				edu_elective_detail eed
+        INNER JOIN edu_elective_publish eep ON eep.id = eed.sid
+        where  eed.sid=#{sid}
+	    </select>
+
+    <!--根据ID查询是否存在-->
+        <select id="eduSelectOneDetailTO" parameterType="java.lang.Integer" resultType="com.xoa.model.edu.eduElectiveDetail.EduElectiveDetail">
+            select
+            ID AS 'ID',
+			nid as 'nid',
+			place,
+            class_time  as 'classTime',
+            class_over  as 'classOver',
+            score,
+            class_hour  as 'classHour',
+            exam_type  as 'examType',
+            counseling_teachers as 'counselingTeachers',
+            teacherin_id  as 'teacherinId',
+            teacherin_name as 'teacherinName',
+            teacherout,
+            course_content  'courseContent',
+            meaning_characteristics 'meaningCharacteristics',
+            remarks
+            from  edu_elective_detail   where  sid=#{sid}
+        </select>
+    <!--根据ID修改详情-->
+    <insert id="insertDetail" parameterType="com.xoa.model.edu.eduElectiveDetail.EduElectiveDetail">
+         INSERT INTO edu_elective_detail (
+                    nid,
+                    place,
+                    class_time,
+                    class_over,
+                    score,
+                    class_hour,
+                    exam_type,
+                    counseling_teachers,
+                    tuition,
+                    material_cost,
+                    maxpeople,
+                    minpeople,
+                    teacherin_id,
+                    teacherin_name,
+                    teacherout,
+                    course_content,
+                    meaning_characteristics,
+                    remarks,
+                    sid,
+                    counts
+                )
+                VALUES
+                    (#{nid},#{place},#{classTime},#{classOver},#{score},#{classHour},#{examType},#{counselingTeachers},#{tuition},#{materialCost},#{maxpeople},#{minpeople},#{teacherinId},#{teacherinName},teacherout,#{courseContent},
+					#{meaningCharacteristics},#{remarks},#{sid},#{counts})
+    </insert>
+    <update id="eduUpdateDetail" parameterType="com.xoa.model.edu.eduElectiveDetail.EduElectiveDetail">
+        update edu_elective_detail
+        <set>
+            <if test="place!=null and place!=''">
+                place=#{place},
+            </if>
+            <if test="classTime!=null and classTime!=''">
+                class_time=#{classTime},
+            </if>
+            <if test="classOver!=null and classOver!=''">
+                class_over=#{classOver},
+            </if>
+            <if test="score!=null and score!=''">
+                score=#{score},
+            </if>
+            <if test="classHour!=null and classHour!=''">
+                class_hour=#{classHour},
+            </if>
+            <if test="examType!=null and examType!=''">
+                exam_type=#{examType},
+            </if>
+            <if test="counselingTeachers!=null and counselingTeachers!=''">
+                counseling_teachers=#{counselingTeachers},
+            </if>
+            <if test="teacherinId!=null and teacherinId!=''">
+                teacherin_id=#{teacherinId},
+            </if>
+            <if test="teacherinName!=null and teacherinName!=''">
+                teacherin_name=#{teacherinName},
+            </if>
+            <if test="teacherout!=null and teacherout!=''">
+                teacherout=#{teacherout},
+            </if>
+            <if test="courseContent!=null and courseContent!=''">
+                course_content=#{courseContent},
+            </if>
+            <if test="meaningCharacteristics!=null and meaningCharacteristics!=''">
+                meaning_characteristics=#{meaningCharacteristics},
+            </if>
+            <if test="remarks!=null and remarks!=''">
+                remarks=#{remarks}
+            </if>
+        </set>
+        WHERE sid=#{sid}
+    </update>
+    <!--删除-->
+    <delete id="deleteElectiveDetaim" parameterType="java.lang.Integer">
+        delete   from edu_elective_detail where  sid=#{tid}
+    </delete>
+</mapper>

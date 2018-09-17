@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.users.UserPrivMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.users.UserPriv">
+        <id column="USER_PRIV" javaType="Integer" property="userPriv"/>
+        <result column="PRIV_NAME" javaType="String" property="privName"/>
+        <result column="PRIV_NO" javaType="Short" property="privNo"/>
+        <result column="FUNC_ID_STR" javaType="String" property="funcIdStr"/>
+        <result column="PRIV_DEPT_ID" javaType="Integer" property="privDeptId"/>
+        <result column="PRIV_TYPE" javaType="Byte" property="privType"/>
+        <result column="IS_GLOBAL" javaType="Byte" property="isGlobal"/>
+    </resultMap>
+    <resultMap id="RoleManagerMap" type="com.xoa.model.users.RoleManager">
+        <id column="HR_ROLE_MANAGE_ID" javaType="Integer" property="roleManagerId"/>
+        <result column="HR_ROLE_MANAGE" javaType="String" property="roleManager"/>
+        <result column="HR_USER_PRIV" javaType="String" property="userPriv"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    USER_PRIV, PRIV_NAME, PRIV_NO, FUNC_ID_STR, PRIV_DEPT_ID, PRIV_TYPE, IS_GLOBAL
+  </sql>
+
+    <select id="getAlluserPriv" resultMap="BaseResultMap" parameterType="map">
+        select USER_PRIV, PRIV_NAME, PRIV_NO, FUNC_ID_STR, PRIV_DEPT_ID, PRIV_TYPE, IS_GLOBAL
+        from user_priv
+        where 1=1
+        <if test="userPriv != null">
+            and USER_PRIV=#{userPriv},
+        </if>
+        <if test="privName != null">
+            and PRIV_NAME=#{privName},
+        </if>
+        <if test="privNo != null">
+            and PRIV_NO=#{privNo},
+        </if>
+        <if test="funcIdStr != null">
+            and FUNC_ID_STR=#{funcIdStr},
+        </if>
+        <if test="privDeptId != null">
+            and PRIV_DEPT_ID=#{privDeptId},
+        </if>
+        <if test="privType != null">
+            and PRIV_TYPE=#{privType},
+        </if>
+        <if test="isGlobal != null">
+            and IS_GLOBAL=#{isGlobal}
+        </if>
+        order by PRIV_NO
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_priv
+        where USER_PRIV = #{userPriv,jdbcType=INTEGER}
+    </select>
+    <select id="getPrivNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select PRIV_NAME from user_priv
+    where USER_PRIV = #{userPriv,jdbcType=INTEGER}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_priv
+    where USER_PRIV = #{userPriv,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xoa.model.users.UserPriv">
+    insert into user_priv (USER_PRIV, PRIV_NAME, PRIV_NO, 
+      FUNC_ID_STR, PRIV_DEPT_ID, PRIV_TYPE, 
+      IS_GLOBAL)
+    values (#{userPriv}, #{privName}, #{privNo},
+      #{funcIdStr}, #{privDeptId}, #{privType},
+      #{isGlobal})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xoa.model.users.UserPriv">
+        insert into user_priv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userPriv != null">
+                USER_PRIV,
+            </if>
+            <if test="privName != null">
+                PRIV_NAME,
+            </if>
+            <if test="privNo != null">
+                PRIV_NO,
+            </if>
+            <if test="funcIdStr != null">
+                FUNC_ID_STR,
+            </if>
+            <if test="privDeptId != null">
+                PRIV_DEPT_ID,
+            </if>
+            <if test="privType != null">
+                PRIV_TYPE,
+            </if>
+            <if test="isGlobal != null">
+                IS_GLOBAL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userPriv != null">
+                #{userPriv},
+            </if>
+            <if test="privName != null">
+                #{privName},
+            </if>
+            <if test="privNo != null">
+                #{privNo},
+            </if>
+            <if test="funcIdStr != null">
+                #{funcIdStr},
+            </if>
+            <if test="privDeptId != null">
+                #{privDeptId},
+            </if>
+            <if test="privType != null">
+                #{privType},
+            </if>
+            <if test="isGlobal != null">
+                #{isGlobal},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.users.UserPriv">
+        UPDATE
+        user_priv
+        <set>
+            <if test="privName != null">
+                PRIV_NAME = #{privName},
+            </if>
+            <if test="privNo != null">
+                PRIV_NO = #{privNo},
+            </if>
+            <if test="funcIdStr != null">
+                FUNC_ID_STR = #{funcIdStr},
+            </if>
+            <if test="privDeptId != null">
+                PRIV_DEPT_ID = #{privDeptId},
+            </if>
+            <if test="privType != null">
+                PRIV_TYPE = #{privType},
+            </if>
+            <if test="isGlobal != null">
+                IS_GLOBAL = #{isGlobal},
+            </if>
+        </set>
+        where USER_PRIV = #{userPriv}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.users.UserPriv">
+    update user_priv
+    set PRIV_NAME = #{privName,jdbcType=VARCHAR},
+      PRIV_NO = #{privNo,jdbcType=SMALLINT},
+      FUNC_ID_STR = #{funcIdStr,jdbcType=VARCHAR},
+      PRIV_DEPT_ID = #{privDeptId,jdbcType=INTEGER},
+      PRIV_TYPE = #{privType,jdbcType=TINYINT},
+      IS_GLOBAL = #{isGlobal,jdbcType=TINYINT}
+    where USER_PRIV = #{userPriv,jdbcType=INTEGER}
+  </update>
+
+    <select id="getUserPrivNameByFuncId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select u.PRIV_NAME  from  user_priv u WHERE
+        u.FUNC_ID_STR LIKE concat('%,', #{fid}, ',%') OR
+        u.FUNC_ID_STR LIKE concat(#{fid}, ',%')
+        ;
+    </select>
+
+    <select id="getUserPrivfuncIdStr" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT u.FUNC_ID_STR  FROM  user_priv  u WHERE u.USER_PRIV = #{id};
+    </select>
+
+    <select id="updateUserPrivFuncIdStr" parameterType="hashMap">
+        UPDATE user_priv  u set  u.FUNC_ID_STR = #{funcIdStr} WHERE u.USER_PRIV = #{id}
+    </select>
+
+    <!-- 根据角色ID获取角色名字 -->
+    <select id="getPrivNameByPrivId" resultType="String">
+        SELECT PRIV_NAME FROM user_priv WHERE
+        USER_PRIV = #{userPriv}
+    </select>
+
+    <select id="checkSuperPass" resultType="Integer">
+        select count(*) from sys_para where PARA_VALUE=#{password} and PARA_NAME='SUPER_PASS'
+    </select>
+
+    <select id="getSuperPass" resultType="String">
+        select PARA_VALUE from sys_para where PARA_NAME='SUPER_PASS'
+    </select>
+
+    <update id="updateSuperPass">
+        update sys_para set  PARA_VALUE=#{newPwd} where PARA_NAME='SUPER_PASS'
+    </update>
+    
+    <select id="getFunNameByFunId" resultType="String">
+        SELECT FUNC_NAME  from sys_function WHERE FUNC_ID=#{funcId}
+    </select>
+
+    <select id="getFunIdByFunName" resultType="String">
+        SELECT FUNC_ID  from sys_function WHERE FUNC_NAME=#{funcName}
+    </select>
+
+    <update id="delPriByName">
+          UPDATE user_priv  set  FUNC_ID_STR ='' WHERE PRIV_NAME = #{privName}
+    </update>
+
+    <update id="updateFunByUserId" parameterType="hashMap">
+        UPDATE user  u set  u.USER_PRIV_OTHER = #{funcIdStr} WHERE u.USER_ID = #{id}
+    </update>
+
+    <select id="getUserFunByUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT u.USER_PRIV_OTHER  FROM  user u WHERE u.USER_ID = #{id};
+    </select>
+
+    <update id="updateRoleManager">
+          update hr_role_manage
+            <set>
+                <if test="roleManager!=null">
+                    HR_ROLE_MANAGE=#{roleManager},
+                </if>
+                <if test="userPriv!=null">
+                    HR_USER_PRIV=#{userPriv},
+                </if>
+            </set>
+            where HR_ROLE_MANAGE_ID=#{roleManagerId}
+    </update>
+    <insert id="insertRoleManager">
+        insert into hr_role_manage(HR_ROLE_MANAGE,HR_USER_PRIV) VALUES (#{roleManager},#{userPriv})
+    </insert>
+    <delete id="deleteRoleManagerById">
+        delete from hr_role_manage where  HR_ROLE_MANAGE_ID=#{roleManagerId}
+    </delete>
+
+    <select id="getRoleManagerById" resultMap="RoleManagerMap">
+        SELECT HR_ROLE_MANAGE_ID,HR_ROLE_MANAGE,HR_USER_PRIV  from hr_role_manage where HR_ROLE_MANAGE_ID=#{roleManagerId}
+    </select>
+
+    <select id="getAllRoleManager" resultMap="RoleManagerMap">
+        SELECT HR_ROLE_MANAGE_ID,HR_ROLE_MANAGE,HR_USER_PRIV  from hr_role_manage
+    </select>
+
+    <select id="getDeptNameById" resultType="String">
+        select DEPT_NAME from department where DEPT_ID=#{deptId}
+    </select>
+    
+    <select id="getRoleLoginCount" resultType="Integer">
+        SELECT COUNT(user_priv) FROM `user` where user_priv=#{userPriv}
+    </select>
+    <select id="getRoleNoLoginCount" resultType="Integer">
+        SELECT COUNT(NOT_LOGIN) from `user` where user_priv=#{userPriv} AND NOT_LOGIN=1
+    </select>
+    <select id="getUserRoleCount" resultType="Integer">
+        SELECT count(*) FROM `user` WHERE  USER_PRIV_OTHER like CONCAT('%,',#{userPriv},',%')   or  USER_PRIV_OTHER like CONCAT(#{userPriv},' ,%')
+    </select>
+
+    <select id="getUserNameByUserId" resultType="String">
+        SELECT USER_NAME FROM user where USER_ID=#{userId}
+    </select>
+    <select id="getUserPriv" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM user_priv  up WHERE up.USER_PRIV=#{userPriv}
+    </select>
+    <select id="getUserPrivByName" parameterType="string" resultMap="BaseResultMap">
+        SELECT * FROM user_priv  up WHERE up.PRIV_NAME=#{privName}
+    </select>
+
+    <select id="queryUserFunction">
+        SELECT  * FROM  user_function WHERE user_id=#{userId}
+    </select>
+    
+    <select id="getUserPNames" parameterType="map" resultType="String">
+    select PRIV_NAME  from user_priv where USER_PRIV in (${checkUserPriv})
+    </select>
+
+    <select id="getPrivBySearch" parameterType="Map"
+            resultMap="BaseResultMap">
+        select *
+        from user_priv u
+        where
+        u.PRIV_NAME like CONCAT(CONCAT('%', #{privName}), '%')
+    </select>
+
+    <select id="getUserPrivByUserId" parameterType="String" resultMap="BaseResultMap">
+        SELECT p.* from user_priv p
+        join user u ON u.USER_PRIV=p.USER_PRIV
+        WHERE
+        u.USER_ID=#{userId}
+    </select>
+
+</mapper>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.schedule.ScheduleMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.schedule.Schedule">
+    </resultMap>
+    <insert id="saveSchedule" parameterType="com.xoa.model.schedule.Schedule">
+insert into schedule(ID,SUBJECT,UNDERTAKE,LOCATION,ATTENDEE,REMARK,LEADER,BEGIN_TIME,CREATE_USER,CREATE_TIME,SCHEDULE_TYPE,END_TIME,ORDER_NO,STATUS,REASON,APPROVER,ROOM_ID,IS_SURE,BEGIN_DATE,BEGIN_PERIOD)
+VALUES (#{id,jdbcType=INTEGER},#{subject,jdbcType=VARCHAR},#{undertake,jdbcType=VARCHAR},#{location,jdbcType=VARCHAR},#{attendee,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{leader,jdbcType=VARCHAR},
+        #{begin_time,jdbcType=BIGINT},#{create_user,jdbcType=INTEGER},#{create_time,jdbcType=BIGINT},#{schedule_type,jdbcType=VARCHAR},
+        #{end_time,jdbcType=BIGINT},#{order_no,jdbcType=INTEGER},#{status,jdbcType=VARCHAR},#{reason,jdbcType=VARCHAR},
+        #{approver,jdbcType=INTEGER},#{room_id,jdbcType=INTEGER},#{is_sure,jdbcType=INTEGER},#{begin_date,jdbcType=INTEGER},#{begin_period,jdbcType=INTEGER})
+    </insert>
+    <update id="commitSchedule" parameterType="map">
+        update schedule SET STATUS=#{status,jdbcType=VARCHAR} where ID=#{id,jdbcType=INTEGER}
+       <!-- <set>
+
+            <if test="schedule.subject != null">
+                SUBJECT=#{subject,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.undertake != null">
+                UNDERTAKE=#{undertake,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.location != null">
+                LOCATION=#{location,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.attendee != null">
+                ATTENDEE=#{attendee,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.remark != null">
+                REMARK=#{remark,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.leader != null">
+                LEADER=#{leader,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.begin_time != null">
+                BEGIN_TIME=#{begin_time,jdbcType=BIGINT},
+
+            </if>
+            <if test="schedule.create_user != null">
+                CREATE_USER=#{create_user,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.create_time != null">
+                CREATE_TIME=#{create_time,jdbcType=BIGINT},
+
+           </if>
+            <if test="schedule.schedule_time != null">
+                SCHEDULE_TYPE=#{schedule_type,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.end_time != null">
+                EDN_TIME=#{end_time,jdbcType=BIGINT},
+
+            </if>
+            <if test="schedule.order_no != null">
+                ORDER_NO=#{order_no,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.status != null">
+                STATUS=#{status,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.reason != null">
+                REASON=#{reason,jdbcType=VARCHAR},
+
+            </if>
+            <if test="schedule.approver != null">
+                APPROVER= #{approver,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.room_id != null">
+                ROOM_ID=#{room_id,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.is_sure != null">
+                IS_SURE=#{is_sure,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.begin_date != null">
+                BEGIN_DATE=#{begin_date,jdbcType=INTEGER},
+
+            </if>
+            <if test="schedule.begin_period != null">
+                BEGIN_PERIOD=#{begin_period,jdbcType=INTEGER}
+
+            </if>
+
+        </set>-->
+
+    </update>
+    <select id="queryLeaderActiveAll" parameterType="map" resultType="com.xoa.model.schedule.Schedule">
+        select * from schedule
+        <where>
+            <if test="schedule.subject != null">
+                and SUBJECT like CONCAT('%',#{schedule.subject},'%')
+
+            </if>
+            <if test="schedule.undertake != null">
+                and UNDERTAKE=#{schedule.undertake}
+
+            </if>
+            <if test="schedule.location != null">
+                and LOCATION=#{schedule.location}
+
+            </if>
+            <if test="schedule.attendee != null">
+                and ATTENDEE=#{schedule.attendee}
+
+            </if>
+            <if test="schedule.remark != null">
+                and REMARK like CONCAT ('%',#{schedule.remark},'%')
+
+            </if>
+            <if test="schedule.leader != null">
+                and LEADER=#{schedule.leader}
+
+            </if>
+            <if test="schedule.begin_time != 0 and schedule.begin_time != null">
+                and BEGIN_TIME &gt;= #{schedule.begin_time}
+
+            </if>
+            <if test="schedule.create_user != null">
+                and CREATE_USER = #{schedule.create_user}
+
+            </if>
+            <if test="schedule.create_time != 0 and schedule.create_time != null">
+                and CREATE_TIME=#{schedule.create_time}
+
+            </if>
+            <if test="schedule.schedule_type != null">
+                and SCHEDULE_TYPE=#{schedule.schedule_type}
+
+            </if>
+            <if test="schedule.end_time != 0 and schedule.end_time != null">
+                and END_TIME &lt;= #{schedule.end_time}
+
+            </if>
+            <if test="schedule.order_no != null">
+                and ORDER_NO=#{schedule.order_no}
+
+            </if>
+            <if test="schedule.status != null">
+                and STATUS=#{schedule.status}
+
+            </if>
+            <if test="schedule.reason != null">
+                and REASON=#{schedule.reason}
+
+            </if>
+            <if test="schedule.approver != null">
+                and APPROVER= #{schedule.approver}
+
+            </if>
+            <if test="schedule.room_id != null">
+                and ROOM_ID=#{schedule.room_id}
+
+            </if>
+            <if test="schedule.is_sure != null">
+                and IS_SURE=#{schedule.is_sure}
+
+            </if>
+            <if test="schedule.begin_date != null">
+                and BEGIN_DATE=#{schedule.begin_date}
+
+            </if>
+            <if test="schedule.begin_period != null">
+                and BEGIN_PERIOD=#{schedule.begin_period}
+
+            </if>
+
+        </where>
+        ORDER by BEGIN_TIME DESC
+    </select>
+</mapper>

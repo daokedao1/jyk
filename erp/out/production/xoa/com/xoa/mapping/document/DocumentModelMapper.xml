@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.document.DocumentModelMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.document.DocumentModel">
+        <id column="id" property="id" javaType="INTEGER"/>
+        <result column="title" property="title" javaType="string"/>
+        <result column="key_word" property="keyWord" javaType="string"/>
+        <result column="unit" property="unit" javaType="string"/>
+        <result column="doc_no" property="docNo" javaType="string"/>
+        <result column="urgency" property="urgency" javaType="string"/>
+        <result column="secrecy" property="secrecy" javaType="string"/>
+        <result column="main_delivery" property="mainDelivery" javaType="string"/>
+        <result column="copy_delivery" property="copyDelivery" javaType="string"/>
+        <result column="deadline" property="deadline" javaType="INTEGER"/>
+        <result column="copies" property="copies" javaType="INTEGER"/>
+        <result column="creater" property="creater" javaType="string"/>
+        <result column="create_dept" property="createDept" javaType="string"/>
+        <result column="print_dept" property="printDept" javaType="string"/>
+        <result column="print_date" property="printDate" javaType="string"/>
+        <result column="document_type" property="documentType" javaType="string"/>
+        <result column="dispatch_type" property="dispatchType" javaType="string"/>
+        <result column="main_file" property="mainFile" javaType="string"/>
+        <result column="main_file_name" property="mainFileName" javaType="string"/>
+        <result column="pages" property="pages" javaType="INTEGER"/>
+        <result column="main_aip_file" property="mainAipFile" javaType="string"/>
+        <result column="main_aip_file_name" property="mainAipFileName" javaType="string"/>
+        <result column="public_flag" property="publicFlag" javaType="string"/>
+        <result column="print_copies" property="printCopies" javaType="INTEGER"/>
+        <result column="print_user" property="printUser" javaType="string"/>
+        <result column="flow_id" property="flowId" javaType="INTEGER"/>
+        <result column="run_id" property="runId" javaType="INTEGER"/>
+        <result column="flow_run_name" property="flowRunName" javaType="string"/>
+        <result column="flow_status" property="flowStatus" javaType="string"/>
+        <result column="flow_prcs" property="flowPrcs" javaType="string"/>
+        <result column="cur_user_id" property="curUserId" javaType="string"/>
+        <result column="all_user_id" property="allUserId" javaType="string"/>
+        <result column="DOCUMENT_EDIT_PRIV" property="documentEditPriv" javaType="INTEGER" />
+        <result column="DOCUMENT_EDIT_PRIV_DETAIL" property="documentEditPrivDetail" javaType="string" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.document.DocumentModelWithBLOBs" extends="BaseResultMap">
+        <result column="remark" property="remark" javaType="string"/>
+        <result column="content" property="content" javaType="string"/>
+    </resultMap>
+    <resultMap id="ResultMapWithFlowRunPrcs" type="com.xoa.model.document.DocumentModelFlowRunPrcs"
+               extends="ResultMapWithBLOBs">
+        <result column="createrName" property="createrName" javaType="string"/>
+        <result column="prFlag" property="prFlag" javaType="int"/>
+        <result column="PRCS_NAME" property="prcsName" javaType="string"/>
+        <result column="endTime" property="endTime" javaType="date"/>
+        <result column="realPrcsId" property="realPrcsId" javaType="int"/>
+        <result column="step" property="step" javaType="int"/>
+        <result column="codeName" property="codeName" javaType="string"/>
+        <result column="FLOW_NAME" property="flowName" javaType="string"/>
+
+        <result column="TIME_OUT" property="timeOut" javaType="string"/>
+        <result column="TIME_OUT_MODIFY" property="timeOutModify" javaType="string"/>
+        <result column="TIME_OUT_ATTEND" property="timeOutAttend" javaType="string"/>
+        <result column="TIME_OUT_TYPE" property="timeOutType" javaType="string"/>
+        <result column="PRCS_TIME" property="prcsTime" javaType="string"/>
+        <result column="CREATE_TIME" property="createTime" javaType="string"/>
+    </resultMap>
+    <resultMap id="ResultMapWithFlowRunPrcsOver" type="com.xoa.model.document.DocumentModelOverRun"
+               extends="ResultMapWithBLOBs">
+        <result column="createrName" property="createrName" javaType="string"/>
+        <result column="endTime" property="endTime" javaType="date"/>
+        <result column="realPrcsId" property="realPrcsId" javaType="int"/>
+        <result column="step" property="step" javaType="int"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <!--  -->
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, title, key_word, unit, doc_no, urgency, secrecy, main_delivery, copy_delivery, 
+    deadline, copies, creater, create_dept, print_dept, print_date, document_type, dispatch_type, 
+    main_file, main_file_name, pages, main_aip_file, main_aip_file_name, public_flag, 
+    print_copies, print_user, flow_id, run_id, flow_run_name, flow_status, flow_prcs, 
+    cur_user_id, all_user_id
+  </sql>
+    <sql id="Blob_Column_List">
+    remark, content
+  </sql>
+
+    <select id="seleDocSendReceive" parameterType="Map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from document where
+        document.document_type=#{documentType}
+        <if test="flowStatus != null and flowStatus != ''">
+            and document.flow_status=#{flowStatus}
+        </if>
+        <if test="dispatchType != null and dispatchType != ''">
+            and document.dispatch_type=#{dispatchType}
+        </if>
+        <if test="printDate != null and printDate != ''">
+            and document.print_date=#{printDate}
+        </if>
+        <if test="creater != null and creater != ''">
+            and document.creater=#{creater}
+        </if>
+        <if test="curUserID != null and curUserID != ''">
+            and (document.cur_user_id LIKE concat('%,',#{curUserID},',%')
+            OR document.cur_user_id LIKE concat(#{curUserID},',%')
+            OR document.cur_user_id LIKE #{curUserID}
+            )
+        </if>
+        <if test="allUserID != null and allUserID != ''">
+            and (document.all_user_id LIKE concat('%,',#{allUserID},',%')
+            OR document.all_user_id LIKE concat(#{allUserID},',%')
+            )
+        </if>
+        ORDER BY document.print_date DESC/* LIMIT ${page},${pageSize}*/
+    </select>
+
+
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="com.xoa.model.document.DocumentModelExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from document
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <!--  -->
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.document.DocumentModelExample">
+        select
+        <include refid="Base_Column_List"/>
+        from document
+
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from document
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.xoa.model.document.DocumentModelWithBLOBs">
+    delete from document
+    where id = #{id}
+  </delete>
+
+    <!-- <delete id="deleteByExample" parameterType="com.xoa.model.document.DocumentModelExample" >
+      delete from document
+
+    </delete>
+     -->
+    <insert id="insert" parameterType="com.xoa.model.document.DocumentModelWithBLOBs">
+    insert into document (id, title, key_word, 
+      unit, doc_no, urgency, 
+      secrecy, main_delivery, copy_delivery, 
+      deadline, copies, creater, 
+      create_dept, print_dept, print_date, 
+      document_type, dispatch_type, main_file, 
+      main_file_name, pages, main_aip_file, 
+      main_aip_file_name, public_flag, print_copies, 
+      print_user, flow_id, run_id, 
+      flow_run_name, flow_status, flow_prcs, 
+      cur_user_id, all_user_id, remark, 
+      content)
+    values (#{id}, #{title}, #{keyWord}, 
+      #{unit}, #{docNo}, #{urgency}, 
+      #{secrecy}, #{mainDelivery}, #{copyDelivery}, 
+      #{deadline}, #{copies}, #{creater}, 
+      #{createDept}, #{printDept}, #{printDate}, 
+      #{documentType}, #{dispatchType}, #{mainFile}, 
+      #{mainFileName}, #{pages}, #{mainAipFile}, 
+      #{mainAipFileName}, #{publicFlag}, #{printCopies}, 
+      #{printUser}, #{flowId}, #{runId}, 
+      #{flowRunName}, #{flowStatus}, #{flowPrcs}, 
+      #{curUserId}, #{allUserId}, #{remark}, 
+      #{content})
+  </insert>
+    <!--
+       动态添加数据
+      -->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.xoa.model.document.DocumentModelWithBLOBs">
+        insert into document
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                title,
+            </if>
+            <if test="keyWord != null">
+                key_word,
+            </if>
+            <if test="unit != null">
+                unit,
+            </if>
+            <if test="docNo != null">
+                doc_no,
+            </if>
+            <if test="urgency != null">
+                urgency,
+            </if>
+            <if test="secrecy != null">
+                secrecy,
+            </if>
+            <if test="mainDelivery != null">
+                main_delivery,
+            </if>
+            <if test="copyDelivery != null">
+                copy_delivery,
+            </if>
+            <if test="deadline != null">
+                deadline,
+            </if>
+            <if test="copies != null">
+                copies,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="createDept != null">
+                create_dept,
+            </if>
+            <if test="printDept != null">
+                print_dept,
+            </if>
+            <if test="printDate != null">
+                print_date,
+            </if>
+            <if test="documentType != null">
+                document_type,
+            </if>
+            <if test="dispatchType != null">
+                dispatch_type,
+            </if>
+            <if test="mainFile != null">
+                main_file,
+            </if>
+            <if test="mainFileName != null">
+                main_file_name,
+            </if>
+            <if test="pages != null">
+                pages,
+            </if>
+            <if test="mainAipFile != null">
+                main_aip_file,
+            </if>
+            <if test="mainAipFileName != null">
+                main_aip_file_name,
+            </if>
+            <if test="publicFlag != null">
+                public_flag,
+            </if>
+            <if test="printCopies != null">
+                print_copies,
+            </if>
+            <if test="printUser != null">
+                print_user,
+            </if>
+            <if test="flowId != null">
+                flow_id,
+            </if>
+            <if test="runId != null">
+                run_id,
+            </if>
+            <if test="flowRunName != null">
+                flow_run_name,
+            </if>
+            <if test="flowStatus != null">
+                flow_status,
+            </if>
+            <if test="flowPrcs != null">
+                flow_prcs,
+            </if>
+            <if test="curUserId != null">
+                cur_user_id,
+            </if>
+            <if test="allUserId != null">
+                all_user_id,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="keyWord != null">
+                #{keyWord},
+            </if>
+            <if test="unit != null">
+                #{unit},
+            </if>
+            <if test="docNo != null">
+                #{docNo},
+            </if>
+            <if test="urgency != null">
+                #{urgency},
+            </if>
+            <if test="secrecy != null">
+                #{secrecy},
+            </if>
+            <if test="mainDelivery != null">
+                #{mainDelivery},
+            </if>
+            <if test="copyDelivery != null">
+                #{copyDelivery},
+            </if>
+            <if test="deadline != null">
+                #{deadline},
+            </if>
+            <if test="copies != null">
+                #{copies},
+            </if>
+            <if test="creater != null">
+                #{creater},
+            </if>
+            <if test="createDept != null">
+                #{createDept},
+            </if>
+            <if test="printDept != null">
+                #{printDept},
+            </if>
+            <if test="printDate != null">
+                #{printDate},
+            </if>
+            <if test="documentType != null">
+                #{documentType},
+            </if>
+            <if test="dispatchType != null">
+                #{dispatchType},
+            </if>
+            <if test="mainFile != null">
+                #{mainFile},
+            </if>
+            <if test="mainFileName != null">
+                #{mainFileName},
+            </if>
+            <if test="pages != null">
+                #{pages},
+            </if>
+            <if test="mainAipFile != null">
+                #{mainAipFile},
+            </if>
+            <if test="mainAipFileName != null">
+                #{mainAipFileName},
+            </if>
+            <if test="publicFlag != null">
+                #{publicFlag},
+            </if>
+            <if test="printCopies != null">
+                #{printCopies},
+            </if>
+            <if test="printUser != null">
+                #{printUser},
+            </if>
+            <if test="flowId != null">
+                #{flowId},
+            </if>
+            <if test="runId != null">
+                #{runId},
+            </if>
+            <if test="flowRunName != null">
+                #{flowRunName},
+            </if>
+            <if test="flowStatus != null">
+                #{flowStatus},
+            </if>
+            <if test="flowPrcs != null">
+                #{flowPrcs},
+            </if>
+            <if test="curUserId != null">
+                #{curUserId},
+            </if>
+            <if test="allUserId != null">
+                #{allUserId},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="map" resultType="java.lang.Integer">
+    select count(*) from document
+  </select>
+
+    <select id="selectDocAll" parameterType="com.xoa.model.document.DocumentModelWithBLOBs" resultMap="BaseResultMap">
+  select * from document
+  </select>
+    <!--
+       动态修改数据
+     -->
+    <update id="updateByExampleSelective" parameterType="map">
+        update document
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="keyWord != null">
+                key_word = #{keyWord},
+            </if>
+            <if test="unit != null">
+                unit = #{unit},
+            </if>
+            <if test="docNo != null">
+                doc_no = #{docNo},
+            </if>
+            <if test="urgency != null">
+                urgency = #{urgency},
+            </if>
+            <if test="secrecy != null">
+                secrecy = #{secrecy},
+            </if>
+            <if test="mainDelivery != null">
+                main_delivery = #{mainDelivery},
+            </if>
+            <if test="copyDelivery != null">
+                copy_delivery = #{copyDelivery},
+            </if>
+            <if test="deadline != null">
+                deadline = #{deadline},
+            </if>
+            <if test="copies != null">
+                copies = #{copies},
+            </if>
+            <if test="creater != null">
+                creater = #{creater},
+            </if>
+            <if test="createDept != null">
+                create_dept = #{createDept},
+            </if>
+            <if test="printDept != null">
+                print_dept = #{printDept},
+            </if>
+            <if test="printDate != null">
+                print_date = #{printDate},
+            </if>
+            <if test="documentType != null">
+                document_type = #{documentType},
+            </if>
+            <if test="dispatchType != null">
+                dispatch_type = #{dispatchType},
+            </if>
+            <if test="mainFile != null">
+                main_file = #{mainFile},
+            </if>
+            <if test="mainFileName != null">
+                main_file_name = #{mainFileName},
+            </if>
+            <if test="pages != null">
+                pages = #{pages},
+            </if>
+            <if test="mainAipFile != null">
+                main_aip_file = #{mainAipFile},
+            </if>
+            <if test="mainAipFileName != null">
+                main_aip_file_name = #{mainAipFileName},
+            </if>
+            <if test="publicFlag != null">
+                public_flag = #{publicFlag},
+            </if>
+            <if test="printCopies != null">
+                print_copies = #{printCopies},
+            </if>
+            <if test="printUser != null">
+                print_user = #{printUser},
+            </if>
+            <if test="flowId != null">
+                flow_id = #{flowId},
+            </if>
+            <if test="runId != null">
+                run_id = #{runId},
+            </if>
+            <if test="flowRunName != null">
+                flow_run_name = #{flowRunName},
+            </if>
+            <if test="flowStatus != null">
+                flow_status = #{flowStatus},
+            </if>
+            <if test="flowPrcs != null">
+                flow_prcs = #{flowPrcs},
+            </if>
+            <if test="curUserId != null">
+                cur_user_id = #{curUserId},
+            </if>
+            <if test="allUserId != null">
+                all_user_id = #{allUserId},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+        </set>
+
+    </update>
+    <!--
+    全部修改
+
+ <update id="updateByExampleWithBLOBs" parameterType="map" >
+
+   update document
+     set id = #{id},
+     title = #{title},
+     key_word = #{keyWord},
+     unit = #{unit},
+     doc_no = #{docNo},
+     urgency = #{urgency},
+     secrecy = #{secrecy},
+     main_delivery = #{mainDelivery},
+     copy_delivery = #{copyDelivery},
+     deadline = #{deadline},
+     copies = #{copies},
+     creater = #{creater},
+     create_dept = #{createDept},
+     print_dept = #{printDept},
+     print_date = #{printDate},
+     document_type = #{documentType},
+     dispatch_type = #{dispatchType},
+     main_file = #{mainFile},
+     main_file_name = #{mainFileName},
+     pages = #{pages},
+     main_aip_file = #{mainAipFile},
+     main_aip_file_name = #{mainAipFileName},
+     public_flag = #{publicFlag},
+     print_copies = #{printCopies},
+     print_user = #{printUser},
+     flow_id = #{flowId},
+     run_id = #{runId},
+     flow_run_name = #{flowRunName},
+     flow_status = #{flowStatus},
+     flow_prcs = #{flowPrcs},
+     cur_user_id = #{curUserId},
+     all_user_id = #{allUserId},
+     remark = #{remark},
+     content = #{content}
+ </update>
+  -->
+    <!--
+  <update id="updateByExample" parameterType="map" >
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+   
+    update document
+    set id = #{id},
+      title = #{title},
+      key_word = #{keyWord},
+      unit = #{unit},
+      doc_no = #{docNo},
+      urgency = #{urgency},
+      secrecy = #{secrecy},
+      main_delivery = #{mainDelivery},
+      copy_delivery = #{copyDelivery},
+      deadline = #{deadline},
+      copies = #{copies},
+      creater = #{creater},
+      create_dept = #{createDept},
+      print_dept = #{printDept},
+      print_date = #{printDate},
+      document_type = #{documentType},
+      dispatch_type = #{dispatchType},
+      main_file = #{mainFile},
+      main_file_name = #{mainFileName},
+      pages = #{pages},
+      main_aip_file = #{mainAipFile},
+      main_aip_file_name = #{mainAipFileName},
+      public_flag = #{publicFlag},
+      print_copies = #{printCopies},
+      print_user = #{printUser},
+      flow_id = #{flowId},
+      run_id = #{runId},
+      flow_run_name = #{flowRunName},
+      flow_status = #{flowStatus},
+      flow_prcs = #{flowPrcs},
+      cur_user_id = #{curUserId},
+      all_user_id = #{allUserId}
+    
+  </update>
+   -->
+    <!--
+       动态修改
+     -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.document.DocumentModelWithBLOBs">
+        update document
+        <set>
+            <if test="title != null and title !=''">
+                title = #{title},
+            </if>
+            <if test="keyWord != null and keyWord !=''">
+                key_word = #{keyWord},
+            </if>
+            <if test="unit != null  and unit !=''">
+                unit = #{unit},
+            </if>
+            <if test="docNo != null  and docNo !=''">
+                doc_no = #{docNo},
+            </if>
+            <if test="urgency != null  and urgency !=''">
+                urgency = #{urgency},
+            </if>
+            <if test="secrecy != null  and secrecy !=''">
+                secrecy = #{secrecy},
+            </if>
+            <if test="mainDelivery != null  and mainDelivery !=''">
+                main_delivery = #{mainDelivery},
+            </if>
+            <if test="copyDelivery != null  and copyDelivery !=''">
+                copy_delivery = #{copyDelivery},
+            </if>
+            <if test="deadline != null  and deadline !=''">
+                deadline = #{deadline},
+            </if>
+            <if test="copies != null  and copies !=''">
+                copies = #{copies},
+            </if>
+            <if test="creater != null  and creater !=''">
+                creater = #{creater},
+            </if>
+            <if test="createDept != null  and createDept !=''">
+                create_dept = #{createDept},
+            </if>
+            <if test="printDept != null  and printDept !=''">
+                print_dept = #{printDept},
+            </if>
+            <if test="printDate != null  and printDate !=''">
+                print_date = #{printDate},
+            </if>
+            <if test="documentType != null  and documentType !=''">
+                document_type = #{documentType},
+            </if>
+            <if test="dispatchType != null  and dispatchType !=''">
+                dispatch_type = #{dispatchType},
+            </if>
+            <if test="mainFile != null  and mainFile !=''">
+                main_file = #{mainFile},
+            </if>
+            <if test="mainFileName != null and mainFileName !=''">
+                main_file_name = #{mainFileName},
+            </if>
+            <if test="pages != null  and pages !=''">
+                pages = #{pages},
+            </if>
+            <if test="mainAipFile != null ">
+                main_aip_file = #{mainAipFile},
+            </if>
+            <if test="mainAipFileName != null ">
+                main_aip_file_name = #{mainAipFileName},
+            </if>
+            <if test="publicFlag != null  and publicFlag !=''">
+                public_flag = #{publicFlag},
+            </if>
+            <if test="printCopies != null  and printCopies !=''">
+                print_copies = #{printCopies},
+            </if>
+            <if test="printUser != null  and printUser !=''">
+                print_user = #{printUser},
+            </if>
+            <if test="flowId != null and flowId !=''">
+                flow_id = #{flowId},
+            </if>
+            <if test="runId != null and runId !=''">
+                run_id = #{runId},
+            </if>
+            <if test="flowRunName != null  and flowRunName !=''">
+                flow_run_name = #{flowRunName},
+            </if>
+            <if test="flowStatus != null  and flowStatus !=''">
+                flow_status = #{flowStatus},
+            </if>
+            <if test="flowPrcs != null  and flowPrcs !=''">
+                flow_prcs = #{flowPrcs},
+            </if>
+            <if test="curUserId != null  and curUserId !=''">
+                cur_user_id = #{curUserId},
+            </if>
+            <if test="allUserId != null  and allUserId !=''">
+                all_user_id = #{allUserId},
+            </if>
+            <if test="remark != null  and remark !=''">
+                remark = #{remark},
+            </if>
+            <if test="content != null  and content !=''">
+                content = #{content},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--
+
+     -->
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.document.DocumentModelWithBLOBs">
+    update document
+    set title = #{title},
+      key_word = #{keyWord},
+      unit = #{unit},
+      doc_no = #{docNo},
+      urgency = #{urgency},
+      secrecy = #{secrecy},
+      main_delivery = #{mainDelivery},
+      copy_delivery = #{copyDelivery},
+      deadline = #{deadline},
+      copies = #{copies},
+      creater = #{creater},
+      create_dept = #{createDept},
+      print_dept = #{printDept},
+      print_date = #{printDate},
+      document_type = #{documentType},
+      dispatch_type = #{dispatchType},
+      main_file = #{mainFile},
+      main_file_name = #{mainFileName},
+      pages = #{pages},
+      main_aip_file = #{mainAipFile},
+      main_aip_file_name = #{mainAipFileName},
+      public_flag = #{publicFlag},
+      print_copies = #{printCopies},
+      print_user = #{printUser},
+      flow_id = #{flowId},
+      run_id = #{runId},
+      flow_run_name = #{flowRunName},
+      flow_status = #{flowStatus},
+      flow_prcs = #{flowPrcs},
+      cur_user_id = #{curUserId},
+      all_user_id = #{allUserId},
+      remark = #{remark},
+      content = #{content}
+    where id = #{id}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.document.DocumentModel">
+    update document
+    set title = #{title},
+      key_word = #{keyWord},
+      unit = #{unit},
+      doc_no = #{docNo},
+      urgency = #{urgency},
+      secrecy = #{secrecy},
+      main_delivery = #{mainDelivery},
+      copy_delivery = #{copyDelivery},
+      deadline = #{deadline},
+      copies = #{copies},
+      creater = #{creater},
+      create_dept = #{createDept},
+      print_dept = #{printDept},
+      print_date = #{printDate},
+      document_type = #{documentType},
+      dispatch_type = #{dispatchType},
+      main_file = #{mainFile},
+      main_file_name = #{mainFileName},
+      pages = #{pages},
+      main_aip_file = #{mainAipFile},
+      main_aip_file_name = #{mainAipFileName},
+      public_flag = #{publicFlag},
+      print_copies = #{printCopies},
+      print_user = #{printUser},
+      flow_id = #{flowId},
+      run_id = #{runId},
+      flow_run_name = #{flowRunName},
+      flow_status = #{flowStatus},
+      flow_prcs = #{flowPrcs},
+      cur_user_id = #{curUserId},
+      all_user_id = #{allUserId}
+    where id = #{id}
+  </update>
+
+    <select id="selectDocSelective" parameterType="com.xoa.model.document.DocumentModel" resultMap="BaseResultMap">
+        select * from document where 1=1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="title != null and title != ''">
+            and title like concat(concat('%',#{title}),'%')
+        </if>
+        <if test="keyWord != null and keyWord != ''">
+            and key_word Like concat(concat('%',#{keyWord}),'%')
+        </if>
+        <if test="unit != null and unit != ''">
+            and unit Like concat(concat('%',#{unit}),'%')
+        </if>
+        <if test="docNo != null and docNo != ''">
+            and doc_no = #{docNo}
+        </if>
+        <if test="urgency != null and urgency != ''">
+            and urgency = #{urgency}
+        </if>
+        <if test="secrecy != null and secrecy != ''">
+            and secrecy = #{secrecy}
+        </if>
+        <if test="mainDelivery != null and mainDelivery != ''">
+            and main_delivery = #{mainDelivery}
+        </if>
+        <if test="copyDelivery != null and copyDelivery != ''">
+            and copy_delivery = #{copyDelivery}
+        </if>
+        <if test="deadline != null and deadline != ''">
+            and deadline = #{deadline}
+        </if>
+        <if test="copies != null and copies != ''">
+            and copies = #{copies}
+        </if>
+        <if test="creater != null and creater != ''">
+            and creater = #{creater}
+        </if>
+        <if test="createDept != null and createDept != ''">
+            and create_dept = #{createDept}
+        </if>
+        <if test="printDept != null and printDept != ''">
+            and print_dept = #{printDept}
+        </if>
+        <if test="printDate != null and printDate != ''">
+            and print_date = #{printDate}
+        </if>
+        <if test="documentType != null and documentType != ''">
+            and document_type = #{documentType}
+        </if>
+        <if test="dispatchType != null and dispatchType != ''">
+            and dispatch_type = #{dispatchType}
+        </if>
+        <if test="mainFile != null and mainFile != ''">
+            and main_file Like concat(concat('%',#{mainFile}),'%')
+        </if>
+        <if test="mainFileName != null and mainFileName != ''">
+            and main_file_name Like concat(concat('%',#{mainFileName}),'%')
+        </if>
+        <if test="mainAipFile != null and mainAipFile != ''">
+            and #{mainAipFile}
+        </if>
+        <if test="mainAipFileName != null and mainAipFileName != ''">
+            and main_aip_file_name Like concat(concat('%',#{mainAipFileName}),'%')
+        </if>
+        <if test="publicFlag != null and publicFlag != ''">
+            and public_flag = #{publicFlag}
+        </if>
+        <if test="printCopies != null and printCopies != ''">
+            and print_copies = #{printCopies}
+        </if>
+        <if test="printUser != null and printUser != ''">
+            and print_user = #{printUser}
+        </if>
+        <if test="flowId != null">
+            and flow_id = #{flowId},
+        </if>
+        <if test="runId != null">
+            and run_id = #{runId}
+        </if>
+        <if test="flowRunName != null and flowRunName != ''">
+            and flow_run_name like concat(concat('%',#{flowRunName}),'%')
+        </if>
+        <if test="flowStatus != null and flowStatus != ''">
+            and flow_status = #{flowStatus}
+        </if>
+        <if test="flowPrcs != null and flowPrcs != ''">
+            and flow_prcs = #{flowPrcs}
+        </if>
+        <if test="curUserId != null">
+            and cur_user_id = #{curUserId}
+        </if>
+        <if test="allUserId != null">
+            and all_user_id = #{allUserId}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark like concat(concat('%',#{remark}),'%')
+        </if>
+        <if test="content != null and content != ''">
+            and content like concat(concat('%',#{content}),'%')
+        </if>
+    </select>
+    <sql id="selSendOrReceive">
+        FROM document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID=doc.run_id
+        <if test="prcsFlag==1">
+            AND (frp.PRCS_FLAG=1 OR frp.PRCS_FLAG=2 )
+        </if>
+        <if test="prcsFlag==2">
+            AND (frp.PRCS_FLAG=4 OR frp.PRCS_FLAG=3 )
+        </if>
+        INNER JOIN flow_run fr ON fr.RUN_ID =doc.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID AND frp.FLOW_PRCS=fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON sc.CODE_NO= doc.dispatch_type
+        <where>
+            doc.document_type=#{documentType} AND (
+            frp.USER_ID LIKE concat('%,',#{userId},',%')
+            OR frp.USER_ID LIKE concat(#{userId},',%')
+            OR frp.USER_ID LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="printDate!=null">
+                    AND print_date = #{printDate}
+                </if>
+                <if test="title!=null">
+                    AND title LIKE concat('%',#{title},"%")
+                </if>
+                <if test="docStatus!=null">
+                    AND frp.PRCS_FLAG=#{docStatus}
+                </if>
+            </trim>
+        </where>
+    </sql>
+    <select id="selWillDocSendOrReceive" resultMap="ResultMapWithFlowRunPrcs" parameterType="Map">
+        SELECT doc.*,u.USER_NAME createrName,frp.PRCS_FLAG prFlag,fp.PRCS_NAME,frp.FLOW_PRCS realPrcsId,frp.PRCS_ID
+        step,frp.DELIVER_TIME endTime,sc.CODE_NAME codeName,fp.TIME_OUT_TYPE,fp.TIME_OUT,fp.TIME_OUT_MODIFY,fp.TIME_OUT_ATTEND,frp.PRCS_TIME,frp.CREATE_TIME
+        <include refid="selSendOrReceive"/>
+        GROUP BY frp.id ORDER BY frp.CREATE_TIME DESC LIMIT #{page},#{pageSize}
+    </select>
+    <select id="selWillDocSendOrReceiveCounts" resultType="Integer" parameterType="Map">
+        SELECT COUNT(doc.id)
+        <include refid="selSendOrReceive"/>
+    </select>
+    <select id="selOverDocSendOrReceive" resultMap="ResultMapWithFlowRunPrcsOver" parameterType="Map">
+        SELECT
+        doc.*, u.USER_NAME createrName,fr.END_TIME endTime,frp.FLOW_PRCS realPrcsId,frp.PRCS_ID step
+        FROM
+        document doc
+        INNER JOIN flow_run fr ON fr.RUN_ID = doc.run_id and fr.END_TIME IS NOT NULL
+        INNER JOIN (
+        SELECT GROUP_CONCAT(distinct frp.USER_ID,',') allUser, frp.RUN_ID rid FROM flow_run_prcs frp GROUP BY frp.RUN_ID
+        ) AS allPerson ON allPerson.rid=doc.run_id
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        INNER JOIN flow_run_prcs frp ON frp.PRCS_ID IN (
+        SELECT MAX(PRCS_ID) FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID =doc.run_id
+        )
+        <where>
+            doc.document_type=#{documentType} AND (
+            allPerson.allUser LIKE concat('%,',#{userId},',%')
+            OR allPerson.allUser LIKE concat(
+            #{userId},',%')
+            OR allPerson.allUser LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="printDate!=null">
+                    AND print_date >= #{printDate}
+                </if>
+            </trim>
+        </where>
+        GROUP BY
+        doc.id
+        ORDER BY
+        fr.END_TIME DESC LIMIT #{page},#{pageSize}
+    </select>
+    <select id="selOverDocSendOrReceiveCounts" resultType="Integer" parameterType="Map">
+        SELECT
+        COUNT(doc.id)
+        FROM
+        document doc
+        INNER JOIN flow_run fr ON fr.RUN_ID = doc.run_id and fr.END_TIME IS NOT NULL
+        INNER JOIN (
+        SELECT GROUP_CONCAT(distinct frp.USER_ID,',') allUser, frp.RUN_ID rid FROM flow_run_prcs frp GROUP BY frp.RUN_ID
+        ) AS allPerson ON allPerson.rid=doc.run_id
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        <where>
+            doc.document_type=#{documentType} AND (
+            allPerson.allUser LIKE concat('%,',#{userId},',%')
+            OR allPerson.allUser LIKE concat(
+            #{userId},',%')
+            OR allPerson.allUser LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="printDate!=null">
+                    AND print_date >= #{printDate}
+                </if>
+            </trim>
+        </where>
+    </select>
+    <select id="selMyDocSendOrReceive" resultMap="ResultMapWithFlowRunPrcs" parameterType="Map">
+        SELECT doc.*,u.USER_NAME createrName,frp.PRCS_FLAG prFlag,fp.PRCS_NAME,frp.FLOW_PRCS realPrcsId,frp.PRCS_ID
+        step,sc.CODE_NAME codeName
+        FROM document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID =doc.run_id AND frp.PRCS_ID IN (
+        SELECT MAX(PRCS_ID) FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID =doc.run_id
+        )
+        INNER JOIN flow_run fr ON fr.RUN_ID =doc.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID AND frp.FLOW_PRCS=fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON sc.CODE_NO= doc.dispatch_type
+        <where>
+            doc.document_type=#{documentType} AND (
+            doc.creater LIKE concat('%,',#{userId},',%')
+            OR doc.creater LIKE concat(#{userId},',%')
+            OR doc.creater LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="printDate!=null">
+                    AND print_date >= #{printDate}
+                </if>
+                <if test="title!=null">
+                    AND title LIKE concat('%',#{title},"%")
+                </if>
+                <if test="docStatus!=null">
+                    AND frp.PRCS_FLAG=#{docStatus}
+                </if>
+            </trim>
+        </where>
+        GROUP BY doc.id ORDER BY frp.CREATE_TIME DESC LIMIT #{page},#{pageSize}
+    </select>
+    <select id="selMyDocSendOrReceiveCounts" resultType="Integer" parameterType="Map">
+        SELECT COUNT(doc.id)
+        FROM document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID =doc.run_id AND frp.PRCS_ID IN (
+        SELECT MAX(PRCS_ID) FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID =doc.run_id
+        )
+        INNER JOIN flow_run fr ON fr.RUN_ID =doc.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID AND frp.FLOW_PRCS=fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON sc.CODE_NO= doc.dispatch_type
+        <where>
+            doc.document_type=#{documentType} AND (
+            doc.creater LIKE concat('%,',#{userId},',%')
+            OR doc.creater LIKE concat(#{userId},',%')
+            OR doc.creater LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="printDate!=null">
+                    AND print_date >= #{printDate}
+                </if>
+                <if test="title!=null">
+                    AND title LIKE concat('%',#{title},"%")
+                </if>
+                <if test="docStatus!=null">
+                    AND frp.PRCS_FLAG=#{docStatus}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="selOverseeTheOfficialDocument" resultMap="ResultMapWithFlowRunPrcs" parameterType="Map">
+        SELECT
+        doc.*, u.USER_NAME createrName,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime,
+        sc.CODE_NAME codeName
+        FROM
+        document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = doc.run_id
+        AND
+        frp.PRCS_FLAG IN ('1', '2', '3')
+
+        INNER JOIN flow_run fr ON fr.RUN_ID = doc.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON sc.CODE_NO = doc.dispatch_type
+        <where>
+            <trim suffixOverrides="AND">
+                <if test="dispatchType!=null">
+                    AND dispatch_type = #{dispatchType}
+                </if>
+                <if test="dispatchType!=null">
+                    AND #{date} >= print_date
+                </if>
+                <if test="documentType!=null">
+                    AND document_type = #{documentType}
+                </if>
+            </trim>
+        </where>
+        GROUP BY frp.id ORDER BY frp.CREATE_TIME DESC
+
+    </select>
+
+    <select id="getDocumentEditPriv" parameterType="Integer" resultMap="BaseResultMap">
+      select fp.document_edit_priv , fp.DOCUMENT_EDIT_PRIV_DETAIL from document d,flow_type ft, flow_process fp where d.flow_id  = ft.flow_id and ft.flow_id=fp.flow_id and d.flow_prcs = fp.PRCS_ID and d.id = #{id};
+  </select>
+
+    <select id="querySelectDoc" parameterType="Map" resultMap="ResultMapWithFlowRunPrcs">
+     select   doc.id,doc.document_type,
+                doc.title,
+                ft.FLOW_NAME,
+                sc.CODE_NAME codeName,
+                doc.urgency,
+                doc.secrecy,
+                u.USER_NAME createrName,
+                doc.print_date,
+                frp.PRCS_FLAG prFlag
+        FROM document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID =doc.run_id AND  frp.PRCS_ID IN (
+        SELECT MAX(PRCS_ID) FROM flow_run_prcs WHERE flow_run_prcs.RUN_ID =doc.run_id
+        )
+        INNER JOIN flow_run fr ON fr.RUN_ID =doc.run_id
+        INNER JOIN flow_type ft ON ft.FLOW_ID =doc.flow_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID AND frp.FLOW_PRCS=fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON  sc.CODE_NO= doc.dispatch_type
+        <where>
+            <trim suffixOverrides="AND">
+                <if test="documentType!=null and documentType !=''">
+                    doc.document_type =#{documentType} AND
+                </if>
+                <if test="title!=null and title !=''">
+                    doc.title like CONCAT('%',#{title},'%') AND
+                </if>
+                <if test="flowId!=null and flowId !=''">
+                    doc.flow_id =#{flowId} AND
+                </if>
+                <if test="dispatchType!=null and dispatchType !=''">
+                    doc.dispatch_type =#{dispatchType} AND
+                </if>
+                <if test="urgency!=null and urgency !=''">
+                    doc.urgency =#{urgency} AND
+                </if>
+                <if test="secrecy!=null and secrecy !=''">
+                    doc.secrecy =#{secrecy} AND
+                </if>
+                <if test="userId!=null and userId !=''">
+                    doc.creater =#{userId} AND
+                </if>
+                <if test="deptId!=null and deptId !=''">
+                    u.DEPT_ID =#{deptId} AND
+                </if>
+                <if test="createTime!=null and createTime !=''">
+                    doc.print_date =#{createTime} AND
+                </if>
+                <if test="status!=null and status !=''">
+                    frp.PRCS_FLAG =#{status} AND
+                </if>
+            </trim>
+        </where>
+    GROUP BY doc.id ORDER BY frp.CREATE_TIME DESC
+  </select>
+
+    <select id="selectTimeOutDoc" resultMap="ResultMapWithFlowRunPrcs" parameterType="Map">
+        SELECT doc.*,u.USER_NAME createrName,frp.PRCS_FLAG prFlag,fp.PRCS_NAME,frp.FLOW_PRCS realPrcsId,frp.PRCS_ID
+        step,frp.DELIVER_TIME endTime,sc.CODE_NAME codeName,fp.TIME_OUT_TYPE,fp.TIME_OUT,fp.TIME_OUT_MODIFY,fp.TIME_OUT_ATTEND,frp.PRCS_TIME,frp.CREATE_TIME
+        FROM document doc
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID=doc.run_id AND (frp.PRCS_FLAG=1 OR frp.PRCS_FLAG=2 )
+        INNER JOIN flow_run fr ON fr.RUN_ID =doc.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID AND frp.FLOW_PRCS=fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = doc.creater
+        LEFT JOIN sys_code sc ON sc.CODE_NO= doc.dispatch_type
+        <where>
+            fp.TIME_OUT !=''and fp.TIME_OUT is not NULL AND (
+            frp.USER_ID LIKE concat('%,',#{userId},',%')
+            OR frp.USER_ID LIKE concat(#{userId},',%')
+            OR frp.USER_ID LIKE #{userId}
+            )
+            <trim suffixOverrides="AND">
+
+            </trim>
+        </where>
+        GROUP BY frp.id ORDER BY frp.CREATE_TIME ASC LIMIT #{page},#{pageSize}
+    </select>
+
+
+</mapper>

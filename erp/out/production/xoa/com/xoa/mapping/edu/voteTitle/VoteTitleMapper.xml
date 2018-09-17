@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.edu.voteTitle.VoteTitleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.edu.voteTitle.VoteTitle">
+		<id column="VOTE_ID" property="voteId" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="FROM_ID" property="fromId" />
+		<result column="TO_ID" property="toId" />
+		<result column="PRIV_ID" property="privId" />
+		<result column="USER_ID" property="userId" />
+		<result column="SUBJECT" property="subject" />
+		<result column="CONTENT" property="content" />
+		<result column="TYPE" property="type" />
+		<result column="count" property="countNum" />
+		<result column="MAX_NUM" property="maxNum" />
+		<result column="MIN_NUM" property="minNum" />
+		<result column="ANONYMITY" property="anonymity" />
+		<result column="VIEW_PRIV" property="viewPriv" />
+		<result column="SEND_TIME" property="sendTime" />
+		<result column="BEGIN_DATE" property="beginDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="PUBLISH" property="publish" />
+		<result column="READERS" property="readers" />
+		<result column="VOTE_NO" property="voteNo" />
+		<result column="ATTACHMENT_ID" property="attachmentId" />
+		<result column="ATTACHMENT_NAME" property="attachmentName" />
+		<result column="TOP" property="top" />
+		<result column="VIEW_RESULT_PRIV_ID" property="viewResultPrivId" />
+		<result column="VIEW_RESULT_USER_ID" property="viewResultUserId" />
+
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_PRIV_NAME" property="userPrivName" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="ITEM_NAME" property="itemName" />
+		<result column="ITEM_ID" property="itemId" />
+		<result column="VOTE_COUNT" property="voteCount" />
+		<result column="VOTE_USER" property="voteUser" />
+		<result column="COUNT" property="count" />
+
+	</resultMap>
+<select id="getVoteTitleList" parameterType="com.xoa.model.edu.voteTitle.VoteTitle" resultMap="BaseResultMap">
+	SELECT
+	t.VOTE_ID,
+	t.PARENT_ID,
+	t.TO_ID,
+	t.PRIV_ID,
+	t.USER_ID,
+	t.PUBLISH,
+	t.TYPE,
+	t.`SUBJECT`,
+	t.SEND_TIME,
+	t.END_DATE,
+	t.ANONYMITY,
+	t.TOP,
+	t.READERS AS DEPT_NAME,
+	u.USER_NAME,
+	u.USER_PRIV_NAME
+	FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+</select>
+	<select id="getcount"  resultType="java.lang.Integer">
+		SELECT count(*)FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+	</select>
+	
+<select id="getChildVoteList" parameterType="Integer" resultMap="BaseResultMap">
+	SELECT
+		t.VOTE_ID,
+		t.PARENT_ID,
+		t.TYPE,
+		t.`SUBJECT`,
+		t.CONTENT
+	FROM
+		`vote_title` t
+	WHERE
+		t.PARENT_ID = #{voteId}
+</select>
+<select id="getChilddetail" parameterType="Integer" resultMap="BaseResultMap">
+	SELECT
+	*
+    FROM
+	`vote_title` t
+	WHERE
+	t.VOTE_ID = #{voteId}
+</select>
+
+<insert id="newVoteTitle" parameterType="com.xoa.model.edu.voteTitle.VoteTitle">
+	<selectKey order="AFTER" keyProperty="voteId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO vote_title
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="parentId != null" >
+			PARENT_ID,
+		</if>
+		<if test="fromId != null" >
+			FROM_ID,
+		</if>
+		<if test="toId != null" >
+			TO_ID,
+		</if>
+		<if test="privId != null" >
+			PRIV_ID,
+		</if>
+		<if test="userId != null" >
+			USER_ID,
+		</if>
+		<if test="subject != null" >
+			SUBJECT,
+		</if>
+		<if test="content != null" >
+			CONTENT,
+		</if>
+		<if test="type != null" >
+			TYPE,
+		</if>
+		<if test="maxNum != null" >
+			MAX_NUM,
+		</if>
+		<if test="minNum != null" >
+			MIN_NUM,
+		</if>
+		<if test="anonymity != null" >
+			ANONYMITY,
+		</if>
+		<if test="viewPriv != null" >
+			VIEW_PRIV,
+		</if>
+		<if test="sendTime != null" >
+			SEND_TIME,
+		</if>
+		<if test="beginDate != null" >
+			BEGIN_DATE,
+		</if>
+		<if test="endDate != null" >
+			END_DATE,
+		</if>
+		<if test="publish != null" >
+			PUBLISH,
+		</if>
+		<if test="readers != null" >
+			READERS,
+		</if>
+		<if test="voteNo != null" >
+			VOTE_NO,
+		</if>
+		<if test="attachmentId != null" >
+			ATTACHMENT_ID,
+		</if>
+		<if test="attachmentName != null" >
+			ATTACHMENT_NAME,
+		</if>
+		<if test="top != null" >
+			TOP,
+		</if>
+		<if test="viewResultPrivId != null" >
+			VIEW_RESULT_PRIV_ID,
+		</if>
+		<if test="viewResultUserId != null" >
+			VIEW_RESULT_USER_ID,
+		</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="parentId != null" >
+			#{parentId},
+		</if>
+		<if test="fromId != null" >
+			#{fromId},
+		</if>
+		<if test="toId != null" >
+			#{toId},
+		</if>
+		<if test="privId != null" >
+			#{privId},
+		</if>
+		<if test="userId != null" >
+			#{userId},
+		</if>
+		<if test="subject != null" >
+			#{subject},
+		</if>
+		<if test="content != null" >
+			#{content},
+		</if>
+		<if test="type != null" >
+			#{type},
+		</if>
+		<if test="maxNum != null" >
+			#{maxNum},
+		</if>
+		<if test="minNum != null" >
+			#{minNum},
+		</if>
+		<if test="anonymity != null" >
+			#{anonymity},
+		</if>
+		<if test="viewPriv != null" >
+			#{viewPriv},
+		</if>
+		<if test="sendTime != null" >
+			#{sendTime},
+		</if>
+		<if test="beginDate != null" >
+			#{beginDate},
+		</if>
+		<if test="endDate != null" >
+			#{endDate},
+		</if>
+		<if test="publish != null" >
+			#{publish},
+		</if>
+		<if test="readers != null" >
+			#{readers},
+		</if>
+		<if test="voteNo != null" >
+			#{voteNo},
+		</if>
+		<if test="attachmentId != null" >
+			#{attachmentId},
+		</if>
+		<if test="attachmentName != null" >
+			#{attachmentName},
+		</if>
+		<if test="top != null" >
+			#{top},
+		</if>
+		<if test="viewResultPrivId != null" >
+			#{viewResultPrivId},
+		</if>
+		<if test="viewResultUserId != null" >
+			#{viewResultUserId},
+		</if>
+	</trim>
+</insert>
+<update id="updateVoteTitle" parameterType="com.xoa.model.edu.voteTitle.VoteTitle">
+	UPDATE vote_title
+	<set>
+		<if test="fromId != null" >
+			FROM_ID = #{fromId},
+		</if>
+		<if test="toId != null" >
+			TO_ID = #{toId},
+		</if>
+		<if test="privId != null" >
+			PRIV_ID = #{privId},
+		</if>
+		<if test="userId != null" >
+			USER_ID = #{userId},
+		</if>
+		<if test="subject != null" >
+			SUBJECT = #{subject},
+		</if>
+		<if test="content != null" >
+			CONTENT = #{content},
+		</if>
+		<if test="type != null" >
+			TYPE = #{type},
+		</if>
+		<if test="maxNum != null" >
+			MAX_NUM = #{maxNum},
+		</if>
+		<if test="minNum != null" >
+			MIN_NUM = #{minNum},
+		</if>
+		<if test="anonymity != null" >
+			ANONYMITY = #{anonymity},
+		</if>
+		<if test="viewPriv != null" >
+			VIEW_PRIV = #{parentId},
+		</if>
+		<if test="sendTime != null" >
+			SEND_TIME = #{sendTime},
+		</if>
+		<if test="beginDate != null" >
+			BEGIN_DATE = #{beginDate},
+		</if>
+		<if test="endDate != null" >
+			END_DATE = #{endDate},
+		</if>
+		<if test="publish != null" >
+			PUBLISH = #{publish},
+		</if>
+		<if test="readers != null" >
+			READERS = #{readers},
+		</if>
+		<if test="voteNo != null" >
+			VOTE_NO = #{voteNo},
+		</if>
+		<if test="attachmentId != null" >
+			ATTACHMENT_ID = #{attachmentId},
+		</if>
+		<if test="attachmentName != null" >
+			ATTACHMENT_NAME = #{attachmentName},
+		</if>
+		<if test="top != null" >
+			TOP = #{top},
+		</if>
+		<if test="viewResultPrivId != null" >
+			VIEW_RESULT_PRIV_ID = #{viewResultPrivId},
+		</if>
+		<if test="viewResultUserId != null" >
+			VIEW_RESULT_USER_ID = #{viewResultUserId},
+		</if>
+	</set>
+	WHERE VOTE_ID = #{voteId}
+</update>
+	<delete id="deleteByVoteId" parameterType="String">
+		DELETE FROM vote_title WHERE VOTE_ID in
+		<foreach item="voteIds" collection="array" open="(" separator="," close=")">
+			#{voteIds}
+		</foreach>
+	</delete>
+	<select id="getVoteDataByVoteId" parameterType="Integer" resultMap="BaseResultMap">
+	SELECT
+	i.ITEM_ID,
+	i.ITEM_NAME,
+	i.VOTE_COUNT,
+	i.VOTE_ID,
+	i.VOTE_USER
+	FROM
+	vote_item i
+	WHERE
+	i.VOTE_ID=#{voteId}
+	</select>
+	<select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		`vote_item`
+		WHERE
+		VOTE_ID = #{voteId}
+	</select>
+	<select id="searchVoteTitleList" resultMap="BaseResultMap" parameterType="com.xoa.model.edu.voteTitle.VoteTitle">
+      /*SELECT
+	t.VOTE_ID,
+   t.FROM_ID,
+	t.TYPE,
+	t.`SUBJECT`,
+	t.SEND_TIME,
+	t.END_DATE,
+	t.ANONYMITY,
+	t.VIEW_RESULT_PRIV_ID,
+	t.VIEW_RESULT_USER_ID,
+	t.TOP,
+	u.USER_NAME
+	FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+    AND t.PUBLISH='1' order by t.TOP,t.SEND_TIME ASC
+    */
+
+    SELECT
+	t.VOTE_ID,
+	t.FROM_ID,
+	t.TYPE,
+	t.`SUBJECT`,
+	t.SEND_TIME,
+	t.END_DATE,
+	t.ANONYMITY,
+	t.VIEW_RESULT_PRIV_ID,
+	t.VIEW_RESULT_USER_ID,
+	t.TOP,
+	u.USER_NAME
+FROM
+	`vote_title` t,
+	`user` u
+WHERE
+	t.FROM_ID = u.USER_ID
+AND t.PARENT_ID = '0'
+	AND t.PUBLISH = '1'
+AND (
+	t.FROM_ID = #{userId}
+	OR EXISTS (
+	SELECT
+			1
+		FROM
+			vote_title t,
+			`user` u
+		WHERE
+			u.USER_PRIV=#{roleId} in  (SELECT vote_title.VIEW_RESULT_PRIV_ID from vote_title )
+	)
+	OR EXISTS (
+	SELECT
+			1
+		FROM
+			vote_title t,
+			`user` u
+		WHERE
+			u.USER_ID=#{userId} in  (SELECT vote_title.VIEW_RESULT_USER_ID from vote_title )
+	))
+	</select>
+	<select id="getcount1" resultType="java.lang.Integer">
+    SELECT
+       count(*)
+		FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+    AND t.PUBLISH='1' order by t.TOP,t.SEND_TIME ASC
+	</select>
+	<select id="getVoteTitleCount" parameterType="com.xoa.model.edu.voteTitle.VoteTitle" resultMap="BaseResultMap">
+	 /*SELECT
+	t.VOTE_ID,
+   t.FROM_ID,
+	t.TYPE,
+	t.`SUBJECT`,
+	t.SEND_TIME,
+	t.END_DATE,
+	t.ANONYMITY,
+	u.USER_NAME
+	FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+    AND t.PUBLISH='2'*/
+
+    SELECT
+    t.VOTE_ID,
+    t.FROM_ID,
+	t.TYPE,
+	t.`SUBJECT`,
+	t.SEND_TIME,
+	t.END_DATE,
+	t.ANONYMITY,
+	u.USER_NAME
+	FROM
+		`vote_title` t,
+	`user` u
+	WHERE
+	t.FROM_ID=u.USER_ID
+	AND t.PARENT_ID='0'
+    AND t.PUBLISH='2'
+  AND (
+	t.FROM_ID = #{userId}
+	OR EXISTS (
+		SELECT
+			1
+		FROM
+			vote_title t,
+			`user` u
+		WHERE
+			u.USER_PRIV=#{roleId} in  (SELECT vote_title.VIEW_RESULT_PRIV_ID from vote_title )
+	)
+	OR EXISTS (
+	SELECT
+			1
+		FROM
+			vote_title t,
+			`user` u
+		WHERE
+			u.USER_ID=#{userId} in  (SELECT vote_title.VIEW_RESULT_USER_ID from vote_title )
+	))
+	</select>
+	<select id="getcount2" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		`vote_title` t,
+		`user` u
+		WHERE
+		t.FROM_ID=u.USER_ID
+		AND t.PARENT_ID='0'
+		AND t.PUBLISH='2'
+	</select>
+</mapper>

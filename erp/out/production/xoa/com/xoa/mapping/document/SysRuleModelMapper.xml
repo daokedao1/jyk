@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.document.SysRuleModelMapper">
+	<resultMap id="sysRuleModelResultMap" type="com.xoa.model.document.SysRuleModel">
+		<id column="id" property="id" javaType="string"  />
+		<result column="name" property="name" javaType="string" />
+		<result column="expression" property="expression" javaType="string" />
+		<result column="description" property="description" javaType="string" />
+		<result column="counter" property="counter" javaType="int" />
+		<result column="digit" property="digit" javaType="string" />
+		<result column="code" property="code" javaType="string" />
+		<result column="order_id" property="orderId" javaType="string" />
+	</resultMap>
+	<!-- code,digit,counter,description,expression,order_id,name,id -->
+   <insert id="saveSysRule" parameterType="com.xoa.model.document.SysRuleModel">
+     insert into sys_rule (code,digit,counter,description,expression,order_id,name) values (
+     <if test="code==null">
+     "",
+     </if>
+     <if test="code!=null">
+     #{code},
+     </if>
+      <if test="digit==null">
+     0,
+     </if>
+     <if test="digit!=null">
+     #{digit},
+     </if>
+      <if test="counter==null">
+       0,
+     </if>
+     <if test="counter!=null">
+     #{counter},
+     </if>
+      <if test="description==null">
+     "",
+     </if>
+     <if test="description!=null">
+     #{description},
+     </if>
+      <if test="expression==null">
+     "",
+     </if>
+     <if test="expression!=null">
+     #{expression},
+     </if>
+      <if test="orderId==null">
+     0,
+     </if>
+     <if test="orderId!=null">
+     #{orderId},
+     </if>
+       <if test="name==null">
+     "",
+     </if>
+     <if test="name!=null">
+     #{name}
+     </if>);
+   </insert>
+   <delete id="deleteSysRule" parameterType="com.xoa.model.document.SysRuleModel">
+   delete from sys_rule where id=#{id}
+   </delete>
+   <update id="updateRuleById" parameterType="com.xoa.model.document.SysRuleModel">
+   update sys_rule 
+   <set>
+     <if test="code!=null and code != '' ">
+     code=#{code},
+     </if>
+     <!-- code,digit,counter,description,expression,order_id,name,id -->
+     <if test="digit!=null and digit!= '' ">
+    digit=#{digit},
+     </if>
+    
+     <if test="counter!=null and counter!= '' or counter==0 or counter=='0' ">
+     counter=#{counter},
+     </if>
+      
+     <if test="description!=null and description!='' ">
+     description=#{description},
+     </if>
+     
+     <if test="expression!=null and expression!='' ">
+     expression=#{expression},
+     </if>
+    
+     <if test="orderId!=null and orderId!='' ">
+     order_id=#{orderId},
+     </if>
+     
+      <if test="name!=null and name!='' ">
+          name=#{name},
+     </if>
+   </set>
+   where id=#{id}
+   </update>
+   <select id="getRuleById" parameterType="com.xoa.model.document.SysRuleModel" resultMap="sysRuleModelResultMap">
+   select * from sys_rule where id=#{id}
+   </select>
+    <select id="getRuleByCode" parameterType="com.xoa.model.document.SysRuleModel" resultMap="sysRuleModelResultMap">
+        select * from sys_rule where code=#{code}
+    </select>
+    <select id="getRuleAll" parameterType="com.xoa.model.document.SysRuleModel" resultMap="sysRuleModelResultMap">
+   select * from sys_rule 
+   </select>
+</mapper>

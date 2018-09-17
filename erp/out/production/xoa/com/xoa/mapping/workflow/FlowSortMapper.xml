@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.workflow.FlowSortMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.workflow.FlowSort" >
+    <id column="SORT_ID" property="sortId" jdbcType="INTEGER" />
+    <result column="SORT_NO" property="sortNo" jdbcType="INTEGER" />
+    <result column="SORT_NAME" property="sortName" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="SORT_PARENT" property="sortParent" jdbcType="INTEGER" />
+    <result column="HAVE_CHILD" property="haveChild" jdbcType="CHAR" />
+    <result column="SORT_MAIN_TYPE" property="sortMainType" javaType="String"/>
+    <result column="SORT_DETAIL_TYPE" property="sortDetailType" javaType="String"/>
+  </resultMap>
+  <resultMap id="CountsFlowMap" type="com.xoa.model.workflow.FlowSort" extends="BaseResultMap">
+    <result column="FLOW_COUNTS" property="flowcounts" jdbcType="INTEGER" />
+    <result column="DEPT_NAME" property="departName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SORT_ID, SORT_NO, SORT_NAME, DEPT_ID, SORT_PARENT, HAVE_CHILD
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.workflow.FlowSortExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flow_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from flow_sort
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flow_sort
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.workflow.FlowSortExample" >
+    delete from flow_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.workflow.FlowSort" >
+    insert into flow_sort (SORT_ID, SORT_NO, SORT_NAME, 
+      DEPT_ID, SORT_PARENT, HAVE_CHILD
+      )
+    values (#{sortId,jdbcType=INTEGER}, #{sortNo,jdbcType=INTEGER}, #{sortName,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=INTEGER}, #{sortParent,jdbcType=INTEGER}, #{haveChild,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.workflow.FlowSort" >
+    insert into flow_sort
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        SORT_ID,
+      </if>
+      <if test="sortNo != null" >
+        SORT_NO,
+      </if>
+      <if test="sortName != null" >
+        SORT_NAME,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="sortParent != null" >
+        SORT_PARENT,
+      </if>
+      <if test="haveChild != null" >
+        HAVE_CHILD,
+      </if>
+      <if test="sortMainType != null" >
+        SORT_MAIN_TYPE,
+      </if>
+      <if test="sortDetailType != null">
+        SORT_DETAIL_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="sortName != null" >
+        #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="sortParent != null" >
+        #{sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="haveChild != null" >
+        #{haveChild,jdbcType=CHAR},
+      </if>
+      <if test="sortMainType != null" >
+        #{sortMainType},
+      </if>
+      <if test="sortDetailType != null">
+        #{sortDetailType},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.workflow.FlowSortExample" resultType="java.lang.Integer" >
+    select count(*) from flow_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flow_sort
+    <set >
+      <if test="record.sortId != null" >
+        SORT_ID = #{record.sortId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortNo != null" >
+        SORT_NO = #{record.sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortName != null" >
+        SORT_NAME = #{record.sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptId != null" >
+        DEPT_ID = #{record.deptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortParent != null" >
+        SORT_PARENT = #{record.sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="record.haveChild != null" >
+        HAVE_CHILD = #{record.haveChild,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flow_sort
+    set SORT_ID = #{record.sortId,jdbcType=INTEGER},
+      SORT_NO = #{record.sortNo,jdbcType=INTEGER},
+      SORT_NAME = #{record.sortName,jdbcType=VARCHAR},
+      DEPT_ID = #{record.deptId,jdbcType=INTEGER},
+      SORT_PARENT = #{record.sortParent,jdbcType=INTEGER},
+      HAVE_CHILD = #{record.haveChild,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.workflow.FlowSort" >
+    update flow_sort
+    <set >
+      <if test="sortNo != null" >
+        SORT_NO = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="sortName != null" >
+        SORT_NAME = #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="sortParent != null" >
+        SORT_PARENT = #{sortParent,jdbcType=INTEGER},
+      </if>
+      <if test="haveChild != null" >
+        HAVE_CHILD = #{haveChild,jdbcType=CHAR},
+      </if>
+      <if test="sortMainType != null">
+        SORT_MAIN_TYPE=#{sortMainType},
+      </if>
+      <if test="sortDetailType != null">
+        SORT_DETAIL_TYPE=   #{sortDetailType},
+      </if>
+    </set>
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.workflow.FlowSort" >
+    update flow_sort
+    set SORT_NO = #{sortNo,jdbcType=INTEGER},
+      SORT_NAME = #{sortName,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=INTEGER},
+      SORT_PARENT = #{sortParent,jdbcType=INTEGER},
+      HAVE_CHILD = #{haveChild,jdbcType=CHAR}
+    where SORT_ID = #{sortId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectAllFlowSort" resultMap="CountsFlowMap" parameterType="Integer">
+     SELECT flow_sort.*,countflow.FLOW_COUNTS,department.DEPT_NAME FROM flow_sort LEFT JOIN (
+ SELECT COUNT( flow_type.FLOW_ID) AS FLOW_COUNTS, flow_type.FLOW_SORT FROM flow_type  GROUP BY flow_type.FLOW_SORT
+) AS countflow ON countflow.FLOW_SORT= flow_sort.SORT_ID
+LEFT JOIN department ON department.DEPT_ID= flow_sort.DEPT_ID
+    <where>
+
+      <if test="_parameter!=null">
+       flow_sort.DEPT_ID=#{deptId}  OR  flow_sort.DEPT_ID=0
+      </if>
+      <if test="_parameter==null">
+       flow_sort.DEPT_ID=0
+      </if>
+    </where>
+ORDER BY SORT_NO,SORT_ID ASC
+  </select>
+  <select id="selectNoflowSort" resultType="Integer" parameterType="Integer">
+   SELECT COUNT(flow_type.FLOW_ID) AS FLOW_COUNTS,flow_type.FLOW_SORT FROM flow_type
+    <where>
+      <if test="_parameter!=null">
+        ( flow_type.DEPT_ID=#{deptId} OR  flow_type.DEPT_ID=0 ) AND
+      </if>
+      <if test="_parameter==null">
+        flow_type.DEPT_ID=0 AND
+      </if>
+      ( flow_type.FLOW_SORT=0 or flow_type.FLOW_SORT IS NULL )
+    </where>
+  </select>
+
+  <select id="getChildNumber" resultType="Integer" parameterType="Integer">
+    SELECT COUNT(*) FROM flow_sort WHERE flow_sort.SORT_PARENT=#{sordId}
+  </select>
+
+  <select id="getChildDatas" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT * FROM flow_sort WHERE flow_sort.SORT_PARENT=#{sordId}
+  </select>
+
+
+
+  <select id="selectflowSortNum" resultType="Integer" parameterType="Integer" >
+    SELECT COUNT(flow_type.FLOW_ID) AS FLOW_COUNTS,flow_type.FLOW_SORT FROM flow_type  WHERE  flow_type.FLOW_SORT=#{flowId}
+  </select>
+
+  <select id="selectFlowSortByAuth" resultMap="BaseResultMap" parameterType="Map">
+    SELECT flow_sort.* FROM flow_sort ,
+    (SELECT flow_sort.SORT_ID childId,flow_sort.SORT_PARENT parentId  FROM flow_sort
+    INNER JOIN flow_type ON flow_type.FLOW_SORT = flow_sort.SORT_ID
+    INNER JOIN flow_process ON flow_process.FLOW_ID=flow_type.FLOW_ID  AND flow_process.PRCS_ID in (
+    SELECT MIN(flow_process.PRCS_ID) FROM flow_process WHERE flow_process.FLOW_ID=flow_type.FLOW_ID
+    )
+    AND (
+   <trim suffixOverrides="OR">
+     (flow_process.PRCS_USER LIKE concat("%,",#{user},",%")
+     OR flow_process.PRCS_USER LIKE concat(#{user},",%")
+     ) OR (
+     flow_process.PRCS_DEPT LIKE concat("%,",#{deptId},",%")
+     OR flow_process.PRCS_DEPT LIKE concat(#{deptId},",%")
+     )
+     OR
+     (
+     flow_process.PRCS_PRIV LIKE concat("%,",#{privId},",%")
+     OR flow_process.PRCS_PRIV LIKE concat(#{privId},",%")
+     )
+     OR flow_process.PRCS_DEPT='ALL_DEPT' OR
+     <!--<if test="privIds!=null ">-->
+       <!--<foreach item="item" collection="privIds">-->
+         <!--(-->
+         <!--flow_process.PRCS_PRIV LIKE concat("%,",#{item},",%")-->
+         <!--OR flow_process.PRCS_PRIV LIKE concat("%",#{item},",%")-->
+         <!--)-->
+         <!--OR-->
+       <!--</foreach>-->
+     <!--</if>-->
+     <!--<if test="deptIds!=null">-->
+       <!--<foreach item="item" collection="deptIds">-->
+         <!--(-->
+         <!--flow_process.PRCS_DEPT LIKE concat("%,",#{item},",%")-->
+         <!--OR flow_process.PRCS_DEPT LIKE concat("%",#{item},",%")-->
+         <!--)-->
+         <!--OR-->
+       <!--</foreach>-->
+     <!--</if>-->
+   </trim>
+    )
+    GROUP BY flow_sort.SORT_ID) AS child
+    WHERE
+    (flow_sort.SORT_MAIN_TYPE='0'
+    OR  flow_sort.SORT_MAIN_TYPE =""
+    ) AND
+    ( (
+    child.parentId =
+    flow_sort.SORT_ID
+    )
+    OR (
+    child.childId =
+    flow_sort.SORT_ID
+    ))
+    GROUP BY flow_sort.SORT_ID  ORDER BY flow_sort.SORT_NO ,flow_sort.SORT_ID  ASC
+  </select>
+
+  <select id="documentFlowSortByAuth" resultMap="BaseResultMap" parameterType="Map">
+    SELECT flow_sort.* FROM flow_sort ,
+    (SELECT flow_sort.SORT_ID childId,flow_sort.SORT_PARENT parentId  FROM flow_sort
+    INNER JOIN flow_type ON flow_type.FLOW_SORT = flow_sort.SORT_ID
+    INNER JOIN flow_process ON flow_process.FLOW_ID=flow_type.FLOW_ID  AND flow_process.PRCS_ID in (
+    SELECT MIN(flow_process.PRCS_ID) FROM flow_process WHERE flow_process.FLOW_ID=flow_type.FLOW_ID
+    )
+    AND (
+    <trim suffixOverrides="OR">
+      (flow_process.PRCS_USER LIKE concat("%,",#{user},",%")
+      OR flow_process.PRCS_USER LIKE concat(#{user},",%")
+      ) OR (
+      flow_process.PRCS_DEPT LIKE concat("%,",#{deptId},",%")
+      OR flow_process.PRCS_DEPT LIKE concat(#{deptId},",%")
+      )
+      OR
+      (
+      flow_process.PRCS_PRIV LIKE concat("%,",#{privId},",%")
+      OR flow_process.PRCS_PRIV LIKE concat(#{privId},",%")
+      )
+      OR flow_process.PRCS_DEPT='ALL_DEPT' OR
+    </trim>
+    )
+    GROUP BY flow_sort.SORT_ID) AS child
+    WHERE
+    (
+    flow_sort.SORT_DETAIL_TYPE =#{detailType}
+
+    ) AND
+    ( (
+    child.parentId =
+    flow_sort.SORT_ID
+    )
+    OR (
+    child.childId =
+    flow_sort.SORT_ID
+    ))
+    GROUP BY flow_sort.SORT_ID  ORDER BY flow_sort.SORT_ID ,flow_sort.SORT_NO ASC
+  </select>
+
+
+</mapper>

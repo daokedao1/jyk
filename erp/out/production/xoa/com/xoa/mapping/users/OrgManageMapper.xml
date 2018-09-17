@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.users.OrgManageMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.users.OrgManage">
+        <id column="OID" property="oid" javaType="int"/>
+        <result column="VERSION" property="version" javaType="string"/>
+        <result column="IS_ORG" property="isOrg" javaType="string"/>
+        <result column="NAME" property="name" javaType="string"/>
+        <result column="EN_NAME" property="enName" javaType="string"/>
+        <result column="FT_NAME" property="ftName" javaType="string"/>
+        <result column="JP_NAME" property="jpName" javaType="string"/>
+        <result column="KR_NAME" property="krName" javaType="string"/>
+    </resultMap>
+
+    <select id="queryId" resultMap="BaseResultMap">
+        SELECT * FROM org_manage
+    </select>
+
+    <select id="getOrgManage" resultMap="BaseResultMap">
+        SELECT o.OID,o.`NAME`,o.VERSION,o.IS_ORG FROM xoa1001.org_manage o
+    </select>
+
+    <select id="getOrgManageById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT o.OID,o.`NAME`,o.VERSION,o.IS_ORG FROM xoa1001.org_manage o WHERE o.OID =#{oid}
+    </select>
+
+
+    <update id="editOrgManage" parameterType="com.xoa.model.users.OrgManage">
+        update org_manage
+        <set>
+            <if test="version != null">
+                VERSION = #{version},
+            </if>
+            <if test="isOrg != null">
+                IS_ORG = #{isOrg},
+            </if>
+            <if test="name != null">
+                NAME = #{name},
+            </if>
+        </set>
+        where OID = #{oid}
+    </update>
+
+    <insert id="addOrgManage" parameterType="com.xoa.model.users.OrgManage">
+        insert into org_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                OID,
+            </if>
+            <if test="version != null">
+                VERSION,
+            </if>
+
+
+                IS_ORG,
+
+            <if test="name != null">
+                NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+            #{version,jdbcType=VARCHAR},
+            </if>
+
+                #{isOrg,jdbcType=CHAR},
+
+            <if test="name != null">
+                #{name,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

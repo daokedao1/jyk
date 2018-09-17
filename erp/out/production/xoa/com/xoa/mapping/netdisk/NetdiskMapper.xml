@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.netdisk.NetdiskMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.netdisk.Netdisk" >
+    <id column="DISK_ID" property="diskId"  javaType="int"/>
+    <result column="DISK_NO" property="diskNo"  javaType="int" />
+    <result column="SPACE_LIMIT" property="spaceLimit"  javaType="int" />
+    <result column="ORDER_BY" property="orderBy" javaType="String" />
+    <result column="ASC_DESC" property="ascDesc"  javaType="String" />
+    <result column="DISK_NAME" property="diskName"  javaType="String" />
+    <result column="DISK_PATH" property="diskPath"  javaType="String" />
+    <result column="NEW_USER" property="newUser"  javaType="String" />
+    <result column="MANAGE_USER" property="manageUser"  javaType="String" />
+    <result column="USER_ID" property="userId"  javaType="String" />
+    <result column="DOWN_USER" property="downUser"  javaType="String" />
+    <result column="REMARK" property="remark"  javaType="String" />
+  </resultMap>
+ 
+
+  
+  <select id="selectNetdisk" resultMap="BaseResultMap">
+   SELECT * FROM netdisk n ORDER BY n.DISK_NO ASC
+  </select>
+
+  <select id="queryNetdisk"  resultMap="BaseResultMap" >
+    SELECT * FROM netdisk n WHERE  DISK_ID = #{diskId}
+  </select>
+  
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from netdisk
+    where DISK_ID = #{diskId}
+  </delete>
+  
+   
+  <insert id="addNetdisk" parameterType="com.xoa.model.netdisk.Netdisk" >
+    insert into netdisk
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    <if test="diskId != null" ><!-- 唯一自增ID -->
+      DISK_ID,
+    </if>
+      <if test="diskNo != null" ><!-- 唯一自增ID -->
+        DISK_NO,
+      </if>
+      <if test="spaceLimit != null" ><!-- 唯一自增ID -->
+        SPACE_LIMIT,
+    </if>
+      <if test="orderBy != null" ><!-- 唯一自增ID -->
+        ORDER_BY,
+    </if>
+      <if test="ascDesc != null" ><!-- 唯一自增ID -->
+        ASC_DESC,
+      </if>
+      <if test="diskName != null" ><!-- 唯一自增ID -->
+        DISK_NAME,
+      </if>
+      <if test="diskPath != null" ><!-- 唯一自增ID -->
+        DISK_PATH,
+      </if>
+      <if test="newUser != null" ><!-- 唯一自增ID -->
+        NEW_USER,
+      </if>
+      <if test="manageUser != null" ><!-- 唯一自增ID -->
+        MANAGE_USER,
+      </if>
+      <if test="userId != null" ><!-- 唯一自增ID -->
+        USER_ID,
+      </if>
+      <if test="downUser != null" ><!-- 唯一自增ID -->
+        DOWN_USER,
+      </if>
+      <if test="remark != null" ><!-- 唯一自增ID -->
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="diskId != null" ><!-- 唯一自增ID -->
+        #{diskId},
+      </if>
+      <if test="diskNo != null" ><!-- 网络硬盘排序号 -->
+        #{diskNo},
+      </if>
+      <if test="spaceLimit != null" ><!-- 最大容量 -->
+        #{spaceLimit},
+      </if>
+      <if test="orderBy != null" ><!-- 默认排序字段 -->
+        #{orderBy},
+      </if>
+      <if test="ascDesc != null" ><!-- 默认升序降序 -->
+        #{ascDesc},
+      </if>
+      <if test="diskName != null" ><!-- 网络硬盘名称 -->
+        #{diskName},
+      </if>
+      <if test="diskPath != null" ><!-- 目录路径 -->
+        #{diskPath},
+      </if>
+      <if test="newUser != null" ><!-- 新建权限 -->
+        #{newUser},
+      </if>
+      <if test="manageUser != null" ><!-- 管理权限 -->
+        #{manageUser},
+      </if>
+      <if test="userId != null" ><!-- 访问权限 -->
+        #{userId},
+      </if>
+      <if test="downUser != null" ><!-- 下载打印权限 -->
+        #{downUser},
+      </if>
+      <if test="remark != null" ><!-- 备注 -->
+        #{remark},
+      </if>
+
+    </trim>
+  </insert> 
+
+  <update id="editNetdisk" parameterType="com.xoa.model.netdisk.Netdisk" >
+    update netdisk
+    <set >
+   <if test="diskNo != null and diskNo != ''" >
+        DISK_NO = #{diskNo},
+      </if>
+      <if test="spaceLimit != null and spaceLimit != ''" >
+        SPACE_LIMIT = #{spaceLimit},
+      </if>
+      <if test="orderBy != null and orderBy != ''" >
+        ORDER_BY = #{orderBy},
+      </if>
+      <if test="ascDesc != null and ascDesc != ''" >
+        ASC_DESC = #{ascDesc},
+      </if>
+      <if test="diskName != null and diskName != ''" >
+        DISK_NAME = #{diskName},
+      </if>
+
+      <if test="userId != null and userId != ''" >
+        USER_ID = #{userId},
+      </if>
+
+      <if test="remark != null and remark != ''" >
+        REMARK = #{remark}
+      </if>
+    </set>
+    where DISK_ID = #{diskId}
+  </update>
+  <update id="editNetdiskJurisdiction" parameterType="Map" >
+    update netdisk
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId},
+      </if>
+      <if test="newUser != null " >
+        NEW_USER = #{newUser},
+      </if>
+      <if test="manageUser != null " >
+        MANAGE_USER = #{manageUser},
+      </if>
+      <if test="downUser != null " >
+        DOWN_USER = #{downUser}
+      </if>
+    </set>
+    where DISK_ID= #{diskId}
+  </update>
+  <select id="queryNetdiskold"  resultMap="BaseResultMap">
+    SELECT * FROM netdisk WHERE netdisk.DISK_PATH=#{path}
+  </select>
+</mapper>
