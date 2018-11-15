@@ -58,6 +58,9 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.22'
     compile group: 'org.sction', name: 'phprpc', version: '3.0.2'
 
+    // https://mvnrepository.com/artifact/xstream/xstream
+    compile group: 'xstream', name: 'xstream', version: '1.2.2'
+
     testCompile 'junit:junit:4.12'
     mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.2'
     mybatisGenerator 'mysql:mysql-connector-java:5.1.38'

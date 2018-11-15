@@ -37,6 +37,25 @@
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>initAccessTokenServlet</servlet-name>
+		<servlet-class>com.xoa.controller.wx.AccessTokenServlet</servlet-class>
+		<init-param>
+			<param-name>appid</param-name>
+			<param-value>wx4168b64a92e68cbb</param-value>
+		</init-param>
+		<init-param>
+			<param-name>appsecret</param-name>
+			<param-value>2e486135ddfc578dafc9e8465e8e4e96</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>initAccessTokenServlet</servlet-name>
+		<url-pattern>/initAccessTokenServlet</url-pattern>
+	</servlet-mapping>
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

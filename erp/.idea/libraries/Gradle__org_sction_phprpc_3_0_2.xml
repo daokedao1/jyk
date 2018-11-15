@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: org.sction:phprpc:3.0.2">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.sction/phprpc/3.0.2/d47e844fdccf3834f40c5be56da5df53019d8dbc/phprpc-3.0.2.jar!/" />
+      <root url="jar://D:/gradle-3.5/caches/modules-2/files-2.1/org.sction/phprpc/3.0.2/d47e844fdccf3834f40c5be56da5df53019d8dbc/phprpc-3.0.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.sction/phprpc/3.0.2/489b7455e66ffb133744d7a1105d819d525d9706/phprpc-3.0.2-sources.jar!/" />
+      <root url="jar://D:/gradle-3.5/caches/modules-2/files-2.1/org.sction/phprpc/3.0.2/489b7455e66ffb133744d7a1105d819d525d9706/phprpc-3.0.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
