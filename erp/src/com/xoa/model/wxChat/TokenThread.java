@@ -25,6 +25,10 @@ public class TokenThread implements Runnable {
         return accessToken;
     }
 
+    private static JsapiTicket jsapiTicket = null;
+
+    public static JsapiTicket getJsapiTicket(){return  jsapiTicket;}
+
     @Override
     public void run() {
 
@@ -32,8 +36,15 @@ public class TokenThread implements Runnable {
             try{
                 accessToken = this.getAccessToken();
                 if(null!=accessToken){
-                    System.out.println(accessToken.getAccessToken());
-                    Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
+                    jsapiTicket = getJsapiTicketByAccessToken(accessToken.getAccessToken());
+                    if(null != jsapiTicket){
+                        System.out.println(accessToken.getAccessToken());
+                        System.out.println(jsapiTicket.getTicket());
+                        Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
+                    }else{
+                        Thread.sleep(1000*3); //获取的access_token为空 休眠3秒
+                    }
+
 
                 }else{
                     Thread.sleep(1000*3); //获取的access_token为空 休眠3秒
@@ -64,6 +75,7 @@ public class TokenThread implements Runnable {
             HttpResponse response = HttpUtils.doGet(tokenurl, "", "GET", headers, querys);
             String resData = EntityUtils.toString(response.getEntity());
             JSONObject json = JSON.parseObject(resData);
+            System.out.println(json);
             token = new AccessToken();
             token.setAccessToken(json.getString("access_token"));
             token.setExpiresin(json.getInteger("expires_in"));
@@ -72,5 +84,27 @@ public class TokenThread implements Runnable {
             e.printStackTrace();
         }
         return token;
+    }
+    private JsapiTicket getJsapiTicketByAccessToken(String accesstoken){
+        JsapiTicket jsapi_ticket  = null;
+
+        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> querys = new HashMap<String, String>();
+        querys.put("access_token", accesstoken);
+        querys.put("type", "jsapi");
+
+        try {
+            HttpResponse response = HttpUtils.doGet("https://api.weixin.qq.com/cgi-bin/ticket/getticket", "", "GET", headers, querys);
+            String resData = EntityUtils.toString(response.getEntity());
+            JSONObject json = JSON.parseObject(resData);
+            System.out.println(json);
+            jsapi_ticket = new JsapiTicket();
+            jsapi_ticket.setTicket(json.getString("ticket"));
+            jsapi_ticket.setExpires_in(json.getInteger("expires_in"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsapi_ticket;
     }
 }

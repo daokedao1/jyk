@@ -61,6 +61,7 @@
 	<mvc:resources location="/ui/lib/" mapping="/lib/**" />
 
 	<mvc:resources location="/WEB-INF/app/" mapping="/app/**" />
+	<mvc:resources location="/" mapping="/**" />
 	<!--<mvc:interceptors>-->
 		<!--<mvc:interceptor>-->
 			<!--<mvc:mapping path="/**"/>-->

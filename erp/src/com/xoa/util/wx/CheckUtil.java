@@ -1,7 +1,12 @@
 package com.xoa.util.wx;
 
+import com.alibaba.fastjson.JSONObject;
+import com.xoa.model.wxChat.TokenThread;
+import org.springframework.util.DigestUtils;
+
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Random;
 
 public class CheckUtil {
 
@@ -22,7 +27,30 @@ public class CheckUtil {
         //5.将加密后的字符串，与微信传来的加密签名比较，返回结果
         return temp.equals(signature);
     }
+    public static JSONObject getSignatureByJsticket(String url){
+        JSONObject json = new JSONObject();
 
+        String jsapi_ticket = TokenThread.getJsapiTicket().getTicket();
+        String noncestr =  getNonceStr();
+        String timestamp =  getTimeStamp();
+        String sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + noncestr + "×tamp=" + timestamp + "&url=" + url;
+
+        String[] arr = {noncestr,jsapi_ticket,timestamp,url};
+        //2.对数组进行排序
+        Arrays.sort(arr);
+        //3.生成字符串
+        StringBuffer sb = new StringBuffer();
+        for (String s : arr) {
+            sb.append(s);
+        }
+        //4.sha1加密
+        json.put("signatureJs",getSha1(sb.toString()));
+        json.put("appId", TokenThread.appId);
+        json.put("nonceStr", noncestr);
+        json.put("timestamp", timestamp);
+        return json;
+
+    }
     public static String getSha1(String str) {
 
         if (str == null || str.length() == 0) {
@@ -48,5 +76,14 @@ public class CheckUtil {
             // TODO: handle exception
             return null;
         }
+    }
+
+    public static String getNonceStr() {
+        Random random = new Random();
+        return DigestUtils.md5DigestAsHex(String.valueOf(random.nextInt(10000)).getBytes());
+    }
+
+    public static String getTimeStamp() {
+        return String.valueOf(System.currentTimeMillis() / 1000);
     }
 }

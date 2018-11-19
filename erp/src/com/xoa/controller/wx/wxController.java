@@ -1,5 +1,9 @@
 package com.xoa.controller.wx;
 
+import com.alibaba.fastjson.JSONObject;
+import com.xoa.model.wxChat.TokenThread;
+import com.xoa.service.wx.WechatService;
+import com.xoa.util.ToJson;
 import com.xoa.util.http.HttpUtils;
 import com.xoa.model.wxChat.wxMessageutil;
 import com.xoa.util.wx.CheckUtil;
@@ -11,16 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 @Controller
 @RequestMapping("/wx")
 public class wxController {
+
+    @Resource
+    private WechatService wxService;
 
     @ResponseBody
     @RequestMapping(value ="/check", produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
@@ -84,9 +93,45 @@ public class wxController {
         return respMessage;
     }
 
-    @RequestMapping(value = "/token", method = RequestMethod.GET)
-    public String getAccessToken (){
+    @ResponseBody
+    @RequestMapping(value = "/getTokenByCode", method = RequestMethod.GET)
+    public ToJson<wxMessageutil> getTokenByCode (String code,String grantType,HttpServletRequest request,HttpServletResponse response){
+        ToJson json = new ToJson(1, null);
+            JSONObject wxuserinfo = wxService.getTokenByCode(code,grantType);
+            json.setObject(wxuserinfo);
+            if(wxuserinfo != null && wxuserinfo.get("errcode") == null){
 
-        return "";
+                json.setFlag(0);
+            }
+        return json;
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfoByOpenid", method = RequestMethod.GET)
+    public ToJson<wxMessageutil> getUserInfoByOpenid (String access_token,String openid,String lang,HttpServletRequest request,HttpServletResponse response){
+        ToJson json = new ToJson(1, null);
+        JSONObject wxuserinfo = wxService.getUserInfoByOpenid(access_token,openid,lang);
+        json.setObject(wxuserinfo);
+        if(wxuserinfo != null && wxuserinfo.get("errcode") == null){
+            json.setFlag(0);
+        }
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getJsApiSignature", method = RequestMethod.GET)
+    public ToJson<wxMessageutil> getJsApiSignature (String url,HttpServletRequest request,HttpServletResponse response){
+        ToJson json = new ToJson(1, null);
+
+        JSONObject  data = wxService.getJsApiSignature(url);
+
+        json.setObject(data);
+        if(data != null){
+            json.setFlag(0);
+        }
+        return json;
+    }
+
+
 }
