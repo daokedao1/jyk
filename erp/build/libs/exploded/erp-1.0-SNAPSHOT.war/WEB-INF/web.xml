@@ -43,11 +43,11 @@
 		<servlet-class>com.xoa.controller.wx.AccessTokenServlet</servlet-class>
 		<init-param>
 			<param-name>appid</param-name>
-			<param-value>wxf557be9c5df580cb</param-value>
+			<param-value>wx9f05ca1028cdf0c8</param-value>
 		</init-param>
 		<init-param>
 			<param-name>appsecret</param-name>
-			<param-value>ec1a68e7dcdd3c1560ad94d7104ee4a8</param-value>
+			<param-value>0f2499d7109876a697f2e4fa0c137f8d</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

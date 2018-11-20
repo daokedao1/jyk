@@ -24,11 +24,12 @@
     var wxShareConfig = {
         title: '付鲜生-猕猴桃免费领！',// 分享标题
         desc: '付鲜生-猕猴桃免费试吃活动即将开始！！！',// 分享描述
-        link: 'http://2270ze6682.51mypc.cn/app/fuxiansheng/index.html?code=021LEGUX1rxDgT0GTOSX1eKrUX1LEGUs&state=zzy',
+        link: 'http://2270ze6682.51mypc.cn/app/fuxiansheng/turn.html?code=021LEGUX1rxDgT0GTOSX1eKrUX1LEGUs&state=',
         imgUrl: 'http://2270ze6682.51mypc.cn/img/chat/wxlogo.png'//分享图标
     };
     var userId =0;
     var code = getQueryString('code');
+    var state = getQueryString('state');
     var data ="";
     var openid = "";
     var expires_in = "";
@@ -39,30 +40,29 @@
 
 
 
-      getSignature(function(res){
-          if(res){
-              wx.config({
-                  debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                  appId: res.appId, // 必填，公众号的唯一标识
-                  timestamp: res.timestamp, // 必填，生成签名的时间戳
-                  nonceStr: res.nonceStr, // 必填，生成签名的随机串
-                  signature: res.signatureJs,// 必填，签名
-                  jsApiList: [// 必填，需要使用的JS接口列表
-                      'getLocation',
-                      'updateAppMessageShareData',
-                      'onMenuShareTimeline',
-                      'onMenuShareAppMessage',
-                      'onMenuShareQQ',
-                      'onMenuShareQZone'
-                  ]
-              });
-          }
 
-
-      });
 
 
       getTokenByCode(code,function (res) {
+          getSignature(function(res){
+              if(res){
+                  wx.config({
+                      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                      appId: res.appId, // 必填，公众号的唯一标识
+                      timestamp: res.timestamp, // 必填，生成签名的时间戳
+                      nonceStr: res.nonceStr, // 必填，生成签名的随机串
+                      signature: res.signatureJs,// 必填，签名
+                      jsApiList: [// 必填，需要使用的JS接口列表
+                          'getLocation',
+                          'updateAppMessageShareData',
+                          'onMenuShareTimeline',
+                          'onMenuShareAppMessage',
+                          'onMenuShareQQ',
+                          'onMenuShareQZone'
+                      ]
+                  });
+              }
+          });
           updateWxuser({'openid':res.openid});
           getUserInfo(res.access_token,res.openid,function (data) {
 
@@ -124,6 +124,9 @@
                        refresh_token = data.refresh_token;
                        access_token = data.access_token;
                        scope = data.scope;
+                      wxShareConfig.link = wxShareConfig.link+openid;
+
+                      setMapper(state,openid);
                       cb(data)
                   }else{
                       alert("系统错误，请刷新重试!")
@@ -153,8 +156,6 @@
               'onMenuShareQZone'
           ],
           success: function (res) {
-              // console.log(JSON.stringify(res));
-              // alert(JSON.stringify(res.checkResult.getLocation));
               if (res.checkResult.getLocation == false) {
                   alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
                   return;
@@ -168,7 +169,7 @@
               var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
               var speed = res.speed; // 速度，以米/每秒计
               var accuracy = res.accuracy; // 位置精度
-              console.log(res);
+
               updateWxuser({
                   'openid':openid,
                   'location':longitude+','+latitude
@@ -269,6 +270,24 @@
                 nickname:data.nickname,
                 openid:data.openid,
                 location:data.location
+            },
+            success: function (res) {
+                if(res.flag){
+
+                }else{
+
+                }
+            }
+        });
+    }
+    function setMapper(mainid,toid) {
+        $.ajax({
+            type: "get",
+            url: "/wxuser/addusermapping",
+            dataType: 'json',
+            data:{
+                mainid:mainid,
+                toid:toid
             },
             success: function (res) {
                 if(res.flag){

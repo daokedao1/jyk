@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>付鲜生-猕猴桃免费领！</title>
+</head>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/base.js"></script>
+<script>
+
+    var state = getQueryString('state');
+
+        location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f05ca1028cdf0c8&redirect_uri=http%3a%2f%2f2270ze6682.51mypc.cn%2fapp%2ffuxiansheng%2findex.html&response_type=code&scope=snsapi_userinfo&state='+state+'#wechat_redirect';
+
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+</script>
+<body>
+
+
+</body>
+</html>

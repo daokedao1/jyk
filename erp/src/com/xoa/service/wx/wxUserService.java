@@ -6,6 +6,7 @@ import com.xoa.model.wxUser.wxUser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class wxUserService {
@@ -23,5 +24,9 @@ public class wxUserService {
 
     public wxUser selectByopenId(String openid){
         return wxUserMapper.selectByOpenId(openid);
+    }
+
+    public List<wxUser> selectAll (wxUser wxuser){
+        return wxUserMapper.selectByExample(new wxUser());
     }
 }

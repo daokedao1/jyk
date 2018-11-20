@@ -20,5 +20,6 @@ public interface wxUserMapper {
 
     wxUser selectByOpenId(String openid);
 
+    List<wxUser> selectByExample(wxUser wxuser);
 
 }
