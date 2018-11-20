@@ -7,19 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7">
-      <change afterPath="$PROJECT_DIR$/WebRoot/ui/img/chat/wxlogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/jdbc-sql.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/jdbc-sql.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/resources/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/resources/jdbc-sql.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/jdbc-sql.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/controller/wx/wxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/controller/wx/wxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc-sql.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc-sql.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -111,8 +103,8 @@
         <counts>
           <entry key="dummy" value="20" />
           <entry key="gradle" value="2" />
-          <entry key="html" value="1798" />
-          <entry key="java" value="2069" />
+          <entry key="html" value="1823" />
+          <entry key="java" value="2076" />
           <entry key="js" value="4" />
           <entry key="properties" value="19" />
           <entry key="txt" value="1" />
@@ -122,8 +114,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="2" />
-          <entry key="HTML" value="1798" />
-          <entry key="JAVA" value="2069" />
+          <entry key="HTML" value="1823" />
+          <entry key="JAVA" value="2076" />
           <entry key="JavaScript" value="4" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="Properties" value="19" />
@@ -134,11 +126,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="169" column="26" selection-start-line="169" selection-start-column="18" selection-end-line="169" selection-end-column="26" />
+            <state relative-caret-position="194">
+              <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#dev#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -155,11 +147,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="55" column="49" lean-forward="true" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
+            <state relative-caret-position="260">
+              <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -635,8 +627,8 @@
         <option value="$PROJECT_DIR$/src/com/xoa/mapping/wxUser/wxUserMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/xoa/dao/wxUser/wxUserMapper.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java" />
-        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" />
         <option value="$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" />
       </list>
     </option>
   </component>
@@ -1143,7 +1135,7 @@
       <workItem from="1542444747120" duration="5037000" />
       <workItem from="1542457805330" duration="503000" />
       <workItem from="1542592486759" duration="18985000" />
-      <workItem from="1542683109527" duration="14102000" />
+      <workItem from="1542683109527" duration="14346000" />
     </task>
     <task id="LOCAL-00001" summary="7">
       <created>1542286026284</created>
@@ -1159,15 +1151,21 @@
       <option name="project" value="LOCAL" />
       <updated>1542606280661</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="7">
+      <created>1542698915611</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1542698915611</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95504000" />
+    <option name="totallyTimeSpent" value="95748000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17430703" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -1220,12 +1218,6 @@
           <line>31</line>
           <properties />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java</url>
-          <line>53</line>
-          <properties />
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1597,16 +1589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="169" column="26" selection-start-line="169" selection-start-column="18" selection-end-line="169" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#dev#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
@@ -1625,10 +1607,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="55" column="49" lean-forward="true" selection-start-line="55" selection-start-column="49" selection-end-line="55" selection-end-column="49" />
+        <state relative-caret-position="260">
+          <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#dev#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
