@@ -33,23 +33,14 @@ public class CheckUtil {
         String jsapi_ticket = TokenThread.getJsapiTicket().getTicket();
         String noncestr =  getNonceStr();
         String timestamp =  getTimeStamp();
-        String sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + noncestr + "×tamp=" + timestamp + "&url=" + url;
+        String sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + noncestr + "&timestamp=" + timestamp + "&url=" + url;
 
-        String[] arr = {noncestr,jsapi_ticket,timestamp,url};
-        //2.对数组进行排序
-        Arrays.sort(arr);
-        //3.生成字符串
-        StringBuffer sb = new StringBuffer();
-        for (String s : arr) {
-            sb.append(s);
-        }
         //4.sha1加密
-        json.put("signatureJs",getSha1(sb.toString()));
+        json.put("signatureJs",getSha1(sign));
         json.put("appId", TokenThread.appId);
         json.put("nonceStr", noncestr);
         json.put("timestamp", timestamp);
         return json;
-
     }
     public static String getSha1(String str) {
 

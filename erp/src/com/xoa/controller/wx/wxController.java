@@ -1,27 +1,21 @@
 package com.xoa.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xoa.model.wxChat.TokenThread;
 import com.xoa.service.wx.WechatService;
 import com.xoa.util.ToJson;
-import com.xoa.util.http.HttpUtils;
 import com.xoa.model.wxChat.wxMessageutil;
 import com.xoa.util.wx.CheckUtil;
 import com.xoa.util.wx.WeChatUtil;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 
 @Controller
