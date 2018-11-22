@@ -6,7 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7" />
+    <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7">
+      <change afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/app/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/app/main/index.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -79,33 +84,33 @@
           <entry key="class" value="6" />
           <entry key="gradle" value="4" />
           <entry key="gradlew" value="1" />
-          <entry key="html" value="8" />
+          <entry key="html" value="9" />
           <entry key="java" value="99" />
           <entry key="js" value="2" />
-          <entry key="jsp" value="1" />
+          <entry key="jsp" value="2" />
           <entry key="properties" value="7" />
           <entry key="txt" value="5" />
-          <entry key="xml" value="27" />
+          <entry key="xml" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="6" />
           <entry key="Groovy" value="4" />
-          <entry key="HTML" value="8" />
+          <entry key="HTML" value="9" />
           <entry key="JAVA" value="99" />
-          <entry key="JSP" value="1" />
+          <entry key="JSP" value="2" />
           <entry key="JavaScript" value="2" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="Properties" value="7" />
-          <entry key="XML" value="27" />
+          <entry key="XML" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="20" />
           <entry key="gradle" value="2" />
-          <entry key="html" value="1928" />
+          <entry key="html" value="1947" />
           <entry key="java" value="2414" />
           <entry key="js" value="4" />
           <entry key="properties" value="45" />
@@ -116,7 +121,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="2" />
-          <entry key="HTML" value="1928" />
+          <entry key="HTML" value="1947" />
           <entry key="JAVA" value="2414" />
           <entry key="JavaScript" value="4" />
           <entry key="PLAIN_TEXT" value="21" />
@@ -129,11 +134,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jdbc-sql.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
               <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-162">
+              <caret line="327" column="20" lean-forward="true" selection-start-line="327" selection-start-column="20" selection-end-line="327" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index1.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-304">
+              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/config/spring/spring-mvc.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -150,9 +182,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>EVENT_TYPE_UNSUBSCRIBE</find>
-      <find>REQ_MESSAGE_TYPE_EVENT</find>
-      <find>// 自定义菜单点击事件</find>
       <find>EVENT_TYPE_CLICK</find>
       <find>doget</find>
       <find>jsp</find>
@@ -180,7 +209,14 @@
       <find>alert</find>
       <find>token</find>
       <find>getTokenByCode</find>
+      <find>lib</find>
+      <find>lib/adminlte</find>
+      <find>&lt;%--</find>
     </findStrings>
+    <replaceStrings>
+      <replace>/lib</replace>
+      <replace>/lib/adminlte</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -583,6 +619,8 @@
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" />
         <option value="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.html" />
       </list>
     </option>
   </component>
@@ -622,7 +660,26 @@
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
               <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
@@ -636,6 +693,14 @@
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -654,19 +719,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\mp" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.xoa.util.http" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF\app\main" />
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot" />
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF" />
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\chat" />
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\fuxiansheng" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF\app\fuxiansheng" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.xoa.util.http" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\mp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -957,7 +1022,7 @@
       <workItem from="1542683109527" duration="25583000" />
       <workItem from="1542765130104" duration="5808000" />
       <workItem from="1542856717701" duration="1856000" />
-      <workItem from="1542865914620" duration="3781000" />
+      <workItem from="1542865914620" duration="6817000" />
     </task>
     <task id="LOCAL-00001" summary="7">
       <created>1542286026284</created>
@@ -1019,13 +1084,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118430000" />
+    <option name="totallyTimeSpent" value="121466000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27485853" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16895716" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
@@ -1034,7 +1098,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32851985" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.43213898" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49919093" weight="0.49822065" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49919093" visible="true" weight="0.065836295" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1134,12 +1198,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebRoot/MP_verify_7tazuXZp6qLiBhGp.txt" />
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/doctor/findDoctor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1726" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/doctor/search.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1228,13 +1286,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="44" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/spring/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1464,6 +1515,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/spring/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-304">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/main/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="327" column="20" lean-forward="true" selection-start-line="327" selection-start-column="20" selection-end-line="327" selection-end-column="20" />
         </state>
       </provider>
     </entry>

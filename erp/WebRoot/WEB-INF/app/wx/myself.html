@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="./static/js/adaptive.js" charset="utf-8"></script>
+    <script src="./static/js/vue.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./static/css/myself.css">
+  </head>
+  <body>
+
+    <div class="head">
+
+      <div class="head-left">
+        <img src="./static/img/mys.png" alt="">
+      </div>
+      <div class="head-right">
+        <div class="htop">
+          <div class="names">道可道</div>
+          <div class="plus">开通黄金VIP会员 ></div>
+        </div>
+        <div class="htop">
+          <div class="phone">176 6308 0530</div>
+          <div class="xgphone">修改手机号></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="lists" id="lists">
+
+      <div class="box" v-for="item in items">
+        <div class="blt">
+          <img :src='item.img' alt="">
+          <span class="ronts">{{item.name}}</span>
+        </div>
+        <div class="brt">
+          <img src="./static/img/rt.png" alt="">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="botnavbar">
+      <div class="botbox">
+        <img src="./static/img/bot1.png" alt="">
+        <span>今日推荐</span>
+      </div>
+      <div class="botbox">
+        <img src="./static/img/bot2.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="botbox">
+        <img src="./static/img/bot3s.png" alt="">
+        <span>我的</span>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+      var lists = new Vue({
+        el:'#lists',
+        data:{
+          items:[
+            {name:'红包领取记录',img:'./static/img/jkda.png'},
+            {name:'订单记录',img:'./static/img/wdys.png'},
+             {name:'抵用券',img:'./static/img/dyj.png'},
+            {name:'商家报名',img:'./static/img/bzjh.png'},
+            {name:'联系客服',img:'./static/img/srys.png'},
+           
+            {name:'关于我们',img:'./static/img/ddjl.png'},
+            // {name:'我的在线咨询/看病',img:'./static/img/xzkb.png'},
+            // {name:'我的一答',img:'./static/img/wdyd.png'},
+            // {name:'收到的处方',img:'./static/img/sdcf.png'},
+          ]
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
