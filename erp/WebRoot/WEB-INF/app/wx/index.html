@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/all.css">
     <link rel="stylesheet" href="/static/css/select.css">
      <link rel="stylesheet" href="/static/css/swiper.min.css">
-    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script src="/static/js/swiper.min.js"></script>
   </head>
   <style type="text/css">
@@ -56,110 +56,73 @@
         <div class="sexs sel4" type="1">筛选<div class="snext"></div></div>
       </div>
 
-      <!-- 分类选择列表 -->
-      <!-- <div class="stylelist"> -->
-
-        <!-- 单列表 -->
-        <div class="singlelist" style="display:none;">
-          <div class="xz">全部城市</div>
-          <div>北京市</div>
-          <div>天津市</div>
-          <div>上海市</div>
-          <div>苏州市</div>
-          <div>广州市</div>
-          <div>深圳市</div>
-          <div>杭州市</div>
-          <div>成都市</div>
-          <div>南京市</div>
-          <div>其他城市</div>
-        </div>
-
-        <!-- 双列表 -->
-        <div class="doublelist" style="display:none;">
-          <div class="ltlist">
-            <div class="xz">全部科室<img src="/static/img/rt.png" alt=""></div>
-            <div>妇科<img src="/static/img/rt.png" alt=""></div>
-            <div>儿科<img src="/static/img/rt.png" alt=""></div>
-            <div>皮肤/美容整形<img src="./static/img/rt.png" alt=""></div>
-          </div>
-
-          <div class="rtlist">
-            <div class="xz">全部科室</div>
-          </div>
-
-        </div>
-
-      <!-- </div> -->
-
-
-
       <!-- 搜索内容 -->
 
-      <div class="seacont">
+      <div id="seacont" class="seacont">
 
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
+        <div class="use" id="110000000">
+          <div class="useimg"><img src="/img/shop/mt_logo110000000.png" alt=""></div>
           <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
+            <p class="u1">水乡小粥</p>
+            <p><span>满25减19；满49减26</span> </p>
             <p>特色美食</p>
             <p class="hui">限美团</p>
           </div>
         </div>
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
-                <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
-        <div class="use">
-          <div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>
-          <div class="usetail">
-            <p class="u1">食客烧烤</p>
-            <p><span>满20减10；满70减50</span> </p>
-            <p>特色美食</p>
-            <p class="hui">限美团</p>
-          </div>
-        </div>
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
+                <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="use">-->
+          <!--<div class="useimg"><img src="http://qcloud.dpfile.com/pc/eBohG6OmQUTbw3ubmB8gfkF8tGNGVcMHdZfftbXeB8Bzl6QxVMk327vmlZRx4QT3ZL-FkmTKq-_4gFCeps46Kg.jpg" alt=""></div>-->
+          <!--<div class="usetail">-->
+            <!--<p class="u1">食客烧烤</p>-->
+            <!--<p><span>满20减10；满70减50</span> </p>-->
+            <!--<p>特色美食</p>-->
+            <!--<p class="hui">限美团</p>-->
+          <!--</div>-->
+        <!--</div>-->
 
 
       </div>
@@ -170,9 +133,15 @@
         loop: true, // 循环模式选项
         pagination: {
           el: '.swiper-pagination',
-          dynamicBullets: false,
+          dynamicBullets: false
         },
       });
+      $(function () {
+          $('#seacont').on('click','.use',function () {
+              var _this = $(this);
+              location.href = "/app/wx/detail.html?id="+_this.attr('id');
+          });
+      })
       </script>
   </body>
 </html>

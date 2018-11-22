@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+  </head>
+  <style type="text/css">
+      .title{
+        margin-top: 20%;
+      }
+    .title img{
+      width: 100%;
+    }
+     
+  </style>
+  <body>
+  <div class="title">
+<img id="linkimg" src="">
+      
+  </div>
+
+  </body>
+
+  <script type="text/javascript">
+    $(function () {
+        var id = getQueryString('id');
+        var url = '/img/shop/mt_link'+id+'.jpg';
+        $('#linkimg').attr('src',url);
+    });
+      function getQueryString(name) {
+          var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+          var r = window.location.search.substr(1).match(reg);
+          if (r != null) {
+              return unescape(r[2]);
+          }
+          return null;
+      }
+  </script>  
+</html>

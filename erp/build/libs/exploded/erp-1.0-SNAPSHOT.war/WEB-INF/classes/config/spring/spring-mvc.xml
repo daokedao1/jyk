@@ -59,6 +59,7 @@
 	<mvc:resources location="/ui/img/" mapping="/img/**" />
 	<mvc:resources location="/ui/js/" mapping="/js/**" />
 	<mvc:resources location="/ui/lib/" mapping="/lib/**" />
+	<mvc:resources location="/ui/static/" mapping="/static/**" />
 
 	<mvc:resources location="/WEB-INF/app/" mapping="/app/**" />
 	<mvc:resources location="/" mapping="/**" />
