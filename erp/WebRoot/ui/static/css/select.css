@@ -1,0 +1,137 @@
+body{
+
+}
+.snext{
+  width:0;
+  height:0;
+  border-width: 6px 6px 0;
+  border-style:solid;
+  border-color:#717478 transparent transparent;/*灰 透明 透明 */
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.stop{
+  width:0;
+  height:0;
+  border-width: 0 6px 6px ;
+  border-style:solid;
+  border-color:transparent transparent #ff8b26;/*灰 透明 透明 */
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.sleft{
+  width:0;
+  height:0;
+  border-width: 5px 7px 5px 0;
+  border-style:solid;
+  border-color:transparent #333 transparent transparent;/*灰 透明 透明 */
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.sright{
+  width:0;
+  height:0;
+  border-width: 5px 0 5px 7px ;
+  border-style:solid;
+  border-color:transparent transparent transparent #333;/*灰 透明 透明 */
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.seacity {
+    display: flex;
+    background: #fff;
+    width: 100%;
+    z-index: 2;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    align-items: center;
+    letter-spacing: 1px;
+    color: #717478;
+    border-bottom: 1px solid #f2f2f2;
+    justify-content: space-between;
+}
+
+.sexs{
+  display: flex;
+  align-items: center;
+}
+
+.zhe{
+  width: 100%;
+  height: 100%;
+  background-color: #63676c;
+  position: absolute;
+  opacity: 0.7;
+  top:0;
+  z-index: -1;
+}
+
+.xz{
+  color: #ff8b26;
+}
+
+.stylelist {
+  background: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+.singlelist{
+  letter-spacing: 1px;
+  color: #717478;
+  background: #fff;
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.singlelist div{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px 20px;
+  display: flex;
+  align-items: center;
+
+}
+
+.doublelist{
+  letter-spacing: 1px;
+  color: #717478;
+  background: #fff;
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+}
+
+.ltlist div{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px 20px;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ltlist img{
+  height: 23px;
+  margin-top: -7px;
+}
+
+.rtlist div{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px 20px;
+  display: flex;
+  flex: 2;
+}

@@ -1,0 +1,177 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: #fff;
+}
+
+
+.search {
+  background: #fff;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px;
+  height: 65px;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.searbox{
+  background-color: #eeeeee;
+  width: 80%;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searbox input{
+  background: #eeeeee;
+  border: none;
+  width: 90%;
+  outline:none;
+}
+
+.srch{
+  margin-left: 15px;
+  font-size: 17px;
+}
+
+.history{
+  display: flex;
+  padding: 10px 20px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+.htop{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #b5b5b5;
+}
+
+.more{
+  font-size:14px;
+  display:flex;
+  align-items: center;
+}
+
+.more img{
+  height: 25px;
+  margin-top: -7px;
+}
+
+.historybox{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 15px;
+  justify-content: space-between;
+}
+
+.historybox div {
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding: 10px 5px;
+  width: 31%;
+  border: 1px solid #f2f2f2;
+  color: #717478;
+  text-align: center;
+  overflow: hidden;
+  white-space:nowrap;
+  font-size: 13px;
+  text-overflow: ellipsis;
+}
+
+/* 搜索内容 */
+
+.seacont{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  width: 100%;
+  background: #fff;
+}
+
+.use{
+  display: flex;
+  border-bottom: 1px solid #f2f2f2;
+  box-sizing: border-box;
+  padding: 12px 0;
+}
+
+.useimg img{
+  width: 65px;
+}
+
+.usetail{
+  box-sizing: border-box;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.usetail p{
+  letter-spacing: 1px;
+  margin: 2px 0;
+  color: #717478;
+  font-size: 14px;
+}
+
+.usetail .u1{
+  color: #42464b;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.usetail .hui {
+  float: right;
+  color: #49d048;
+  font-size: 13.3px;
+  margin-top: -20px;
+}
+
+.usetail .proficiency{
+  height: 40px;
+  overflow: hidden;
+}
+
+.ger{
+  width: 100%;
+  height: 15px;
+  background: #f3f4f6;
+}
+
+.seaso{
+  display: flex;
+  width: 94%;
+  overflow-x: auto;
+  white-space:nowrap;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  align-items: center;
+  letter-spacing: 1px;
+  color: #717478;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.seaso p{
+  margin-right: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.active{
+  color: #ff8b26;
+  font-size: 17px;
+  border-bottom: 2px solid #ff8b26;
+}
