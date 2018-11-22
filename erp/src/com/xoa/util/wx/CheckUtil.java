@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class CheckUtil {
 
-    public static final String tooken = "zhuzy123456"; //开发者自行定义Tooken
+    public static final String tooken = "w9Y4iY3Y9d3YPRwI9briBBRb93CZYcyB"; //开发者自行定义Tooken
 
     public static boolean checkSignature(String signature, String timestamp, String nonce) {
         //1.定义数组存放tooken，timestamp,nonce

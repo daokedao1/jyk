@@ -7,48 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7">
-      <change afterPath="$PROJECT_DIR$/WebRoot/MP_verify_nM7S6oyRZoTfLey0.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/turn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/xoa/service/wx/WeChatUserMappingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___com_xoa___erp_1_0_SNAPSHOT_war__exploded_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___com_xoa___erp_1_0_SNAPSHOT_war__exploded_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebRoot/MP_verify_JMKk97RJyQqcOv1R.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/erp_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/erp_main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/erp_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/erp_test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/MP_verify_7tazuXZp6qLiBhGp.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/MP_verify_f2sZhg6kjOaHc4vQ.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/classes/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/dao/product/new 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/doctor/DoctorMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/inventory/InventoryModelMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/product/ProductBrandMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/product/ProductModelMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/product/ProductUnitMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/user/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/com/xoa/mapping/warehouse/WareHouseModelMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/i18properties/message_en_US.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/i18properties/message_ja_JP.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/i18properties/message_zh_CN.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/i18properties/message_zh_TW.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/properties/appConstants.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/spring/ehcache-shiro.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/spring/mybatis-config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/spring/spring-mvc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/spring/spring-shiro.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/config/spring/springs-beans.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/generatorConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/jdbc-sql.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/log4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/upload.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/dao/wxUser/wxUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/dao/wxUser/wxUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/mapping/wxUser/wxUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/mapping/wxUser/wxUserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -105,13 +69,15 @@
     <session id="2079736105">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.2" value="2" />
-          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.3" value="3" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -120,26 +86,26 @@
           <entry key="class" value="6" />
           <entry key="gradle" value="4" />
           <entry key="gradlew" value="1" />
-          <entry key="html" value="7" />
-          <entry key="java" value="92" />
+          <entry key="html" value="8" />
+          <entry key="java" value="99" />
           <entry key="js" value="2" />
           <entry key="jsp" value="1" />
-          <entry key="properties" value="6" />
-          <entry key="txt" value="4" />
-          <entry key="xml" value="26" />
+          <entry key="properties" value="7" />
+          <entry key="txt" value="5" />
+          <entry key="xml" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="6" />
           <entry key="Groovy" value="4" />
-          <entry key="HTML" value="7" />
-          <entry key="JAVA" value="92" />
+          <entry key="HTML" value="8" />
+          <entry key="JAVA" value="99" />
           <entry key="JSP" value="1" />
           <entry key="JavaScript" value="2" />
-          <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Properties" value="6" />
-          <entry key="XML" value="26" />
+          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="Properties" value="7" />
+          <entry key="XML" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -171,76 +137,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#dev#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#2457#2998#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/turn.html">
+        <entry file="file://$PROJECT_DIR$/src/jdbc-sql.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/WeChatUserMappingService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#766#767#0" expanded="true" />
-                <element signature="e#832#833#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xoa/dao/WeChatUserMappingDao/WeChatUserMappingMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="15" column="40" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xoa/mapping/WeChatUserMapping/WeChatUserMappingMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="111" column="42" lean-forward="true" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xoa/model/WeChatUserMappingModel/WeChatUserMapping.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="35" column="21" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="21" />
+              <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -257,8 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>REQ_MESSAGE_TYPE_VOICE</find>
-      <find>pic_sysphoto</find>
       <find>EVENT_TYPE_UNSUBSCRIBE</find>
       <find>REQ_MESSAGE_TYPE_EVENT</find>
       <find>// 自定义菜单点击事件</find>
@@ -287,6 +185,8 @@
       <find>insert</find>
       <find>location</find>
       <find>alert</find>
+      <find>token</find>
+      <find>getTokenByCode</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -675,7 +575,6 @@
         <option value="$PROJECT_DIR$/src/com/xoa/model/wxChat/JsapiTicket.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/model/wxChat/TokenThread.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/service/wx/WechatService.java" />
-        <option value="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" />
         <option value="$PROJECT_DIR$/src/jdbc-sql.properties" />
         <option value="$PROJECT_DIR$/src/com/xoa/service/wx/wxUser.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/controller/wx/wxController.java" />
@@ -683,13 +582,14 @@
         <option value="$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java" />
         <option value="$PROJECT_DIR$/src/gradle.properties" />
         <option value="$PROJECT_DIR$/src/com/xoa/mapping/wxUser/wxUserMapper.xml" />
-        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/com/xoa/dao/WeChatUserMappingDao/WeChatUserMappingMapper.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/service/wx/WeChatUserMappingService.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java" />
         <option value="$PROJECT_DIR$/src/com/xoa/mapping/WeChatUserMapping/WeChatUserMappingMapper.xml" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/turn.html" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html" />
+        <option value="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" />
       </list>
     </option>
   </component>
@@ -700,10 +600,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="1944" />
+    <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -713,7 +613,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -729,72 +629,26 @@
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
               <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
               <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xoa" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xoa" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xoa" type="462c0819:PsiDirectoryNode" />
-              <item name="mapping" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xoa" type="462c0819:PsiDirectoryNode" />
-              <item name="mapping" type="462c0819:PsiDirectoryNode" />
-              <item name="WeChatUserMapping" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="WebRoot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="WebRoot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
               <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="WebRoot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="WebRoot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="fuxiansheng" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -807,19 +661,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\chat" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\fuxiansheng" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF\app\fuxiansheng" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\mp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.xoa.util.http" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot" />
-      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\mp" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\chat" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\ui\img\fuxiansheng" />
+      <recent name="D:\IEDAWorkSpace\jyk\jyk\erp\WebRoot\WEB-INF\app\fuxiansheng" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1107,7 +961,10 @@
       <workItem from="1542444747120" duration="5037000" />
       <workItem from="1542457805330" duration="503000" />
       <workItem from="1542592486759" duration="18985000" />
-      <workItem from="1542683109527" duration="24706000" />
+      <workItem from="1542683109527" duration="25583000" />
+      <workItem from="1542765130104" duration="5808000" />
+      <workItem from="1542856717701" duration="1856000" />
+      <workItem from="1542865914620" duration="3238000" />
     </task>
     <task id="LOCAL-00001" summary="7">
       <created>1542286026284</created>
@@ -1144,16 +1001,30 @@
       <option name="project" value="LOCAL" />
       <updated>1542698979641</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="7">
+      <created>1542713351068</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1542713351068</updated>
+    </task>
+    <task id="LOCAL-00007" summary="7">
+      <created>1542713415948</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1542713415948</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106108000" />
+    <option name="totallyTimeSpent" value="117887000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17430703" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27485853" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
@@ -1162,7 +1033,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32851985" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.43213898" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49919093" visible="true" weight="0.3083605" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49919093" weight="0.49822065" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1179,7 +1050,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Gradle" order="4" visible="true" weight="0.081023455" />
+      <window_info anchor="right" id="Gradle" order="4" weight="0.12287793" />
       <window_info anchor="right" id="Remote Host" order="5" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
@@ -1262,14 +1133,7 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebRoot/index.jsp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/3.jsp" />
-    <entry file="file://$PROJECT_DIR$/WebRoot/mp/MP_verify_f2sZhg6kjOaHc4vQ.txt" />
-    <entry file="file://$PROJECT_DIR$/WebRoot/MP_verify_7tazuXZp6qLiBhGp.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/MP_verify_7tazuXZp6qLiBhGp.txt" />
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/doctor/findDoctor.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1726" />
@@ -1338,13 +1202,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/wxChat/AccessToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="26" selection-start-line="4" selection-start-column="2" selection-end-line="6" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/AccessTokenServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -1352,34 +1209,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/wxChat/TokenThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/spring/springs-beans.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1406,23 +1237,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jdbc-sql.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="55" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/config/spring/mybatis-config.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/wxUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/wxUser.java" />
     <entry file="file://$PROJECT_DIR$/src/com/xoa/service/user/Impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1479,26 +1297,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/WechatService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getUserInfoByOpenid#0;class#WechatService#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/wxUserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="13" selection-start-line="13" selection-end-line="30" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#688#689#0" expanded="true" />
-            <element signature="e#753#754#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1530,53 +1332,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#DoPost#0;class#wxController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/MP_verify_nM7S6oyRZoTfLey0.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="45" column="43" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/WeChatUserMappingModel/WeChatUserMapping.java">
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/turn.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
-          <caret line="35" column="21" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/WeChatUserMappingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-          </folding>
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxUserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
+        <state relative-caret-position="1900">
           <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/WeChatUserMappingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -1589,26 +1365,104 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xoa/mapping/WeChatUserMapping/WeChatUserMappingMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
+        <state relative-caret-position="2109">
           <caret line="111" column="42" lean-forward="true" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/turn.html">
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/WeChatUserMappingModel/WeChatUserMapping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="665">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/app/fuxiansheng/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        <state relative-caret-position="2128">
+          <caret line="112" column="38" selection-start-line="112" selection-start-column="24" selection-end-line="112" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#img#0;n#dev#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#2457#2998#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/wxChat/AccessToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="26" selection-start-line="4" selection-start-column="2" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/wxChat/wxMessageutil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/model/wxChat/TokenThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/wx/wxController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/MP_verify_JMKk97RJyQqcOv1R.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/service/wx/WechatService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getUserInfoByOpenid#0;class#WechatService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xoa/controller/common/commonController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="51" column="44" lean-forward="true" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jdbc-sql.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
         </state>
       </provider>
     </entry>
