@@ -6,14 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7">
-      <change afterPath="$PROJECT_DIR$/WebRoot/MP_verify_JMKk97RJyQqcOv1R.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/erp_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/erp_main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/erp-1.0-SNAPSHOT.war/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xoa/util/wx/CheckUtil.java" afterDir="false" />
-    </list>
+    <list default="true" id="6deab4f4-55b2-4a28-a82f-7193e4111911" name="Default" comment="7" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -964,7 +957,7 @@
       <workItem from="1542683109527" duration="25583000" />
       <workItem from="1542765130104" duration="5808000" />
       <workItem from="1542856717701" duration="1856000" />
-      <workItem from="1542865914620" duration="3238000" />
+      <workItem from="1542865914620" duration="3781000" />
     </task>
     <task id="LOCAL-00001" summary="7">
       <created>1542286026284</created>
@@ -1015,14 +1008,22 @@
       <option name="project" value="LOCAL" />
       <updated>1542713415948</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="7">
+      <created>1542873469376</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1542873469376</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117887000" />
+    <option name="totallyTimeSpent" value="118430000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27485853" />
       <window_info id="Structure" order="1" weight="0.25" />
